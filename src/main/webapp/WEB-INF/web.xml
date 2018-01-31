@@ -1,0 +1,47 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <filter>
+  	<filter-name>AuthenticationFilter</filter-name>
+  	<display-name>AuthenticationFilter</display-name>
+  	<description></description>
+  	<filter-class>authentication.AuthenticationFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>AuthenticationFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <servlet>
+  	<servlet-name>SessionCreator</servlet-name>
+  	<display-name>SessionCreator</display-name>
+  	<description></description>
+  	<servlet-class>authentication.SessionCreator</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>SessionDestroyer</servlet-name>
+  	<display-name>SessionDestroyer</display-name>
+  	<description></description>
+  	<servlet-class>authentication.SessionDestroyer</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>Registration</servlet-name>
+  	<display-name>Registration</display-name>
+  	<description></description>
+  	<servlet-class>authentication.Registration</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>SessionCreator</servlet-name>
+  	<url-pattern>/create_session</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SessionDestroyer</servlet-name>
+  	<url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Registration</servlet-name>
+  	<url-pattern>/Registration</url-pattern>
+  </servlet-mapping>
+</web-app>
