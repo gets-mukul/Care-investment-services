@@ -26,7 +26,7 @@
 		<jsp:include page="menu.jsp"></jsp:include>
 
 		<div id="page-wrapper" class="gray-bg sidebar-content">
-			<jsp:include page="header.jsp"></jsp:include>
+			
 			<input type="hidden" value="<%=userId%>" name="user_id" id="user_id">
 			<div class="wrapper wrapper-content animated fadeIn"
 				style="padding-right: 0px !important;">
@@ -71,8 +71,9 @@
 								<form id="frm-example" action="/path/to/your/script"
 									method="POST">
 
-									<a data-toggle="modal" class="btn btn-primary"
-										href="#modal-form">Assign To Employees</a>
+									<a style="display: none" data-toggle="modal"
+										class="btn btn-primary" href="#modal-form"
+										id="assign_employee">Assign To Employees</a>
 									<div id="modal-form" class="modal fade" aria-hidden="true">
 										<div class="modal-dialog">
 											<div class="modal-content">
@@ -84,7 +85,7 @@
 																	<h5>Assign Contacts</h5>
 
 																</div>
-																<div class="ibox-content" id="m-form">
+																 <div class="ibox-content">
 																	<table class="table table-bordered"
 																		id="personDataTable">
 																		<thead>
@@ -95,17 +96,13 @@
 																				<th>Total Task</th>
 																			</tr>
 																		</thead>
-																		<!-- <tbody>
-																			<tr>
-																				<td>1</td>
-																				<td id="name"></td>
-																				<td id="taskPending"></td>
-																				<td></td>
-																			</tr>
-																		</tbody> -->
-																	</table>
 
-																</div>
+																		<tbody id="table_body">
+																		</tbody>
+																	</table>
+																	<button type="button" style="float: right"
+																		class="btn btn-w-m btn-primary" id="modal-button">Select</button>
+																</div> 
 															</div>
 														</div>
 													</div>
@@ -131,6 +128,7 @@
 
 												</tr>
 											</thead>
+
 											<tfoot>
 												<tr>
 													<th></th>
@@ -212,155 +210,245 @@
 <script src="js/plugins/chartJs/Chart.min.js"></script>
 <script src="js/plugins/dataTables/datatables.min.js"></script>
 <script>
+	$(document)
+			.ready(
+					function() {
 
-			
-			 $(document).ready(function() {
-				 
-				 $("#m-form").submit(function(e){
-					 $.ajax({
-						    url: 'http://localhost:8081/careservices/rest/employee/task_status',
-						    type: "get",
-						    /* dataType: "json",
-						    data: {
-						        json: JSON.stringify([
-						            {
-						            name: "abc",
-						            rotalTask: 20,
-						            pendingTask: 5},
-						        {
-						       /*      id: 2,
-						            firstName: "David",
-						            lastName: "Bowie"}
-						        ]),
-						        delay: 3
-						    }, */
-						    success: function(data, textStatus, jqXHR) {
-						        // since we are using jQuery, you don't need to parse response
-						        drawTable(data);
-						    }
-						});
+						$("#assign_employee")
+								.click(
+										function(e) {
 
-						function drawTable(data) {
-						    for (var i = 0; i < data.length; i++) {
-						        drawRow(data[i]);
-						    }
+											$
+													.ajax({
+														url : 'http://localhost:8081/careservices/rest/employee/task_status',
+														type : "get",
+														dataType : "json",
+
+														success : function(
+																data,
+																textStatus,
+																jqXHR) {
+															// since we are using jQuery, you don't need to parse response
+															console.log(data);
+															var obj = data;
+															var html = '';
+															$
+																	.each(
+																			obj,
+																			function(
+																					key,
+																					value) {
+																				var name = value.name;
+																				var totalTask = value.total_task;
+																				var pendingTask = value.pending_task;
+																				// console.log(value);
+																				console
+																						.log('name= '
+																								+ name
+																								+ ', pendingTask='
+																								+ pendingTask
+																								+ ', totalTask= '
+																								+ totalTask
+																								+ '');
+																				html += '<tr><td><input class="radioButton_class" type="radio" value="'+value.id+'" id="optionsRadios'+value.id+'" name="optionsRadios"></td><td>'
+																						+ name
+																						+ '</td><td>'
+																						+ pendingTask
+																						+ '</td><td>'
+																						+ totalTask
+																						+ '</td></tr>';
+																				
+																			});
+															
+															$('#table_body')
+																	.html(html);
+														}
+													});
+
+											function drawTable(data) {
+												for (var i = 0; i < data.length; i++) {
+													drawRow(data[i]);
+												}
+											}
+
+											function drawRow(rowData) {
+												var row = $("<tr />")
+												$("#personDataTable").append(
+														row); //this will append tr element to table... keep its reference for a while since we will add cels into it
+												row.append($("<td>"
+														+ rowData.name
+														+ "</td>"));
+												row.append($("<td>"
+														+ rowData.penddingTask
+														+ "</td>"));
+												row.append($("<td>"
+														+ rowData.totalTasks
+														+ "</td>"));
+
+											}
+
+										});
+
+						var userId = $('#user_id').val();
+						$('#data_table')
+								.DataTable(
+										{
+											"ajax" : "http://localhost:8081/careservices/rest/abc/contact",
+											'columnDefs' : [ {
+												'targets' : 0,
+												'searchable' : false,
+												'orderable' : false,
+												'className' : 'dt-body-center',
+												'render' : function(data, type,
+														full, meta) {
+													return '<input type="checkbox" class="contact-checkBox-list" name="id[]" value="'
+															+ $("<div/>").text(
+																	data)
+																	.html()
+															+ '">';
+												}
+											} ],
+											pageLength : 25,
+											responsive : true,
+											dom : '<"html5buttons"B>lTfgitp',
+											buttons : [
+													{
+														extend : 'copy'
+													},
+													{
+														extend : 'csv'
+													},
+													{
+														extend : 'excel',
+														title : 'ExampleFile'
+													},
+													{
+														extend : 'pdf',
+														title : 'ExampleFile'
+													},
+
+													{
+														extend : 'print',
+														customize : function(
+																win) {
+															$(win.document.body)
+																	.addClass(
+																			'white-bg');
+															$(win.document.body)
+																	.css(
+																			'font-size',
+																			'10px');
+
+															$(win.document.body)
+																	.find(
+																			'table')
+																	.addClass(
+																			'compact')
+																	.css(
+																			'font-size',
+																			'inherit');
+														}
+													} ]
+
+										})
+								.on(
+										'draw.dt',
+										function() {
+											$('.contact-checkBox-list')
+													.change(
+															function() {
+																var countCheckedCheckboxes = $(
+																		'.contact-checkBox-list')
+																		.filter(
+																				':checked').length;
+																console
+																		.log(countCheckedCheckboxes);
+																if (countCheckedCheckboxes == 0) {
+																	$(
+																			"#assign_employee")
+																			.hide();
+																} else {
+																	$(
+																			"#assign_employee")
+																			.show();
+																}
+
+															});
+										});
+						;
+
+						$('.ephoto-upload')
+								.change(
+										function() {
+											previewURL(this);
+											if ($(this).val() != '') {
+												var formData = new FormData();
+												formData.append('file',
+														$(this)[0].files[0]);
+												$
+														.ajax({
+															url : 'http://localhost:8081/careservices/rest/excel/upload/'
+																	+ userId,
+															type : 'POST',
+															data : formData,
+															success : function(
+																	r) {
+																if (r.success) {
+
+																}
+															},
+															cache : false,
+															contentType : false,
+															processData : false
+														});
+
+											}
+										});
+
+						function previewURL(input) {
+							if (input.files && input.files[0]) {
+								var reader = new FileReader();
+
+								reader.onload = function(e) {
+									//$('#prevImg').attr('src', e.target.result);
+									$('#preview').css(
+											"background",
+											"url(" + e.target.result + ")"
+													+ " right top no-repeat");
+								}
+								reader.readAsDataURL(input.files[0]);
+							}
 						}
+						
+						$('#modal-button').click(function(){
+							
+							var emplId;
+							var contactArray = new Array();
+							
+							alert("Button is clicked");
+							$('.contact-checkBox-list').filter(':checked').each(function( index ) {
+								  console.log( index + ": " + $( this ).val());
+								  contactArray.push($( this ).val());
+								});
+							$('.radioButton_class').filter(':checked').each(function( index ) {
+								  console.log( index + ": " + $( this ).val() );
+								  emplId = $( this ).val();
+								}); 
+							
+							var contact = contactArray.toString();
+							if(emplId!=null && contact!=null)
+							{
+		
+						
+						$.ajax({
+							url: 'http://localhost:8081/careservices/rest/task/assign/'+emplId+'/'+userId+'/'+contact,
+							type : 'get'
+						});  
+							}
+							});
 
-						function drawRow(rowData) {
-						    var row = $("<tr />")
-						    $("#personDataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
-						    row.append($("<td>" + rowData.totalTasks + "</td>"));
-						    row.append($("<td>" + rowData.penddingTask + "</td>"));
-						    row.append($("<td>" + rowData.name + "</td>"));
-						}
 
-					 
-				 });
-					 
-				 
-				 
-				 
-				 
-				 
-				 
-				 
-				 var userId = $('#user_id').val();
-				    $('#data_table').DataTable( {
-				    	"ajax": "http://localhost:8081/careservices/rest/abc/contact",
-				    	'columnDefs': [{
-				            'targets': 0,
-				            'searchable':false,
-				            'orderable':false,
-				            'className': 'dt-body-center',
-				            'render': function (data, type, full, meta){
-				                return '<input type="checkbox" name="id[]" value="' 
-				                   + $('<div/>').text(data).html() + '">';
-				            }
-				         }],
-						pageLength : 25,
-						responsive : true,
-						dom : '<"html5buttons"B>lTfgitp',
-						buttons : [
-								{
-									extend : 'copy'
-								},
-								{
-									extend : 'csv'
-								},
-								{
-									extend : 'excel',
-									title : 'ExampleFile'
-								},
-								{
-									extend : 'pdf',
-									title : 'ExampleFile'
-								},
-
-								{
-									extend : 'print',
-									customize : function(
-											win) {
-										$(
-												win.document.body)
-												.addClass(
-														'white-bg');
-										$(
-												win.document.body)
-												.css(
-														'font-size',
-														'10px');
-
-										$(
-												win.document.body)
-												.find(
-														'table')
-												.addClass(
-														'compact')
-												.css(
-														'font-size',
-														'inherit');
-									}
-								} ]
-
-				    } ); 
-				    
-				    
-				    
-				    $('.ephoto-upload').change(function(){
-				        previewURL(this);
-				        if($(this).val()!='') {   
-				          var formData = new FormData();
-				          formData.append('file', $(this)[0].files[0]);
-				          $.ajax({
-				            url: 'http://localhost:8081/careservices/rest/excel/upload/'+userId,
-				            type: 'POST',
-				            data: formData,
-				            success: function (r) { 
-				            if(r.success) {
-				             
-				          }
-				        },
-				        cache: false,
-				        contentType: false,
-				        processData: false
-				    });
-
-				    }
-				    }); 
-
-				    function previewURL(input) {
-				            if (input.files && input.files[0]) {
-				                var reader = new FileReader();
-
-				                reader.onload = function (e) {
-				                    //$('#prevImg').attr('src', e.target.result);
-				                    $('#preview').css("background", "url(" + e.target.result +")" + " right top no-repeat");  
-				                }
-				                reader.readAsDataURL(input.files[0]);
-				            }
-				        }
-				});
-		</script>
-
+					});
+</script>
 
 </html>

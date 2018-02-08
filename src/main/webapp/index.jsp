@@ -52,7 +52,7 @@
 						</div>
 						<button type="submit" class="btn btn-primary block full-width m-b" id="login">Login</button>
 
-						<a href="forgot_password"> <small>Forgot password?</small>
+						<a href="reset_password.jsp"> <small>Forgot password?</small>
 						</a>
 
 						<p class="text-muted text-center">

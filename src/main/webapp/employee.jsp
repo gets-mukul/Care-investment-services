@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
+<%
+String id = request.getSession().getAttribute("id").toString();
 
+%>
 
 <!-- Mirrored from webapplayers.com/inspinia_admin-v2.7.1/dashboard_3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Jan 2018 18:27:22 GMT -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CIS | Dashboard</title>
+<title>CIS | Employee Dashboard</title>
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -38,18 +41,25 @@
 								<div class="table-responsive">
 									<table
 										class="table table-striped table-bordered table-hover dataTables-example"
-										id="data_table">
+										id="employee_table">
 										<thead>
 											<tr>
-												<th>S no.</th>
-												<th>Contact No.</th>
+												<th>Contacts</th>
+												<th>Status</th>
+												<th>Name</th>
+												<th>Location</th>
+												
 												
 											</tr>
 										</thead>
 										<tfoot>
 											<tr>
-												<th>S no.</th>
-												<th>Contact No.</th>
+												<th>Contacts</th>
+												<th>Status</th>
+												<th>Name</th>
+												<th>Location</th>
+												
+
 												
 											</tr>
 										</tfoot>
@@ -57,6 +67,42 @@
 								</div>
 
 							</div>
+							<div id="modal-form" class="modal fade" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-body">
+													<div class="row">
+														<div class="col-lg-12">
+															<div class="ibox float-e-margins">
+																<div class="ibox-title">
+																	<h5>Assign Contacts</h5>
+
+																</div>
+																 <div class="ibox-content">
+																	<table class="table table-bordered"
+																		id="personDataTable">
+																		<thead>
+																			<tr>
+																				<th>Select</th>
+																				<th>Name</th>
+																				<th>Task Pending</th>
+																				<th>Total Task</th>
+																			</tr>
+																		</thead>
+
+																		<tbody id="table_body">
+																		</tbody>
+																	</table>
+																	<button type="button" style="float: right"
+																		class="btn btn-w-m btn-primary" id="modal-button">Select</button>
+																</div> 
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 						</div>
 					</div>
 
@@ -120,12 +166,32 @@
 <script src="js/plugins/chartJs/Chart.min.js"></script>
 <script src="js/plugins/dataTables/datatables.min.js"></script>
 <script>
-	
-	 $(document).ready(function() {
-		    $('#data_table').DataTable( {
-		    	"ajax": "http://localhost:8081/careservices/rest/abc/contact" 
-		    } ); 
-		} );
+$(document).ready(function(){
+	var id = <%=id%>;
+	 $('#employee_table').DataTable({/* Creation of data table */
+	    	ajax: "http://localhost:8081/careservices/rest/employee/work/"+id,
+	    	'columnDefs' : [ {/* column defination (special property of perticular column) */
+				'targets' : 0,/* 0th column */
+				'searchable' : false,
+				'orderable' : false,
+				'className' : 'dt-body-center',
+				'render' : function(data, type,full, meta) {/*render == to create   , data==value of that column,here is contact no.s  */
+					return '<a href="caller.jsp?mobile=78965413365" <button class="btn btn-primary caller_button" type="button" id="'+ $("<div/>").text(data).html()+ '"><i class="fa fa-phone"></i>&nbsp;Call</button></a>';
+				}
+			} ]
+	    }).on(/*call this function at the end of data table*/
+				'draw.dt',/*default class that is call in the end of datatable*/
+				function() {
+					
+					$('.caller_button').click(function(){
+						var number = $(this).attr('id');
+				 		alert('clicked '+number);
+				 		
+				 	});
+					
+				});
+	 	
+});
 	
 	
 </script>
