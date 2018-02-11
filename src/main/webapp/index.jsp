@@ -52,7 +52,7 @@
 						</div>
 						<button type="submit" class="btn btn-primary block full-width m-b" id="login">Login</button>
 
-						<a href="reset_password.jsp"> <small>Forgot password?</small>
+						<a href="reset_password.jsp" style="display:none"> <small>Forgot password?</small>
 						</a>
 
 						<p class="text-muted text-center">
@@ -82,7 +82,7 @@
 $(document).ready(function() {
 	$("#idForm").submit(function(e) {
 	
-	    var url = "http://localhost:8081/careservices/rest/auth/login/"; // the script where you handle the form input.
+	    var url = "http://localhost:8080/careservices/rest/auth/login/"; // the script where you handle the form input.
 		var email = $('#email').val();
 	    var password = $('#password').val();
 	    url = url+email+'/'+password;

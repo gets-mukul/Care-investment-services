@@ -213,17 +213,14 @@
 	$(document)
 			.ready(
 					function() {
-
 						$("#assign_employee")
 								.click(
 										function(e) {
-
 											$
 													.ajax({
-														url : 'http://localhost:8081/careservices/rest/employee/task_status',
+														url : 'http://localhost:8080/careservices/rest/employee/task_status',
 														type : "get",
 														dataType : "json",
-
 														success : function(
 																data,
 																textStatus,
@@ -264,13 +261,11 @@
 																	.html(html);
 														}
 													});
-
 											function drawTable(data) {
 												for (var i = 0; i < data.length; i++) {
 													drawRow(data[i]);
 												}
 											}
-
 											function drawRow(rowData) {
 												var row = $("<tr />")
 												$("#personDataTable").append(
@@ -284,16 +279,13 @@
 												row.append($("<td>"
 														+ rowData.totalTasks
 														+ "</td>"));
-
 											}
-
 										});
-
 						var userId = $('#user_id').val();
 						$('#data_table')
 								.DataTable(
 										{
-											"ajax" : "http://localhost:8081/careservices/rest/abc/contact",
+											"ajax" : "http://localhost:8080/careservices/rest/abc/contact",
 											'columnDefs' : [ {
 												'targets' : 0,
 												'searchable' : false,
@@ -326,7 +318,6 @@
 														extend : 'pdf',
 														title : 'ExampleFile'
 													},
-
 													{
 														extend : 'print',
 														customize : function(
@@ -338,7 +329,6 @@
 																	.css(
 																			'font-size',
 																			'10px');
-
 															$(win.document.body)
 																	.find(
 																			'table')
@@ -349,7 +339,6 @@
 																			'inherit');
 														}
 													} ]
-
 										})
 								.on(
 										'draw.dt',
@@ -372,11 +361,9 @@
 																			"#assign_employee")
 																			.show();
 																}
-
 															});
 										});
 						;
-
 						$('.ephoto-upload')
 								.change(
 										function() {
@@ -394,21 +381,17 @@
 															success : function(
 																	r) {
 																if (r.success) {
-
 																}
 															},
 															cache : false,
 															contentType : false,
 															processData : false
 														});
-
 											}
 										});
-
 						function previewURL(input) {
 							if (input.files && input.files[0]) {
 								var reader = new FileReader();
-
 								reader.onload = function(e) {
 									//$('#prevImg').attr('src', e.target.result);
 									$('#preview').css(
@@ -441,13 +424,11 @@
 		
 						
 						$.ajax({
-							url: 'http://localhost:8081/careservices/rest/task/assign/'+emplId+'/'+userId+'/'+contact,
+							url: 'http://localhost:8080/careservices/rest/task/assign/'+emplId+'/'+userId+'/'+contact,
 							type : 'get'
 						});  
 							}
 							});
-
-
 					});
 </script>
 

@@ -2,7 +2,6 @@
 <html>
 <%
 String id = request.getSession().getAttribute("id").toString();
-
 %>
 
 <!-- Mirrored from webapplayers.com/inspinia_admin-v2.7.1/dashboard_3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Jan 2018 18:27:22 GMT -->
@@ -169,7 +168,7 @@ String id = request.getSession().getAttribute("id").toString();
 $(document).ready(function(){
 	var id = <%=id%>;
 	 $('#employee_table').DataTable({/* Creation of data table */
-	    	ajax: "http://localhost:8081/careservices/rest/employee/work/"+id,
+	    	ajax: "http://localhost:8080/careservices/rest/employee/work/"+id,
 	    	'columnDefs' : [ {/* column defination (special property of perticular column) */
 				'targets' : 0,/* 0th column */
 				'searchable' : false,

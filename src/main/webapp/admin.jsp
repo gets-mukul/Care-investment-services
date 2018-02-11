@@ -123,7 +123,7 @@
 	
 	 $(document).ready(function() {
 		    $('#data_table').DataTable( {
-		    	"ajax": "http://localhost:8081/careservices/rest/abc/contact" 
+		    	"ajax": "http://localhost:8080/careservices/rest/abc/contact" 
 		    } ); 
 		} );
 	

@@ -48,13 +48,7 @@
 					<input type="number" class="form-control" placeholder="Mobile"
 						required="" id="mobile">
 				</div>
-				<div class="form-group">
-					<div class="checkbox i-checks">
-						<label> <input type="checkbox"><i></i> Agree the
-							terms and policy
-						</label>
-					</div>
-				</div>
+				
 				<button type="submit" class="btn btn-primary block full-width m-b">Register</button>
 
 				<p class="text-muted text-center">

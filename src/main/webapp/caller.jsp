@@ -92,7 +92,7 @@
 										<label class="col-sm-2 control-label">Status</label>
 
 										<div class="col-sm-10">
-											<select class="form-control m-b" name="account" id='status'>
+											<select class="form-control m-b" name="account4" id='status'>
 												<option></option>
 												<option>Not Trade</option>
 												<option>Trail</option>
@@ -108,7 +108,7 @@
 									<div class="form-group">
 										<label class="col-sm-2 control-label">Cash</label>
 										<div class="col-sm-10">
-											<select class="form-control m-b" name="account" id='cash'>
+											<select class="form-control m-b" name="account5" id='cash'>
 												<option></option>
 												<option>Not Trade</option>
 												<option>Trail</option>
@@ -125,7 +125,7 @@
 									<div class="form-group">
 										<label class="col-sm-2 control-label">Location</label>
 										<div class="col-sm-10">
-											<select class="form-control m-b" name="account" id='location'>
+											<select class="form-control m-b" name="account6" id='location'>
 												<option></option>
 												<option>Not Trade</option>
 												<option>Trail</option>
@@ -198,7 +198,7 @@
 											<label class="control-label">Secrip</label>
 										</div>
 										<div class="col-sm-8" style="padding-left: 0px">
-											<select class="form-control m-b" name="account" id='secrip'>
+											<select class="form-control m-b" name="account1" id='secrip'>
 												<option></option>
 												<option>VEDL</option>
 												<option>Trail</option>
@@ -215,7 +215,7 @@
 											<label class="control-label">Long/Short</label>
 										</div>
 										<div class="col-sm-8" style="padding-left: 0px">
-											<select class="form-control m-b" name="account"
+											<select class="form-control m-b" name="account2"
 												id='long-short'>
 												<option></option>
 												<option>Long</option>
@@ -229,7 +229,7 @@
 											<label class="control-label">Segment</label>
 										</div>
 										<div class="col-sm-8" style="padding-left: 0px">
-											<select class="form-control m-b" name="account" id='segment'>
+											<select class="form-control m-b" name="account3" id='segment'>
 												<option></option>
 												<option>EQUITY</option>
 												<option>FUTURE</option>

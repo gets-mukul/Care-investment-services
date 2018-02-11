@@ -39,7 +39,7 @@
 							class="nav-label">Accounting</span></a></li>
 					<li><a href="layouts.html"><i class="fa fa-envelope-o"></i> <span
 							class="nav-label">Mailbox</span></a></li>
-					<li><a href="layouts.html"><i class="fa fa-folder"></i> <span
+					<li><a href="employee_management.jsp"><i class="fa fa-folder"></i> <span
 							class="nav-label">Employ Management System</span></a></li>
 					<li><a href="contact.jsp"><i class="fa fa-address-book"></i> <span
 							class="nav-label">Contact List</span></a></li>
