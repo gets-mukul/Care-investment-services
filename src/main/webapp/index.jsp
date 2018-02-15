@@ -109,13 +109,14 @@ $(document).ready(function() {
 	            	  var name = userProfile.name;
 	            	  var id = userProfile.id;
 	            	  var image_url	= userProfile.image_url;
-	            	  var dashboardUrl = 'create_session?id='+id+'&name='+name+'&image_url='+image_url;
+	            	  var user_type = userProfile.user_type;
+	            	  var dashboardUrl = 'create_session?id='+id+'&name='+name+'&image_url='+image_url+'&user_type='+user_type;
 		            	  $.ajax({
 		       	           type: "POST",
 		       	           url: dashboardUrl,
 		       	           success: function(data)
 		       	           {
-		       	        	   window.location  = 'admin.jsp';
+		       	        		window.location  = 'admin.jsp';
 		       	           }
 		            	  });
 	            	}	               

@@ -10,9 +10,6 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-<link rel="stylesheet" href="fontawesome-stars.css">
 
 <link href="css/animate.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
@@ -26,53 +23,57 @@
 		<div id="page-wrapper" class="gray-bg">
 			<jsp:include page="header.jsp"></jsp:include>
 			<div class="wrapper wrapper-content animated fadeInRight">
-				<div class="row">
-					<%
-						for (int i = 0; i < 25; i++) {
-					%>
-					<div class="col-lg-3">
-						<div class="contact-box center-version">
 
-							<a href="profile.html"> <img alt="image" class="img-circle"
-								src="img/a2.jpg">
+				<div class="table-responsive">
+					<table
+						class="table table-striped table-bordered table-hover dataTables-example"
+						id="data_table">
+						<thead>
+							<tr>
+								<th></th>
+								<th>Id</th>
+								<th>Contact</th>
+								<th>Trail Start Date</th>
+								<th>Trail End Date</th>
+								<th>Secrip</th>
+								<th>Long/Short</th>
+								<th>Segment</th>
+								<th>Expiry Date</th>
+								<th>Strike Price</th>
+								<th>Lot Size/Qty</th>
+								<th>Buy/Sell</th>
+								<th>First Target</th>
+								<th>Second Target</th>
+								<th>Stop/Loss</th>
+								<th>Status</th>
 
+							</tr>
+						</thead>
 
-								<h3 class="m-b-xs">
-									<strong>John Smith</strong>
-								</h3>
+						<tfoot>
+							<tr>
+								<th></th>
+								<th>Id</th>
+								<th>Contact</th>
+								<th>Trail Start Date</th>
+								<th>Trail End Date</th>
+								<th>Secrip</th>
+								<th>Long/Short</th>
+								<th>Segment</th>
+								<th>Expiry Date</th>
+								<th>Strike Price</th>
+								<th>Lot Size/Qty</th>
+								<th>Buy/Sell</th>
+								<th>First Target</th>
+								<th>Second Target</th>
+								<th>Stop/Loss</th>
+								<th>Status</th>
 
-								<div class="font-bold">
-									<h4>Employee</h4>
-								</div>
-								<div>
-									<h5>Tasks Assigned : 23</h5>
-									<h5>Tasks Completed : 23</h5>
-									<h5>Tasks Pedning : 33</h5>
-								</div>
-
-
-
-							</a>
-							<div class="contact-box-footer">
-								<div class="m-t-xs btn-group">
-									<a class="btn btn-xs btn-white"><i class="fa fa-phone"></i>
-										Call </a> <a class="btn btn-xs btn-white"><i
-										class="fa fa-envelope"></i> Email</a>
-										
-										 <a class="btn btn-xs btn-white rating"><i class="fa fa-star"></i>Rate</a>
-										
-									
-								</div>
-							</div>
-
-						</div>
-					</div>
-
-					<%
-						}
-					%>
-
+							</tr>
+						</tfoot>
+					</table>
 				</div>
+
 
 
 
@@ -132,25 +133,35 @@
 <script src="js/plugins/chartJs/Chart.min.js"></script>
 <script src="js/plugins/dataTables/datatables.min.js"></script>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="jquery.barrating.min.js"></script>
-<script type="text/javascript"></script>
-
 <script>
-	$(document).ready(function() {
 
-		$(function() {
-			$('#example').barrating({
-				theme : 'fontawesome-stars'
-			});
-		});
-
-		$('#data_table').DataTable({
-			"ajax" : "http://localhost:8080/careservices/rest/abc/contact"
-		});
-	});
+$(document)
+			.ready(
+					function() {
+						
+						$('#data_table')
+						.DataTable(
+								{
+									"ajax" : "http://localhost:8080/careservices/rest/abc/contact",
+									'columnDefs' : [ {
+										'targets' : 0,
+										'searchable' : false,
+										'orderable' : false,
+										'className' : 'dt-body-center',
+										'render' : function(data, type,
+												full, meta) {
+											return '<button type="button" class="btn btn-primary btn-rounded"  value="'
+													+ $("<div/>").text(
+															data)
+															.html()
+													+ '">Code</button>';
+											
+										}
+									} ]
+									
+								})
+					
+					});
 </script>
-
 
 </html>

@@ -31,7 +31,7 @@
 			<div class="wrapper wrapper-content animated fadeIn"
 				style="padding-right: 0px !important;">
 				<div class="row">
-					<div class="col-lg-6">
+					<div class="col-lg-5">
 						<div class="ibox float-e-margins">
 							<div class="ibox-title">
 								<h5>Upload Contact Numbers</h5>
@@ -56,6 +56,65 @@
 
 							</div>
 						</div>
+					</div>
+					
+					<div class="col-lg-7">
+					
+					<div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                
+                                <h5>Total</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h2 class="no-margins">408</h2>
+                                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
+                                <small>Total Contacts</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Assigned</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h2 class="no-margins">408</h2>
+                                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
+                                <small>Total Assigned</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Contacted</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h2 class="no-margins">408</h2>
+                                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
+                                <small>Total Contacted</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Pending</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h2 class="no-margins">408</h2>
+                                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
+                                <small>Total Pending</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+					
 					</div>
 
 
@@ -117,8 +176,7 @@
 											id="data_table">
 											<thead>
 												<tr>
-													<th><input name="select_all" value="1"
-														id="example-select-all" type="checkbox" /></th>
+													<th></th>
 													<th>Mobile</th>
 													<th>Upload Date</th>
 													<th>Uploaded By</th>

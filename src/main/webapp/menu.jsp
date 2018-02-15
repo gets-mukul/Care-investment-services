@@ -2,6 +2,7 @@
 	String id = request.getSession().getAttribute("id").toString();
 	String name = request.getSession().getAttribute("name").toString();
 	String imageUrl = request.getSession().getAttribute("imageUrl").toString();
+	String userType = request.getSession().getAttribute("userType").toString();
 %>
 <nav class="navbar-default navbar-static-side" role="navigation">
 			<div class="sidebar-collapse">
@@ -27,13 +28,20 @@
 						</div>
 						<div class="logo-element">IN+</div>
 					</li>
-					<li><a href="/admin.jsp"><i class="fa fa-diamond"></i> <span
+					<%
+					if(userType.equalsIgnoreCase("admin")){
+						
+						
+						%>
+						<li><a href="/admin.jsp"><i class="fa fa-diamond"></i> <span
 							class="nav-label">Dashboard</span></a></li>
-					<li><a href="layouts.html"><i class="fa fa-database"></i> <span
+							<li><a href="contact.jsp"><i class="fa fa-address-book"></i> <span
+							class="nav-label">Contact List</span></a></li>
+					<li><a href="trial_data.jsp"><i class="fa fa-database"></i> <span
 							class="nav-label">Data Management</span></a></li>
-					<li><a href="layouts.html"><i class="fa fa-envelope"></i> <span
+					<li><a href="messanger.jsp"><i class="fa fa-envelope"></i> <span
 							class="nav-label">Messanger</span></a></li>
-					<li><a href="layouts.html"><i class="fa fa-user"></i> <span
+					<li><a href="client_user.jsp"><i class="fa fa-user"></i> <span
 							class="nav-label">Client Registration</span></a></li>
 					<li><a href="layouts.html"><i class="fa fa-handshake-o"></i> <span
 							class="nav-label">Accounting</span></a></li>
@@ -41,9 +49,17 @@
 							class="nav-label">Mailbox</span></a></li>
 					<li><a href="employee_management.jsp"><i class="fa fa-folder"></i> <span
 							class="nav-label">Employ Management System</span></a></li>
-					<li><a href="contact.jsp"><i class="fa fa-address-book"></i> <span
+					
+						
+						<%		
+					}
+					else{
+						%>
+						<li><a href="employee.jsp"><i class="fa fa-address-book"></i> <span
 							class="nav-label">Contact List</span></a></li>
-
+						<%
+					}
+					%>
 				</ul>
 			</div>
 		</nav>
