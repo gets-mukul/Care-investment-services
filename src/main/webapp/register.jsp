@@ -73,7 +73,7 @@
     		var email = $('#email').val();
     		var password = $('#password').val();
     		var mobile = $('#mobile').val();
-    		var url = "http://localhost:8081/careservices/rest/auth/registration/";
+    		var url = "/careservices/rest/auth/registration/";
     		url = url+name+'/'+email+'/'+password+'/'+mobile;
     		console.log(name);
     		console.log(email);
@@ -108,7 +108,7 @@
 	               else{
 	            	   
 	            	   swal({
-	                       title: "Email already exists",
+	                       title: message,
 	                       text: "Click ok to register again !",
 	                       type: "warning",
 	                       showCancelButton: false,

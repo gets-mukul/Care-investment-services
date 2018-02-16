@@ -82,7 +82,7 @@
 $(document).ready(function() {
 	$("#idForm").submit(function(e) {
 	
-	    var url = "http://localhost:8080/careservices/rest/auth/login/"; // the script where you handle the form input.
+	    var url = "/careservices/rest/auth/login/"; // the script where you handle the form input.
 		var email = $('#email').val();
 	    var password = $('#password').val();
 	    url = url+email+'/'+password;
@@ -116,7 +116,7 @@ $(document).ready(function() {
 		       	           url: dashboardUrl,
 		       	           success: function(data)
 		       	           {
-		       	        		window.location  = 'admin.jsp';
+		       	        		window.location  = 'dashboard.jsp';
 		       	           }
 		            	  });
 	            	}	               

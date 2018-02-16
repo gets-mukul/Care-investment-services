@@ -13,7 +13,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-
+<link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 <link href="css/animate.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 
@@ -95,13 +95,14 @@
 
 			</div>
 		</div>
+		</div>
 </body>
 <!-- Mainly scripts -->
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
+	<script src="js/plugins/sweetalert/sweetalert.min.js"></script>
 <!-- Flot -->
 <script src="js/plugins/flot/jquery.flot.js"></script>
 <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
@@ -143,7 +144,7 @@
 						$
 								.ajax(
 										{
-											'url' : "http://localhost:8080/careservices/rest/employee/list",
+											'url' : "/careservices/rest/employee/list",
 											'method' : "GET",
 											'contentType' : 'application/json',
 
@@ -183,56 +184,23 @@
 																			full,
 																			meta) {
 																		
-																		if(data == 'employee' || data =='Employee'){
-																			console.log(data);
-																			
-																			return '<select class="form-control m-b user_type" name="account" id="'+data+'"> \
-																			<option></option>\
-																			<option selected>Employee</option>\
-																			<option >Admin</option>\
-																			<option>Client</option>\
-																		</select>';
-																			
-																			
-																		}
-																		else if(data == 'admin' || data =='Admin'){
-																			console.log(data);
-																			
-																			return '<select class="form-control m-b user_type" name="account" id="'+data+'"> \
-																			<option></option>\
-																			<option >Employee</option>\
-																			<option selected>Admin</option>\
-																			<option>Client</option>\
-																		</select>';
-																			
-																		}
-																		else if(data == 'client' || data =='Client'){
-																			console.log(data);
-																			
-																			return '<select class="form-control m-b user_type" name="account" id="'+data+'"> \
-																			<option></option>\
-																			<option >Employee</option>\
-																			<option >Admin</option>\
-																			<option selected>Client</option>\
-																		</select>';
-																			
-																		}
-																		else{
-																			console.log(data);
-																			return '<select class="form-control m-b user_type" name="account" id="'+data+'"> \
-																		<option></option>\
-																		<option >Employee</option>\
-																		<option >Admin</option>\
-																		<option >Client</option>\
-																	</select>';
-																		}
+																		var currentUserType = data;
+																		var selectHtml = '<select class="form-control m-b user_type" name="account">';
 																		
-																			
-																			
-																		
-																		
-																																			
-	
+																		var isEmployee='';
+																		var isAdmin='';
+																		if(currentUserType.toLowerCase()==='employee')
+																		{
+																			isEmployee ='selected';
+																		}
+																		else if(currentUserType.toLowerCase()==='admin')
+																		{
+																			isAdmin='selected';
+																		}
+																		selectHtml+='<option '+isEmployee+' value="EMPLOYEE">EMPLOYEE</option>';
+																		selectHtml+='<option '+isAdmin+' value="ADMIN">ADMIN</option>';																		
+																		selectHtml +='</select>';																																	
+																		return selectHtml;
 																	}
 																} ],
 																
@@ -250,18 +218,38 @@
 	function dropdownHandler()
 	{
 		$('.user_type').change(function(){
-			var userType = $(this).val();
-			
-			var id = $(this).attr("id"); //get the text from first col of current row
-			
-			
+			var userType = $(this).val();			
+			var id = $(this).parent().siblings(":first").text()
 			$
 			.ajax(
 					{
-						'url' :'http://localhost:8080/careservices/rest/employee/change_user_type/'+id+'/'+userType,
+						'url' :'/careservices/rest/employee/change_user_type/'+id+'/'+userType,
 						'method' : "GET",
 						'contentType' : 'application/json',
-
+						success: function(data)
+			   	           {
+							 var jsonData = data;
+				             var status = jsonData.status;
+				             var message = jsonData.message;
+			   	        	  
+				               if(status == true)
+				           		{
+				            	   swal({
+						                title: "Success",
+						                text: data.message,
+						                type: "success"
+						            });
+				           		}
+				               else
+				            	  {
+				            	   swal({
+						                title: "Failure",
+						                text: data.message,
+						                type: "success"
+						            });
+				            	  } 
+							
+					}
 					}) 
 		})
 	}

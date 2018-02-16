@@ -31,10 +31,7 @@
 					<div class="col-sm-8">
 						<div class="ibox">
 							<div class="ibox-content">
-								<span class="text-muted small pull-right">Last
-									modification: <i class="fa fa-clock-o"></i> 2:10 pm -
-									12.06.2014
-								</span>
+								
 								<h2>Clients</h2>
 								<p>All clients need to be verified before you can send email
 									and set a project.</p>
@@ -49,7 +46,7 @@
 								</div>
 								<div class="clients-list">
 									<ul class="nav nav-tabs">
-										<span class="pull-right small text-muted">1406 Elements</span>
+												
 										<li class="active"><a data-toggle="tab" href="#tab-1"><i
 												class="fa fa-user"></i> Contacts</a></li>
 									</ul>

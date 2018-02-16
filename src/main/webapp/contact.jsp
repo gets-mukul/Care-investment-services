@@ -2,6 +2,7 @@
 <html>
 <%
 	String userId = request.getSession().getAttribute("id").toString();
+	
 %>
 
 <!-- Mirrored from webapplayers.com/inspinia_admin-v2.7.1/dashboard_3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Jan 2018 18:27:22 GMT -->
