@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@page import="authentication.AppProperties"%>
+
 <html>
 <%
 	String userId = request.getSession().getAttribute("id").toString();

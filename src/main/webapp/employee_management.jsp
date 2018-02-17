@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<%@page import="authentication.AppProperties"%>
+
 <html>
 <%
 String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";

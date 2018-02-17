@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<%@page import="authentication.AppProperties"%>
+
 <html>
 
 <head>
