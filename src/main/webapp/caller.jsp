@@ -4,7 +4,7 @@
 <%
 	String id = request.getSession().getAttribute("id").toString();
 	String mob = request.getParameter("mobile");
-	String backendUrl = AppProperties.getProperty("backend_url");
+	String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
 %>
 
 <!-- Mirrored from webapplayers.com/inspinia_admin-v2.7.1/dashboard_3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Jan 2018 18:27:22 GMT -->
