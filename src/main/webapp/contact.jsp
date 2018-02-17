@@ -59,81 +59,26 @@
 						</div>
 					</div>
 					
-					<div class="col-lg-7">
 					
-					<div class="col-lg-3">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                
-                                <h5>Total</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <h2 class="no-margins">408</h2>
-                                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-                                <small>Total Contacts</small>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-3">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>Assigned</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <h2 class="no-margins">408</h2>
-                                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-                                <small>Total Assigned</small>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-3">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>Contacted</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <h2 class="no-margins">408</h2>
-                                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-                                <small>Total Contacted</small>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-3">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>Pending</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <h2 class="no-margins">408</h2>
-                                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-                                <small>Total Pending</small>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    
-					
-					</div>
 
 
 				</div>
 				<div class="row">
-					<div class="col-lg-12">
-						<div class="ibox float-e-margins">
-							<div class="ibox-title">
-								<h5>Contacts Available</h5>
-
-							</div>
-							<div class="ibox-content">
-								<form id="frm-example" action="/path/to/your/script"
+                <div class="col-lg-12">
+                    <div class="tabs-container">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#tab-1"> Unassigned Contacts</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-2">Assigned Contacts</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane active">
+                                <div class="panel-body">
+                                <form id="frm-example" action="/path/to/your/script"
 									method="POST">
 
-									<a style="display: none" data-toggle="modal"
+									<a style="display: none;margin-bottom: 12px;" data-toggle="modal"
 										class="btn btn-primary" href="#modal-form"
-										id="assign_employee">Assign To Employees</a>
+										id="assign_employee" >Click here to assign contacts to employees</a>
 									<div id="modal-form" class="modal fade" aria-hidden="true">
 										<div class="modal-dialog">
 											<div class="modal-content">
@@ -170,8 +115,10 @@
 											</div>
 										</div>
 									</div>
-
-									<div class="table-responsive">
+	
+									
+								</form>
+                                   <div class="table-responsive">
 										<table
 											class="table table-striped table-bordered table-hover dataTables-example"
 											id="data_table">
@@ -201,13 +148,50 @@
 												</tr>
 											</tfoot>
 										</table>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
+									</div></div>
+                            </div>
+                            <div id="tab-2" class="tab-pane">
+                                <div class="panel-body">
+                                   <div class="table-responsive">
+										<table
+											class="table table-striped table-bordered table-hover dataTables-example"
+											id="assigned_table">
+											<thead>
+												<tr>
+													<th></th>
+													<th>Mobile</th>
+													<th>Upload Date</th>
+													<th>Uploaded By</th>
+													<th>Contact Name</th>
+													<th>Location</th>
+													<th>Assigned To</th>
 
-				</div>
+												</tr>
+											</thead>
+
+											<tfoot>
+												<tr>
+													<th></th>
+													<th>Mobile</th>
+													<th>Upload Date</th>
+													<th>Uploaded By</th>
+													<th>Contact Name</th>
+													<th>Location</th>
+													<th>Assigned To</th>
+
+												</tr>
+											</tfoot>
+										</table>
+									</div></div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                
+            </div>
+				
 
 
 
@@ -297,15 +281,7 @@
 																				var name = value.name;
 																				var totalTask = value.total_task;
 																				var pendingTask = value.pending_task;
-																				// console.log(value);
-																				console
-																						.log('name= '
-																								+ name
-																								+ ', pendingTask='
-																								+ pendingTask
-																								+ ', totalTask= '
-																								+ totalTask
-																								+ '');
+																				
 																				html += '<tr><td><input class="radioButton_class" type="radio" value="'+value.id+'" id="optionsRadios'+value.id+'" name="optionsRadios"></td><td>'
 																						+ name
 																						+ '</td><td>'
@@ -341,10 +317,57 @@
 											}
 										});
 						var userId = $('#user_id').val();
+						$('#assigned_table')
+						.DataTable(
+								{
+									"ajax" : "http://localhost:8080/careservices/rest/abc/assigned_contact",									
+									pageLength : 25,
+									responsive : true,
+									dom : '<"html5buttons"B>lTfgitp',
+									buttons : [
+											{
+												extend : 'copy'
+											},
+											{
+												extend : 'csv'
+											},
+											{
+												extend : 'excel',
+												title : 'ExampleFile'
+											},
+											{
+												extend : 'pdf',
+												title : 'ExampleFile'
+											},
+											{
+												extend : 'print',
+												customize : function(
+														win) {
+													$(win.document.body)
+															.addClass(
+																	'white-bg');
+													$(win.document.body)
+															.css(
+																	'font-size',
+																	'10px');
+													$(win.document.body)
+															.find(
+																	'table')
+															.addClass(
+																	'compact')
+															.css(
+																	'font-size',
+																	'inherit');
+												}
+											} ]
+								})
+						;
+				;
+						
 						$('#data_table')
 								.DataTable(
 										{
-											"ajax" : "http://localhost:8080/careservices/rest/abc/contact",
+											"ajax" : "http://localhost:8080/careservices/rest/abc/unassigned_contact",
 											'columnDefs' : [ {
 												'targets' : 0,
 												'searchable' : false,
@@ -409,8 +432,7 @@
 																		'.contact-checkBox-list')
 																		.filter(
 																				':checked').length;
-																console
-																		.log(countCheckedCheckboxes);
+																
 																if (countCheckedCheckboxes == 0) {
 																	$(
 																			"#assign_employee")
@@ -467,13 +489,13 @@
 							var emplId;
 							var contactArray = new Array();
 							
-							alert("Button is clicked");
+							
 							$('.contact-checkBox-list').filter(':checked').each(function( index ) {
-								  console.log( index + ": " + $( this ).val());
+								  
 								  contactArray.push($( this ).val());
 								});
 							$('.radioButton_class').filter(':checked').each(function( index ) {
-								  console.log( index + ": " + $( this ).val() );
+								  
 								  emplId = $( this ).val();
 								}); 
 							
@@ -486,7 +508,11 @@
 							url: 'http://localhost:8080/careservices/rest/task/assign/'+emplId+'/'+userId+'/'+contact,
 							type : 'get'
 						});  
+						$('#modal-form').modal('toggle');
+						location.reload();
 							}
+							
+							
 							});
 					});
 </script>

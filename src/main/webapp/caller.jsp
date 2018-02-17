@@ -195,17 +195,11 @@
 										</div>
 										<div class="form-group">
 											<div class="col-sm-2">
-												<label class="control-label">Secrip</label>
+												<label class="control-label">Scrip</label>
 											</div>
 											<div class="col-sm-10" style="padding-left: 0px">
-												<select class="form-control m-b" name="account1" id='secrip'>
-													<option></option>
-													<option>VEDL</option>
-													<option>Trail</option>
-													<option>TATA STEEL</option>
-													<option>SUN PHARMA</option>
-													<option>AXIS BANK</option>
-													<option>INFY</option>
+												<select class="select2_demo_2 form-control m-b" multiple="multiple" name="account1" id='scrip'>
+													
 												</select>
 											</div>
 										</div>
@@ -399,7 +393,7 @@
 			var trailStartDate = $('#trail-start-date').val();
 			var traiEndDate = $('#trail-end-date').val();
 			var time = $('#time').val();
-			var secrip = $('#secrip').val();
+			var scrip = $('#scrip').val();
 			var longShort = $('#long-short').val();
 			var segment = $('#segment').val();
 			var expiryDate = $('#expiry-date').val();
@@ -421,7 +415,7 @@
 				"trail_start_date" : trailStartDate,
 				"trail_end_date" : traiEndDate,
 				"time" : time,
-				"secrip" : secrip,
+				"scrip" : scrip,
 				"long_short" : longShort,
 				"segment" : segment,
 				"expiry_date" : expiryDate,
@@ -448,6 +442,17 @@
 			});
 
 		});
+		
+		var scripCodeUrl = '/careservices/rest/scrip/code';
+		 $.ajax({
+	        type: "GET",
+	        url: scripCodeUrl,
+	        success: function(data)
+	        {
+	        	console.log(data);
+	     		$('#scrip').html(data);
+	        }
+		  });
 
 		$('.i-checks').iCheck({
 			checkboxClass : 'icheckbox_square-green',
@@ -475,6 +480,10 @@
 			calendarWeeks : true,
 			autoclose : true
 		});
+		
+		
+		
+		$(".select2_demo_2").select2();
 
 		$('.clockpicker').clockpicker();
 

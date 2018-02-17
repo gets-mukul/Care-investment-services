@@ -9,7 +9,7 @@ String id = request.getSession().getAttribute("id").toString();
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CIS | Employee Dashboard</title>
+<title>CIS | Dashboard</title>
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -27,81 +27,62 @@ String id = request.getSession().getAttribute("id").toString();
 		<div id="page-wrapper" class="gray-bg sidebar-content">
 			<jsp:include page="header.jsp"></jsp:include>
 
-			<div class="wrapper wrapper-content">
+			<div class=" wrapper-content">
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="ibox float-e-margins">
-							<div class="ibox-title">
-								<h5>Contacts Available</h5>
-								
-							</div>
-							<div class="ibox-content">
-
-								<div class="table-responsive">
+							
+							<div class="col-lg-12">
+                    <div class="tabs-container">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#tab-1">Incomplete</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-2">Trail</a></li>                            
+                            <li class=""><a data-toggle="tab" href="#tab-4">Others</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-3">Not Trade</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane active">
+                                <div class="panel-body">
+                                    <div class="table-responsive">
 									<table
 										class="table table-striped table-bordered table-hover dataTables-example"
 										id="employee_table">
 										<thead>
 											<tr>
-												<th>Contacts</th>
-												<th>Status</th>
-												<th>Name</th>
-												<th>Location</th>
+												<th>Contact</th>
+												<th>Assigned On</th>
 												
-												
-											</tr>
+												</tr>
 										</thead>
 										<tfoot>
 											<tr>
-												<th>Contacts</th>
-												<th>Status</th>
-												<th>Name</th>
-												<th>Location</th>
-												
-
-												
-											</tr>
+												<th>Contact</th>
+												<th>Assigned On</th>												
+												</tr>
 										</tfoot>
 									</table>
 								</div>
+                                </div>
+                            </div>
+                            <div id="tab-2" class="tab-pane">
+                                <div class="panel-body">
+                                </div>
+                            </div>
+                            <div id="tab-3" class="tab-pane">
+                                 <div class="panel-body">
+                                </div>
+                            </div>
+                            <div id="tab-4" class="tab-pane">
+                                 <div class="panel-body">
+                                </div>
+                            </div>
+                        </div>
 
-							</div>
-							<div id="modal-form" class="modal fade" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-body">
-													<div class="row">
-														<div class="col-lg-12">
-															<div class="ibox float-e-margins">
-																<div class="ibox-title">
-																	<h5>Assign Contacts</h5>
 
-																</div>
-																 <div class="ibox-content">
-																	<table class="table table-bordered"
-																		id="personDataTable">
-																		<thead>
-																			<tr>
-																				<th>Select</th>
-																				<th>Name</th>
-																				<th>Task Pending</th>
-																				<th>Total Task</th>
-																			</tr>
-																		</thead>
-
-																		<tbody id="table_body">
-																		</tbody>
-																	</table>
-																	<button type="button" style="float: right"
-																		class="btn btn-w-m btn-primary" id="modal-button">Select</button>
-																</div> 
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+                    </div>
+                </div>
+							
+							
 						</div>
 					</div>
 
@@ -168,27 +149,17 @@ String id = request.getSession().getAttribute("id").toString();
 $(document).ready(function(){
 	var id = <%=id%>;
 	 $('#employee_table').DataTable({/* Creation of data table */
-	    	ajax: "http://localhost:8080/careservices/rest/employee/work/"+id,
+	    	ajax: "http://localhost:8080/careservices/rest/employee/incomplete/"+id,
 	    	'columnDefs' : [ {/* column defination (special property of perticular column) */
 				'targets' : 0,/* 0th column */
-				'searchable' : false,
-				'orderable' : false,
+				'searchable' : true,
+				'orderable' : true,
 				'className' : 'dt-body-center',
-				'render' : function(data, type,full, meta) {/*render == to create   , data==value of that column,here is contact no.s  */
-					return '<a href="caller.jsp?mobile=78965413365" <button class="btn btn-primary caller_button" type="button" id="'+ $("<div/>").text(data).html()+ '"><i class="fa fa-phone"></i>&nbsp;Call</button></a>';
+				'render' : function(data, type,full, meta) {
+					return '<a href="caller.jsp?mobile='+data+'" <button class="btn btn-primary caller_button" type="button" id="'+ data+ '"><i class="fa fa-phone"></i>&nbsp;'+data+'</button></a>';
 				}
 			} ]
-	    }).on(/*call this function at the end of data table*/
-				'draw.dt',/*default class that is call in the end of datatable*/
-				function() {
-					
-					$('.caller_button').click(function(){
-						var number = $(this).attr('id');
-				 		alert('clicked '+number);
-				 		
-				 	});
-					
-				});
+	    });
 	 	
 });
 	

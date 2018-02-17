@@ -116,7 +116,15 @@ $(document).ready(function() {
 		       	           url: dashboardUrl,
 		       	           success: function(data)
 		       	           {
+		       	        	   if(data==='ADMIN')
+		       	        		   {
 		       	        		window.location  = 'dashboard.jsp';
+		       	        		   }
+		       	        	   else if (data==='EMPLOYEE')
+		       	        		   {
+		       	        		window.location  = 'employee.jsp';
+		       	        		   }
+		       	        		
 		       	           }
 		            	  });
 	            	}	               

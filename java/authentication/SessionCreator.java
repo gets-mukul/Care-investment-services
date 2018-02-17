@@ -38,6 +38,7 @@ public class SessionCreator extends HttpServlet {
 		request.getSession().setAttribute("name", name);
 		request.getSession().setAttribute("imageUrl", imageUrl);
 		request.getSession().setAttribute("userType", userType);
+		response.getWriter().write(userType);
 	}
 
 	/**

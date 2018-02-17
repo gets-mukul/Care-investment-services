@@ -56,7 +56,7 @@
 					else{
 						%>
 						<li><a href="employee.jsp"><i class="fa fa-address-book"></i> <span
-							class="nav-label">Contact List</span></a></li>
+							class="nav-label">Dashboard</span></a></li>
 						<%
 					}
 					%>
