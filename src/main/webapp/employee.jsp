@@ -151,7 +151,7 @@ String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
 $(document).ready(function(){
 	var id = <%=id%>;
 	 $('#employee_table').DataTable({/* Creation of data table */
-	    	ajax: <%=backendUrl%>+"rest/employee/incomplete/"+id,
+	    	ajax: '<%=backendUrl%>'+"rest/employee/incomplete/"+id,
 	    	'columnDefs' : [ {/* column defination (special property of perticular column) */
 				'targets' : 0,/* 0th column */
 				'searchable' : true,

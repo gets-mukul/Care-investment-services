@@ -240,7 +240,7 @@ String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
 $(document).ready()
 {
 	
-	var dashboardUrl = <%=backendUrl%>+'rest/dashboard/admin/stats';
+	var dashboardUrl = '<%=backendUrl%>'+'rest/dashboard/admin/stats';
 	 $.ajax({
         type: "GET",
         url: dashboardUrl,
@@ -268,7 +268,7 @@ $(document).ready()
         }
 	  });
 	
-	 var employeeListUrl = <%=backendUrl%>+'rest/dashboard/admin/employee_list';
+	 var employeeListUrl = '<%=backendUrl%>'+'rest/dashboard/admin/employee_list';
 	 $.ajax({
         type: "GET",
         url: employeeListUrl,
@@ -335,7 +335,7 @@ function drawContactSummaryReport()
 	    $('.dataTables-example').DataTable({
 		    pageLength: 25,
 		    responsive: true,
-		    ajax :<%=backendUrl%>+'rest/dashboard/admin/contact_summary_report/'+startDate+'/'+endDate+'/'+employeIds
+		    ajax :'<%=backendUrl%>'+'rest/dashboard/admin/contact_summary_report/'+startDate+'/'+endDate+'/'+employeIds
 		});
 	}
 	else
@@ -343,7 +343,7 @@ function drawContactSummaryReport()
 		$('.dataTables-example').DataTable({
 		    pageLength: 25,
 		    responsive: true,
-		    ajax :<%=backendUrl%>+'rest/dashboard/admin/contact_summary_report/'+startDate+'/'+endDate+'/'+employeIds
+		    ajax :'<%=backendUrl%>'+'rest/dashboard/admin/contact_summary_report/'+startDate+'/'+endDate+'/'+employeIds
 		});
 		}
 	

@@ -76,7 +76,7 @@ String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
     		var email = $('#email').val();
     		var password = $('#password').val();
     		var mobile = $('#mobile').val();
-    		var url = <%=backendUrl%>+"rest/auth/registration/";
+    		var url = '<%=backendUrl%>'+"rest/auth/registration/";
     		url = url+name+'/'+email+'/'+password+'/'+mobile;
     		console.log(name);
     		console.log(email);

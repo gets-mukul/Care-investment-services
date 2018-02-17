@@ -147,7 +147,7 @@ String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
 						$
 								.ajax(
 										{
-											'url' : <%=backendUrl%>+"rest/employee/list",
+											'url' : '<%=backendUrl%>'+"rest/employee/list",
 											'method' : "GET",
 											'contentType' : 'application/json',
 
@@ -226,7 +226,7 @@ String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
 			$
 			.ajax(
 					{
-						'url' :<%=backendUrl%>+'rest/employee/change_user_type/'+id+'/'+userType,
+						'url' :'<%=backendUrl%>'+'rest/employee/change_user_type/'+id+'/'+userType,
 						'method' : "GET",
 						'contentType' : 'application/json',
 						success: function(data)

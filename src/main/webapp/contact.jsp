@@ -262,7 +262,7 @@ String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
 										function(e) {
 											$
 													.ajax({
-														url : <%=backendUrl%>+'rest/employee/task_status',
+														url : '<%=backendUrl%>'+'rest/employee/task_status',
 														type : "get",
 														dataType : "json",
 														success : function(
@@ -321,7 +321,7 @@ String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
 						$('#assigned_table')
 						.DataTable(
 								{
-									"ajax" : <%=backendUrl%>+"rest/abc/assigned_contact",									
+									"ajax" : '<%=backendUrl%>'+"rest/abc/assigned_contact",									
 									pageLength : 25,
 									responsive : true,
 									dom : '<"html5buttons"B>lTfgitp',
@@ -368,7 +368,7 @@ String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
 						$('#data_table')
 								.DataTable(
 										{
-											"ajax" : <%=backendUrl%>+"rest/abc/unassigned_contact",
+											"ajax" : '<%=backendUrl%>'+"rest/abc/unassigned_contact",
 											'columnDefs' : [ {
 												'targets' : 0,
 												'searchable' : false,
@@ -456,7 +456,7 @@ String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
 														$(this)[0].files[0]);
 												$
 														.ajax({
-															url : <%=backendUrl%>+'rest/excel/upload/'
+															url : '<%=backendUrl%>'+'rest/excel/upload/'
 																	+ userId,
 															type : 'POST',
 															data : formData,
@@ -506,7 +506,7 @@ String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
 		
 						
 						$.ajax({
-							url: <%=backendUrl%>+'rest/task/assign/'+emplId+'/'+userId+'/'+contact,
+							url: '<%=backendUrl%>'+'rest/task/assign/'+emplId+'/'+userId+'/'+contact,
 							type : 'get'
 						});  
 						$('#modal-form').modal('toggle');

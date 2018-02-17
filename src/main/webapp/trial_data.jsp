@@ -145,7 +145,7 @@ $(document)
 						$('#data_table')
 						.DataTable(
 								{
-									"ajax" : <%=backendUrl%>+"rest/abc/contact",
+									"ajax" : '<%=backendUrl%>'+"rest/abc/contact",
 									'columnDefs' : [ {
 										'targets' : 0,
 										'searchable' : false,

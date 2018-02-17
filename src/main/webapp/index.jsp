@@ -85,7 +85,7 @@ String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
 $(document).ready(function() {
 	$("#idForm").submit(function(e) {
 	
-	    var url = <%=backendUrl%>+"rest/auth/login/"; // the script where you handle the form input.
+	    var url = '<%=backendUrl%>'+"rest/auth/login/"; // the script where you handle the form input.
 		var email = $('#email').val();
 	    var password = $('#password').val();
 	    url = url+email+'/'+password;

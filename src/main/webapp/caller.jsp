@@ -437,7 +437,7 @@
 			var formData = new FormData();
 			formData.append('data', stringData);
 			$.ajax({
-				url : <%=backendUrl%>+'rest/client/trail/',
+				url : '<%=backendUrl%>'+'rest/client/trail/',
 				type : 'POST',
 				data : stringData,
 
@@ -445,7 +445,7 @@
 
 		});
 		
-		var scripCodeUrl = <%=backendUrl%>+'rest/scrip/code';
+		var scripCodeUrl = '<%=backendUrl%>'+'rest/scrip/code';
 		 $.ajax({
 	        type: "GET",
 	        url: scripCodeUrl,
