@@ -1,10 +1,13 @@
 <!DOCTYPE html>
+<%@page import="authentication.AppProperties"%>
 <html>
 <!-- Mirrored from webapplayers.com/inspinia_admin-v2.7.1/dashboard_3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Jan 2018 18:27:22 GMT -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<%
+String backendUrl = AppProperties.getProperty("backend_url");
+%>
 <title>CIS | Dashboard</title>
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -237,7 +240,7 @@
 $(document).ready()
 {
 	
-	var dashboardUrl = '/careservices/rest/dashboard/admin/stats';
+	var dashboardUrl = <%=backendUrl%>+'rest/dashboard/admin/stats';
 	 $.ajax({
         type: "GET",
         url: dashboardUrl,
@@ -265,7 +268,7 @@ $(document).ready()
         }
 	  });
 	
-	 var employeeListUrl = '/careservices/rest/dashboard/admin/employee_list';
+	 var employeeListUrl = <%=backendUrl%>+'rest/dashboard/admin/employee_list';
 	 $.ajax({
         type: "GET",
         url: employeeListUrl,
@@ -332,7 +335,7 @@ function drawContactSummaryReport()
 	    $('.dataTables-example').DataTable({
 		    pageLength: 25,
 		    responsive: true,
-		    ajax :'/careservices/rest/dashboard/admin/contact_summary_report/'+startDate+'/'+endDate+'/'+employeIds
+		    ajax :<%=backendUrl%>+'rest/dashboard/admin/contact_summary_report/'+startDate+'/'+endDate+'/'+employeIds
 		});
 	}
 	else
@@ -340,7 +343,7 @@ function drawContactSummaryReport()
 		$('.dataTables-example').DataTable({
 		    pageLength: 25,
 		    responsive: true,
-		    ajax :'/careservices/rest/dashboard/admin/contact_summary_report/'+startDate+'/'+endDate+'/'+employeIds
+		    ajax :<%=backendUrl%>+'rest/dashboard/admin/contact_summary_report/'+startDate+'/'+endDate+'/'+employeIds
 		});
 		}
 	

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<%@page import="authentication.AppProperties"%>
 <html>
 <%
 	String userId = request.getSession().getAttribute("id").toString();
-	
+String backendUrl = AppProperties.getProperty("backend_url");
 %>
 
 <!-- Mirrored from webapplayers.com/inspinia_admin-v2.7.1/dashboard_3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Jan 2018 18:27:22 GMT -->
@@ -261,7 +262,7 @@
 										function(e) {
 											$
 													.ajax({
-														url : 'http://localhost:8080/careservices/rest/employee/task_status',
+														url : <%=backendUrl%>+'rest/employee/task_status',
 														type : "get",
 														dataType : "json",
 														success : function(
@@ -320,7 +321,7 @@
 						$('#assigned_table')
 						.DataTable(
 								{
-									"ajax" : "http://localhost:8080/careservices/rest/abc/assigned_contact",									
+									"ajax" : <%=backendUrl%>+"rest/abc/assigned_contact",									
 									pageLength : 25,
 									responsive : true,
 									dom : '<"html5buttons"B>lTfgitp',
@@ -367,7 +368,7 @@
 						$('#data_table')
 								.DataTable(
 										{
-											"ajax" : "http://localhost:8080/careservices/rest/abc/unassigned_contact",
+											"ajax" : <%=backendUrl%>+"rest/abc/unassigned_contact",
 											'columnDefs' : [ {
 												'targets' : 0,
 												'searchable' : false,
@@ -455,7 +456,7 @@
 														$(this)[0].files[0]);
 												$
 														.ajax({
-															url : 'http://localhost:8081/careservices/rest/excel/upload/'
+															url : <%=backendUrl%>+'rest/excel/upload/'
 																	+ userId,
 															type : 'POST',
 															data : formData,
@@ -505,7 +506,7 @@
 		
 						
 						$.ajax({
-							url: 'http://localhost:8080/careservices/rest/task/assign/'+emplId+'/'+userId+'/'+contact,
+							url: <%=backendUrl%>+'rest/task/assign/'+emplId+'/'+userId+'/'+contact,
 							type : 'get'
 						});  
 						$('#modal-form').modal('toggle');

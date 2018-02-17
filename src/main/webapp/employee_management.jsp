@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 
+<%@page import="authentication.AppProperties"%>
 <html>
-
+<%
+String backendUrl = AppProperties.getProperty("backend_url");
+%>
 
 <!-- Mirrored from webapplayers.com/inspinia_admin-v2.7.1/dashboard_3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Jan 2018 18:27:22 GMT -->
 <head>
@@ -144,7 +147,7 @@
 						$
 								.ajax(
 										{
-											'url' : "/careservices/rest/employee/list",
+											'url' : <%=backendUrl%>+"rest/employee/list",
 											'method' : "GET",
 											'contentType' : 'application/json',
 
@@ -223,7 +226,7 @@
 			$
 			.ajax(
 					{
-						'url' :'/careservices/rest/employee/change_user_type/'+id+'/'+userType,
+						'url' :<%=backendUrl%>+'rest/employee/change_user_type/'+id+'/'+userType,
 						'method' : "GET",
 						'contentType' : 'application/json',
 						success: function(data)

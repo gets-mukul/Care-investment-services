@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+<%@page import="authentication.AppProperties"%>
 <html>
 <%
 	String id = request.getSession().getAttribute("id").toString();
 	String mob = request.getParameter("mobile");
+	String backendUrl = AppProperties.getProperty("backend_url");
 %>
 
 <!-- Mirrored from webapplayers.com/inspinia_admin-v2.7.1/dashboard_3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Jan 2018 18:27:22 GMT -->
@@ -435,7 +437,7 @@
 			var formData = new FormData();
 			formData.append('data', stringData);
 			$.ajax({
-				url : 'http://localhost:8080/careservices/rest/client/trail/',
+				url : <%=backendUrl%>+'rest/client/trail/',
 				type : 'POST',
 				data : stringData,
 
@@ -443,7 +445,7 @@
 
 		});
 		
-		var scripCodeUrl = '/careservices/rest/scrip/code';
+		var scripCodeUrl = <%=backendUrl%>+'rest/scrip/code';
 		 $.ajax({
 	        type: "GET",
 	        url: scripCodeUrl,

@@ -1,9 +1,12 @@
 
 <!DOCTYPE html>
+<%@page import="authentication.AppProperties"%>
 <html>
 
 <head>
-
+<%
+String backendUrl = AppProperties.getProperty("backend_url");
+%>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -73,7 +76,7 @@
     		var email = $('#email').val();
     		var password = $('#password').val();
     		var mobile = $('#mobile').val();
-    		var url = "/careservices/rest/auth/registration/";
+    		var url = <%=backendUrl%>+"rest/auth/registration/";
     		url = url+name+'/'+email+'/'+password+'/'+mobile;
     		console.log(name);
     		console.log(email);

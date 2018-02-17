@@ -1,8 +1,11 @@
 <!DOCTYPE html>
+<%@page import="authentication.AppProperties"%>
 <html>
 <!-- Mirrored from webapplayers.com/inspinia_admin-v2.7.1/login_two_columns.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Jan 2018 18:29:33 GMT -->
 <head>
-
+<%
+String backendUrl = AppProperties.getProperty("backend_url");
+%>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -82,7 +85,7 @@
 $(document).ready(function() {
 	$("#idForm").submit(function(e) {
 	
-	    var url = "/careservices/rest/auth/login/"; // the script where you handle the form input.
+	    var url = <%=backendUrl%>+"rest/auth/login/"; // the script where you handle the form input.
 		var email = $('#email').val();
 	    var password = $('#password').val();
 	    url = url+email+'/'+password;
