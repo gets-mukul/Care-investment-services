@@ -4,7 +4,7 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  <!-- <filter>
+ <filter>
   	<filter-name>AuthenticationFilter</filter-name>
   	<display-name>AuthenticationFilter</display-name>
   	<description></description>
@@ -13,7 +13,7 @@
   <filter-mapping>
   	<filter-name>AuthenticationFilter</filter-name>
   	<url-pattern>/*</url-pattern>
-  </filter-mapping> -->
+  </filter-mapping>
   <servlet>
   	<servlet-name>SessionCreator</servlet-name>
   	<display-name>SessionCreator</display-name>

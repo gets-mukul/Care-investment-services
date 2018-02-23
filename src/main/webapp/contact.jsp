@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 
+<%@page import="authentication.AppProperties"%>
 <html>
 <%
 	String userId = request.getSession().getAttribute("id").toString();
-String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
+String backendUrl = AppProperties.getProperty("backend_url");
 %>
 
 <!-- Mirrored from webapplayers.com/inspinia_admin-v2.7.1/dashboard_3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Jan 2018 18:27:22 GMT -->
@@ -28,7 +29,7 @@ String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
 		<jsp:include page="menu.jsp"></jsp:include>
 
 		<div id="page-wrapper" class="gray-bg sidebar-content">
-			
+			<jsp:include page="header.jsp"></jsp:include>
 			<input type="hidden" value="<%=userId%>" name="user_id" id="user_id">
 			<div class="wrapper wrapper-content animated fadeIn"
 				style="padding-right: 0px !important;">
@@ -59,140 +60,145 @@ String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
 							</div>
 						</div>
 					</div>
-					
-					
+
+
 
 
 				</div>
 				<div class="row">
-                <div class="col-lg-12">
-                    <div class="tabs-container">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#tab-1"> Unassigned Contacts</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-2">Assigned Contacts</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div id="tab-1" class="tab-pane active">
-                                <div class="panel-body">
-                                <form id="frm-example" action="/path/to/your/script"
-									method="POST">
+					<div class="col-lg-12">
+						<div class="tabs-container">
+							<ul class="nav nav-tabs">
+								<li class="active"><a data-toggle="tab" href="#tab-1">
+										Unassigned Contacts</a></li>
+								<li class=""><a data-toggle="tab" href="#tab-2">Assigned
+										Contacts</a></li>
+							</ul>
+							<div class="tab-content">
+								<div id="tab-1" class="tab-pane active">
+									<div class="panel-body">
+										<form id="frm-example" action="/path/to/your/script"
+											method="POST">
 
-									<a style="display: none;margin-bottom: 12px;" data-toggle="modal"
-										class="btn btn-primary" href="#modal-form"
-										id="assign_employee" >Click here to assign contacts to employees</a>
-									<div id="modal-form" class="modal fade" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-body">
-													<div class="row">
-														<div class="col-lg-12">
-															<div class="ibox float-e-margins">
-																<div class="ibox-title">
-																	<h5>Assign Contacts</h5>
+											<a style="display: none; margin-bottom: 12px;"
+												data-toggle="modal" class="btn btn-primary"
+												href="#modal-form" id="assign_employee">Click here to
+												assign contacts to employees</a>
+											<div id="modal-form" class="modal fade" aria-hidden="true">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-body">
+															<div class="row">
+																<div class="col-lg-12">
+																	<div class="ibox float-e-margins">
+																		<div class="ibox-title">
+																			<h5>Assign Contacts</h5>
 
+																		</div>
+																		<div class="ibox-content">
+																			<table class="table table-bordered"
+																				id="personDataTable">
+																				<thead>
+																					<tr>
+																						<th>Select</th>
+																						<th>Name</th>
+																						<th>Task Pending</th>
+																						<th>Total Task</th>
+																					</tr>
+																				</thead>
+
+																				<tbody id="table_body">
+																				</tbody>
+																			</table>
+																			<button type="button" style="float: right"
+																				class="btn btn-w-m btn-primary" id="modal-button">Select</button>
+																		</div>
+																	</div>
 																</div>
-																 <div class="ibox-content">
-																	<table class="table table-bordered"
-																		id="personDataTable">
-																		<thead>
-																			<tr>
-																				<th>Select</th>
-																				<th>Name</th>
-																				<th>Task Pending</th>
-																				<th>Total Task</th>
-																			</tr>
-																		</thead>
-
-																		<tbody id="table_body">
-																		</tbody>
-																	</table>
-																	<button type="button" style="float: right"
-																		class="btn btn-w-m btn-primary" id="modal-button">Select</button>
-																</div> 
 															</div>
 														</div>
 													</div>
 												</div>
 											</div>
+
+
+										</form>
+										<div class="table-responsive">
+											<table
+												class="table table-striped table-bordered table-hover dataTables-example"
+												id="data_table">
+												<thead>
+													<tr>
+														<th></th>
+														<th>Mobile</th>
+														<th>Upload Date</th>
+														<th>Uploaded By</th>
+														<th>Contact Name</th>
+														<th>Location</th>
+														<th>Assigned To</th>
+
+													</tr>
+												</thead>
+
+												<tfoot>
+													<tr>
+														<th></th>
+														<th>Mobile</th>
+														<th>Upload Date</th>
+														<th>Uploaded By</th>
+														<th>Contact Name</th>
+														<th>Location</th>
+														<th>Assigned To</th>
+
+													</tr>
+												</tfoot>
+											</table>
 										</div>
 									</div>
-	
-									
-								</form>
-                                   <div class="table-responsive">
-										<table
-											class="table table-striped table-bordered table-hover dataTables-example"
-											id="data_table">
-											<thead>
-												<tr>
-													<th></th>
-													<th>Mobile</th>
-													<th>Upload Date</th>
-													<th>Uploaded By</th>
-													<th>Contact Name</th>
-													<th>Location</th>
-													<th>Assigned To</th>
+								</div>
+								<div id="tab-2" class="tab-pane">
+									<div class="panel-body">
+										<div class="table-responsive">
+											<table
+												class="table table-striped table-bordered table-hover dataTables-example"
+												id="assigned_table">
+												<thead>
+													<tr>
+														<th></th>
+														<th>Mobile</th>
+														<th>Upload Date</th>
+														<th>Uploaded By</th>
+														<th>Contact Name</th>
+														<th>Location</th>
+														<th>Assigned To</th>
 
-												</tr>
-											</thead>
+													</tr>
+												</thead>
 
-											<tfoot>
-												<tr>
-													<th></th>
-													<th>Mobile</th>
-													<th>Upload Date</th>
-													<th>Uploaded By</th>
-													<th>Contact Name</th>
-													<th>Location</th>
-													<th>Assigned To</th>
+												<tfoot>
+													<tr>
+														<th></th>
+														<th>Mobile</th>
+														<th>Upload Date</th>
+														<th>Uploaded By</th>
+														<th>Contact Name</th>
+														<th>Location</th>
+														<th>Assigned To</th>
 
-												</tr>
-											</tfoot>
-										</table>
-									</div></div>
-                            </div>
-                            <div id="tab-2" class="tab-pane">
-                                <div class="panel-body">
-                                   <div class="table-responsive">
-										<table
-											class="table table-striped table-bordered table-hover dataTables-example"
-											id="assigned_table">
-											<thead>
-												<tr>
-													<th></th>
-													<th>Mobile</th>
-													<th>Upload Date</th>
-													<th>Uploaded By</th>
-													<th>Contact Name</th>
-													<th>Location</th>
-													<th>Assigned To</th>
-
-												</tr>
-											</thead>
-
-											<tfoot>
-												<tr>
-													<th></th>
-													<th>Mobile</th>
-													<th>Upload Date</th>
-													<th>Uploaded By</th>
-													<th>Contact Name</th>
-													<th>Location</th>
-													<th>Assigned To</th>
-
-												</tr>
-											</tfoot>
-										</table>
-									</div></div>
-                            </div>
-                        </div>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
 
 
-                    </div>
-                </div>
-                
-            </div>
-				
+						</div>
+					</div>
+
+				</div>
+
 
 
 

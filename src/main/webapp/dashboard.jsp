@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 
+<%@page import="authentication.AppProperties"%>
 <html>
 <!-- Mirrored from webapplayers.com/inspinia_admin-v2.7.1/dashboard_3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Jan 2018 18:27:22 GMT -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <%
-String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
+String backendUrl = AppProperties.getProperty("backend_url");
 %>
 <title>CIS | Dashboard</title>
 
@@ -274,7 +275,7 @@ $(document).ready()
         url: employeeListUrl,
         success: function(data)
         {
-        	console.log(data);
+        	
      		$('#employee_list').html(data);
         }
 	  });

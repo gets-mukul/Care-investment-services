@@ -1,16 +1,17 @@
 
 <!DOCTYPE html>
 
+<%@page import="authentication.AppProperties"%>
 <html>
 
 <head>
 <%
-String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
+String backendUrl = AppProperties.getProperty("backend_url");
 %>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>INSPINIA | Register</title>
+<title>CIS | Registration</title>
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">

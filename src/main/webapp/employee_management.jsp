@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 
 
+<%@page import="authentication.AppProperties"%>
 <html>
 <%
-String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
+String backendUrl = AppProperties.getProperty("backend_url");
 %>
 
 <!-- Mirrored from webapplayers.com/inspinia_admin-v2.7.1/dashboard_3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Jan 2018 18:27:22 GMT -->
@@ -11,7 +12,7 @@ String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CIS | Employee Management System</title>
+<title>CIS | Employee Management</title>
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">

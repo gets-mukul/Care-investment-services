@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 
+<%@page import="authentication.AppProperties"%>
 <html>
 <%
 	String id = request.getSession().getAttribute("id").toString();
 	String mob = request.getParameter("mobile");
-	String backendUrl = "https://mysterious-stream-24750.herokuapp.com/";
+	String backendUrl = AppProperties.getProperty("backend_url");
 %>
 
 <!-- Mirrored from webapplayers.com/inspinia_admin-v2.7.1/dashboard_3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Jan 2018 18:27:22 GMT -->
@@ -82,51 +83,94 @@
 							<h3 class="m-t-none m-b">Client Details</h3>
 							<div class="ibox-content">
 								<form class="form-horizontal" id="my-form" role="form">
-									<div class="col-sm-6 b-r">
+									<div class="col-sm-8 b-r">
 
 										<div class="form-group">
-											<label class="col-sm-2 control-label">Name</label>
+											<label>Name</label>
 
-											<div class="col-sm-10">
-												<input type="text" placeholder="Customer name"
+											<input type="text" placeholder="Customer name"
 													class="form-control" id="name">
-											</div>
 										</div>
 
 										<div class="form-group">
-											<label class="col-sm-2 control-label">Status</label>
+											<label>Status</label>
 
-											<div class="col-sm-10">
-												<select class="form-control m-b" name="account4" id='status'>
-													<option></option>
-													<option>Not Trade</option>
-													<option>Trail</option>
-													<option>Not Pic Call</option>
-													<option>Not Connect</option>
-													<option>Busy</option>
-													<option>After Some Time</option>
-													<option>Switched Off</option>
-													<option>Not Reachable</option>
+											<select class="form-control m-b" name="account4" id='status'>
+													<option value="NOT_TRADE">Not Trade</option>
+													<option value="TRIAL">Trail</option>
+													<option value="NOT_PICKED">Call not Picked</option>
+													<option value ="NO_NETWORK">Not Connect</option>
+													<option value="BUSY">Busy</option>
+													<option value="AFTER_SOME_TIME">After Some Time</option>
+													<option value="SWITCH_OFF">Switched Off</option>
+													<option value="NOT_REACHABLE">Not Reachable</option>
 												</select>
+										</div>
+										
+
+										
+										
+										<div class="form-group col-sm-4" id="data_1" style="    margin-left: -30px; margin-right: 10px;">
+											<label>Trail
+													Start Date</label>
+											<div class="input-group date">
+												<span class="input-group-addon"><i
+													class="fa fa-calendar"></i></span><input type="text"
+													class="form-control" value="03/04/2014"
+													id='trail-start-date'>
 											</div>
 										</div>
+										<div class="form-group col-sm-4"  id="data_2" style="    margin-right: 10px;">
+											<label><b>Trail End
+													Date</b></label>
+											<div class="input-group date">
+												<span class="input-group-addon"><i
+													class="fa fa-calendar"></i></span><input type="text"
+													class="form-control" value="03/04/2014" id="trail-end-date">
+											</div>
+										</div>
+										
+										
+										<div class="form-group col-sm-4" style="margin-right:18px;">
+											<label><b>Time</b></label>
+											<div class="input-group clockpicker"
+												data-autoclose="true">
+												<input type="text" class="form-control" value="00:00"
+													id="time"> <span class="input-group-addon">
+													<span class="fa fa-clock-o"></span>
+												</span>
 
+											</div>
+										</div>
 										<div class="form-group">
-											<label class="col-sm-2 control-label">Location</label>
-											<div class="col-sm-10">
-												<select class="form-control m-b" name="account6"
+											<label>Segment</label>
+											<select class="form-control m-b" name="account3"
+													id='segment'>
+													<option value="EQUITY">EQUITY</option>
+													<option value="FUTURE">FUTURE</option>
+													<option value="OPTION">OPTION</option>
+												</select>
+										</div>
+										<div class="form-group">
+											<label>Secrip</label>
+											<select class="select2_demo_2 form-control m-b" name="account1" id='scrip'>
+													
+												</select>
+										</div>
+										<div class="form-group">
+											<label>Location</label>
+											<select class="form-control m-b" name="account6"
 													id='location'>
-													<option></option>
-													<option>Not Trade</option>
-													<option>Trail</option>
-													<option>Not Pic Call</option>
+													<option value="OPTION"></option>
+													<option value="OPTION">Not Trade</option>
+													<option value="OPTION">Trail</option>
+													<option value="OPTION">Not Pic Call</option>
 													<option>Not Connect</option>
 													<option>Busy</option>
 													<option>After Some Time</option>
 													<option>Switched Off</option>
 													<option>Not Reachable</option>
 												</select>
-											</div>
 										</div>
 
 										<div class="form-group">
@@ -146,68 +190,10 @@
 											</div>
 										</div>
 
-
-
-										<div class="form-group">
-											<div class="col-sm-2"></div>
-											<div class="col-sm-10">
-												<div class="col-sm-2">
-													<label class="checkbox-inline"> <input
-														type="checkbox" value="option1" id="inlineCheckbox1"
-														id='trail' name="chk[]"> Trail
-													</label>
-												</div>
-												<div class="col-sm-8"></div>
-
-											</div>
-										</div>
-
-										<div class="form-group" id="data_1">
-											<label class="col-sm-2 font-normal"><b>Trail
-													Start Date</b></label>
-											<div class="col-sm-10 input-group date">
-												<span class="input-group-addon"><i
-													class="fa fa-calendar"></i></span><input type="text"
-													class="form-control" value="03/04/2014"
-													id='trail-start-date'>
-											</div>
-										</div>
-
-										<div class="form-group" id="data_2">
-											<label class="col-sm-2 font-normal"><b>Trail End
-													Date</b></label>
-											<div class="col-sm-10 input-group date">
-												<span class="input-group-addon"><i
-													class="fa fa-calendar"></i></span><input type="text"
-													class="form-control" value="03/04/2014" id="trail-end-date">
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="col-sm-2">
-												<label><b>Time</b></label>
-											</div>
-											<div class=" col-sm-10 input-group clockpicker"
-												data-autoclose="true">
-												<input type="text" class="form-control" value="00:00"
-													id="time"> <span class="input-group-addon">
-													<span class="fa fa-clock-o"></span>
-												</span>
-
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="col-sm-2">
-												<label class="control-label">Scrip</label>
-											</div>
-											<div class="col-sm-10" style="padding-left: 0px">
-												<select class="select2_demo_2 form-control m-b" multiple="multiple" name="account1" id='scrip'>
-													
-												</select>
-											</div>
-										</div>
+										
 										<div class="form-group"></div>
 									</div>
-									<div class="col-sm-6">
+									<div class="col-sm-4">
 										<div class="form-group">
 											<div class="col-sm-3">
 												<label class="control-label">Long/Short</label>
@@ -222,21 +208,7 @@
 											</div>
 										</div>
 
-										<div class="form-group">
-											<div class="col-sm-3">
-												<label class="control-label">Segment</label>
-											</div>
-											<div class="col-sm-9" style="padding-left: 0px">
-												<select class="form-control m-b" name="account3"
-													id='segment'>
-													<option></option>
-													<option>EQUITY</option>
-													<option>FUTURE</option>
-													<option>OPTION</option>
-
-												</select>
-											</div>
-										</div>
+										
 
 										<div class="form-group" id="data_3">
 											<label class="col-sm-3 font-normal"><b>Expiry
@@ -269,13 +241,13 @@
 												<input type="number" class="form-control" id="buy-sell">
 											</div>
 										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label">First Target</label>
-
-											<div class="col-sm-9">
-												<input type="number" class="form-control" id="first-target">
+											<div class="form-group">
+												<label class="col-sm-3 control-label">First Target</label>
+	
+												<div class="col-sm-9">
+													<input type="number" class="form-control" id="first-target">
+												</div>
 											</div>
-										</div>
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Second Target</label>
 
@@ -429,11 +401,10 @@
 				"stop_loss" : stopLoss,
 				"mobile" : mobile
 			}
-			console.log(jsonObj);
+			
 
 			var stringData = JSON.stringify(jsonObj);
 
-			console.log(stringData);
 			var formData = new FormData();
 			formData.append('data', stringData);
 			$.ajax({
@@ -451,7 +422,7 @@
 	        url: scripCodeUrl,
 	        success: function(data)
 	        {
-	        	console.log(data);
+	        	
 	     		$('#scrip').html(data);
 	        }
 		  });
@@ -487,7 +458,7 @@
 		
 		$(".select2_demo_2").select2();
 
-		$('.clockpicker').clockpicker();
+		
 
 	});
 </script>

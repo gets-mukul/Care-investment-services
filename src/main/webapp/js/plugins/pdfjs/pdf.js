@@ -9647,7 +9647,7 @@ var PDFWorker = (function PDFWorkerClosure() {
             workerSrc = createCDNWrapper(
               new URL(workerSrc, window.location).href);
           }
-          // Some versions of FF can't create a worker on localhost, see:
+          // Some versions of FF can't create a worker on , see:
           // https://bugzilla.mozilla.org/show_bug.cgi?id=683280
           var worker = new Worker(workerSrc);
           var messageHandler = new MessageHandler('main', 'worker', worker);
