@@ -3,8 +3,8 @@
 <%@page import="authentication.AppProperties"%>
 <html>
 <%
-String id = request.getSession().getAttribute("id").toString();
-String backendUrl = AppProperties.getProperty("backend_url");
+	String id = request.getSession().getAttribute("id").toString();
+	String backendUrl = AppProperties.getProperty("backend_url");
 %>
 
 <!-- Mirrored from webapplayers.com/inspinia_admin-v2.7.1/dashboard_3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Jan 2018 18:27:22 GMT -->
@@ -12,18 +12,22 @@ String backendUrl = AppProperties.getProperty("backend_url");
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CIS | Employee</title>
-
+<title>CIS | Dashboard</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+<script type="text/javascript" src="http:////ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+<link href="css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
+<link href="css/plugins/fullcalendar/fullcalendar.print.css"
+	rel='stylesheet' media='print'>
 
 <link href="css/animate.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 
 </head>
 
-<body class="fixed-navigation">
+<body class="fixed-navigation" ng-app="myApp">
 	<div id="wrapper">
 		<jsp:include page="menu.jsp"></jsp:include>
 
@@ -32,64 +36,128 @@ String backendUrl = AppProperties.getProperty("backend_url");
 
 			<div class=" wrapper-content">
 				<div class="row">
-					<div class="col-lg-12">
-						<div class="ibox float-e-margins">
-							
-							<div class="col-lg-12">
-                    <div class="tabs-container">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#tab-1">Incomplete</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-2">Trail</a></li>                            
-                            <li class=""><a data-toggle="tab" href="#tab-4">Others</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-3">Not Trade</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div id="tab-1" class="tab-pane active">
-                                <div class="panel-body">
-                                    <div class="table-responsive">
-									<table
-										class="table table-striped table-bordered table-hover dataTables-example"
-										id="employee_table">
-										<thead>
-											<tr>
-												<th>Contact</th>
-												<th>Assigned On</th>
-												
-												</tr>
-										</thead>
-										<tfoot>
-											<tr>
-												<th>Contact</th>
-												<th>Assigned On</th>												
-												</tr>
-										</tfoot>
-									</table>
+                            
+				<div class="col-lg-7">
+							<div class="tabs-container">
+								<ul class="nav nav-tabs">
+								<li class="active"><a data-toggle="tab" href="#tab-2">Trail</a></li>
+								<li class=""><a data-toggle="tab" href="#tab-1">Incomplete</a></li>									
+								<li class=""><a data-toggle="tab" href="#tab-4">Others</a></li>
+								</ul>
+								<div class="tab-content">
+									<div id="tab-1" class="tab-pane">
+										<div class="panel-body" ng-controller="incomplete_list">
+											<table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Contact No.</th>
+                                <th>Call</th>
+                                
+                            </tr>
+                            </thead>
+                            <tbody >
+                            <tr ng-repeat="x in contacts">
+                                <td>{{ x.count }}</td>
+                                <td>{{ x.contact_number }}</td>
+                                <td><a class="btn btn-primary btn-xs" type="button" href="caller.jsp?mobile={{ x.contact_number }}"><i class="fa fa-phone"></i>&nbsp;Call</a></td>                                
+                            </tr>
+                            </tbody>
+                        </table>
+
+										</div>
+									</div>
+									<div id="tab-2" class="tab-pane active">
+										<div class="panel-body"></div>
+									</div>
+									<div id="tab-3" class="tab-pane">
+										<div class="panel-body"></div>
+									</div>
 								</div>
-                                </div>
-                            </div>
-                            <div id="tab-2" class="tab-pane">
-                                <div class="panel-body">
-                                </div>
-                            </div>
-                            <div id="tab-3" class="tab-pane">
-                                 <div class="panel-body">
-                                </div>
-                            </div>
-                            <div id="tab-4" class="tab-pane">
-                                 <div class="panel-body">
-                                </div>
-                            </div>
-                        </div>
 
 
-                    </div>
-                </div>
-							
-							
-						</div>
-					</div>
+							</div>
+						</div> 
+                <div class="col-lg-5">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <h5>Tasks for Today and Tomorrow</h5>
+                                       
+                                    </div>
+                                    <div class="ibox-content">
+                                    <div class="row">
+					
+
+
+						
+						
+<div class="col-lg-12">
+                                                <table class="table table-hover margin bottom">
+                                                    <thead>
+                                                    <tr>
+                                                        <th style="width: 1%" class="text-center">No.</th>
+                                                        <th>Event</th>
+                                                        <th class="text-center">Time & Day</th>
+                                                        <th class="text-center">Start</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="text-center">1</td>
+                                                        <td> Security doors
+                                                            </td>
+                                                        <td class="text-center small">16 Jun 2014</td>
+                                                        <td class="text-center"><span class="label label-primary">$483.00</span></td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">2</td>
+                                                        <td> Wardrobes
+                                                        </td>
+                                                        <td class="text-center small">10 Jun 2014</td>
+                                                        <td class="text-center"><span class="label label-primary">$327.00</span></td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">3</td>
+                                                        <td> Set of tools
+                                                        </td>
+                                                        <td class="text-center small">12 Jun 2014</td>
+                                                        <td class="text-center"><span class="label label-warning">$125.00</span></td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">4</td>
+                                                        <td> Panoramic pictures</td>
+                                                        <td class="text-center small">22 Jun 2013</td>
+                                                        <td class="text-center"><span class="label label-primary">$344.00</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">5</td>
+                                                        <td>Phones</td>
+                                                        <td class="text-center small">24 Jun 2013</td>
+                                                        <td class="text-center"><span class="label label-primary">$235.00</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">6</td>
+                                                        <td>Monitors</td>
+                                                        <td class="text-center small">26 Jun 2013</td>
+                                                        <td class="text-center"><span class="label label-primary">$100.00</span></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+
+
+					
 
 				</div>
+				</div>
+				</div>
+				</div>
+				</div>
+				
 
 
 
@@ -111,6 +179,8 @@ String backendUrl = AppProperties.getProperty("backend_url");
 </body>
 <!-- Mainly scripts -->
 <script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/plugins/fullcalendar/moment.min.js"></script>
+
 <script src="js/bootstrap.min.js"></script>
 <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
@@ -135,38 +205,26 @@ String backendUrl = AppProperties.getProperty("backend_url");
 <!-- jQuery UI -->
 <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
 
-<!-- Jvectormap -->
-<script src="js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
-<script src="js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-
-<!-- Sparkline -->
-<script src="js/plugins/sparkline/jquery.sparkline.min.js"></script>
-
-<!-- Sparkline demo data  -->
-<script src="js/demo/sparkline-demo.js"></script>
-
-<!-- ChartJS-->
-<script src="js/plugins/chartJs/Chart.min.js"></script>
 <script src="js/plugins/dataTables/datatables.min.js"></script>
+<!-- Full Calendar -->
+
 <script>
+var id = <%=id%>;
+var url ='<%=backendUrl%>'+ 'rest/employee/incomplete/'+id;			
+var app = angular.module('myApp', []);
+app.controller('incomplete_list', function($scope, $http) {
+    $http.get(url)
+    .then(function (response) {
+   	 $scope.contacts = response.data.records;
+   	 });
+    
+    
 $(document).ready(function(){
-	var id = <%=id%>;
-	 $('#employee_table').DataTable({/* Creation of data table */
-	    	ajax: '<%=backendUrl%>'+"rest/employee/incomplete/"+id,
-	    	'columnDefs' : [ {/* column defination (special property of perticular column) */
-				'targets' : 0,/* 0th column */
-				'searchable' : true,
-				'orderable' : true,
-				'className' : 'dt-body-center',
-				'render' : function(data, type,full, meta) {
-					return '<a href="caller.jsp?mobile='+data+'" <button class="btn btn-primary caller_button" type="button" id="'+ data+ '"><i class="fa fa-phone"></i>&nbsp;'+data+'</button></a>';
-				}
-			} ]
-	    });
-	 	
-});
-	
-	
+			
+	 });
+	 
+	 
+					});
 </script>
 
 
