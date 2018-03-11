@@ -54,6 +54,13 @@
 										<input class="tagsinput form-control" type="text" id="mobile"
 											style="min-width: 94%;" />
 									</div>
+									
+									<div class="form-group ">
+										<label class="checkbox-inline"><input type="checkbox" name="custome_group" value="INCOMPLETE" class="status-group"> Incomplete</label>
+										<label class="checkbox-inline"><input type="checkbox" name="custome_group" value="TRIAL" class="status-group"> Trial </label>
+										<label class="checkbox-inline"><input type="checkbox" name="custome_group" value="NOT_TRADE" class="status-group"> Not Trade</label>
+										<label class="checkbox-inline"><input type="checkbox" name="custome_group" value="Others" class="status-group"> Others</label>
+									</div>
 
 									<div class="form-group">
 										<label>Message:</label>
@@ -122,7 +129,7 @@
 	$(document).ready(function() {
 		
 		$.ajax({
-			url : '<%=backendUrl%>'+'rest/sms/List_group/'+'<%=authApi%>',
+			url : '<%=backendUrl%>'+'rest/sms/list_group/'+'<%=authApi%>',
 			success : function(data,textStatus,jqXHR){
 				
 				var obj = data;
@@ -141,13 +148,12 @@
 						});
 						
 						$('#group_list').html(html);
-						
-						
-			
-		}
+	}
 				 
 			
 		});
+		
+		
 			
 		$('#my-form').submit(function(e){
 			
@@ -156,32 +162,39 @@
 			var mobile = $('#mobile').val();
 			var message = $('#message').val();
 			var groupArray = new Array();
+			var statusArray = new Array();
 			
 			$('.group-checkbox-list').filter(':checked').each(function( index ) {
 				  
 				groupArray.push($( this ).val());
-				});
 				
-			var groupId = groupArray.toString();
-			console.log(mobile);
-			console.log(message);
-			console.log(groupId);
+				});	
+
+			
+			$('.status-group').filter(':checked').each(function( index ) {
+				  
+				statusArray.push($( this ).val());
+				});
+			console.log(statusArray);
+			
+
+			
 			var jsonObj = {
 					"mobile_list" : mobile,
 					"message" : message,
-					"groupIds" : groupId
+					"group_ids" : groupArray,
+					"custome_group" : statusArray
 			}
 			var messageDetails = JSON.stringify(jsonObj);
 			var formData = new FormData();
 			formData.append('data', messageDetails);
 			
 				$.ajax({
-								url : '<%=backendUrl%>'+'rest/sms/send_sms',
-								type: "POST",
-								data : messageDetails,
-										});
-
-								
+								url : '<%=backendUrl%>'
+												+ 'rest/sms/send_sms',
+										type : "POST",
+										data : messageDetails,
+									});
 								});
 
 						$('.tagsinput').tagsinput({
@@ -190,7 +203,4 @@
 
 					});
 </script>
-
-
-
 </html>

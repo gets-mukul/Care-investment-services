@@ -202,9 +202,8 @@
 			
 			
 			$.ajax({
-				url : '<%=backendUrl%>'+'rest/sms/List_group/'+'<%=authApi%>',
+				url : '<%=backendUrl%>'+'rest/sms/list_group/'+'<%=authApi%>',				
 				success : function(data,textStatus,jqXHR){
-					
 					var obj = data;
 					var html = "";
 					$
@@ -255,7 +254,9 @@
 												var contactId = $(this).attr('id');
 												
 												$.ajax({
-													url : '<%=backendUrl%>'+'rest/sms/delete_contact/'+'<%=authApi%>'+'/'+contactId,
+													url : '<%=backendUrl%>'+'rest/sms/delete_contact',
+													type : "POST",
+													data : contactId,
 													success: function(data){
 														swal({
 															title: "Are you sure?",
@@ -280,18 +281,26 @@
 								
 								$('#modal-contact-button').click(function(){
 									
+									
 									var name = document.getElementById("name").value;
 									var mobile = document.getElementById("mobile").value;
-									
+									var jsonObj = {
+											"name" : name,
+											"mobile" : mobile,
+											"group_id" : groupId
+									}
+									var contactDetails = JSON.stringify(jsonObj);
+
 									$.ajax({
-										url : '<%=backendUrl%>'+'rest/sms/add_contact/'+'<%=authApi%>'+'/'+name+'/'+mobile+'/'+groupId,
-										
+										url : '<%=backendUrl%>'+'rest/sms/add_contact',
+										type: "POST",
+										data : contactDetails,
 										success: function(data){
-											swal({
+											 swal({
 								                title: "Success",
 								                text: "Contact added successfully",
 								                type: "success"
-								            });
+								            }); 
 										}
 										
 									});
@@ -303,10 +312,11 @@
 								});
 							$('.remove-group').click(function(){
 								var groupId = $(this).attr('id'); 
-								console.log(groupId);
 								
 								 $.ajax({
-									url : '<%=backendUrl%>'+'rest/sms/delete_group/'+'<%=authApi%>'+'/'+groupId,
+										url : '<%=backendUrl%>'+'rest/sms/delete_group/'+'<%=authApi%>'+'/'+groupId,
+									type : "GET",
+									data : groupId,
 									
 									success: function(data){
 										swal({
@@ -340,8 +350,9 @@
 				
 				var groupName = document.getElementById("newGroup").value;
 				 $.ajax({
-					url: '<%=backendUrl%>'+'rest/sms/create_group/'+'<%=authApi%>'+'/'+groupName,
-					type : 'get'
+					url: '<%=backendUrl%>'+'rest/sms/create_group',
+					type : 'POST',
+					data : groupName
 				})
 				 $('#modal-group-button').modal('toggle');
 					location.reload();

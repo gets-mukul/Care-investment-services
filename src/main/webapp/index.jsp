@@ -86,7 +86,7 @@ String backendUrl = AppProperties.getProperty("backend_url");
 $(document).ready(function() {
 	$("#idForm").submit(function(e) {
 	
-	    var url = '<%=backendUrl%>'+"rest/auth/login/"; // the script where you handle the form input.
+	    var url = '<%=backendUrl%>'+"rest/auth/login/"; 
 		var email = $('#email').val();
 	    var password = $('#password').val();
 	    url = url+email+'/'+password;

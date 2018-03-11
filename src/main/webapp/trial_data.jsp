@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <%@page import="authentication.AppProperties"%>
@@ -35,6 +36,7 @@ String backendUrl = AppProperties.getProperty("backend_url");
 							<tr>
 								<th></th>
 								<th>Id</th>
+								<th>Name</th>
 								<th>Contact</th>
 								<th>Trail Start Date</th>
 								<th>Trail End Date</th>
@@ -57,6 +59,8 @@ String backendUrl = AppProperties.getProperty("backend_url");
 							<tr>
 								<th></th>
 								<th>Id</th>
+								<th>Name</th>
+
 								<th>Contact</th>
 								<th>Trail Start Date</th>
 								<th>Trail End Date</th>
@@ -76,13 +80,6 @@ String backendUrl = AppProperties.getProperty("backend_url");
 						</tfoot>
 					</table>
 				</div>
-
-
-
-
-
-
-
 				<div class="footer">
 
 					<div>
@@ -145,7 +142,7 @@ $(document)
 						$('#data_table')
 						.DataTable(
 								{
-									"ajax" : '<%=backendUrl%>'+"rest/abc/contact",
+									"ajax" : '<%=backendUrl%>'+"rest/excel/upload",
 									'columnDefs' : [ {
 										'targets' : 0,
 										'searchable' : false,

@@ -169,22 +169,7 @@ String backendUrl = AppProperties.getProperty("backend_url");
 											</tr>
 										</thead>
 										<tbody>
-											<%
-                    for(int i =0;i<200;i++)
-                    {
-                    	%>
-											<tr>
-												<td>1</td>
-												<td>Internet Explorer 4.0</td>
-												<td>100</td>
-												<td>100</td>
-												<td>100</td>
-												<td>100</td>
-												<td>100</td>
-												<td>100</td>
-											</tr>
-											<%
-                    }%>
+											
 
 										</tbody>
 										<tfoot>
@@ -343,7 +328,7 @@ function drawContactSummaryReport()
 		{
 		$('.dataTables-example').DataTable({
 		    pageLength: 25,
-		    responsive: true,
+		    responsive: true,	
 		    ajax :'<%=backendUrl%>'+'rest/dashboard/admin/contact_summary_report/'+startDate+'/'+endDate+'/'+employeIds
 		});
 		}

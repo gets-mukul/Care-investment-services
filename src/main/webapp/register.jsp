@@ -29,7 +29,8 @@ String backendUrl = AppProperties.getProperty("backend_url");
 		<div>
 			<div>
 
-				<h1 class="logo-name">IN+</h1>
+				<img alt="image" class="img-circle"
+						src="img/cis_logo.jpg" />
 
 			</div>
 			<h3>Register to Care investment cervices</h3>

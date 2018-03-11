@@ -44,4 +44,5 @@
   	<servlet-name>Registration</servlet-name>
   	<url-pattern>/Registration</url-pattern>
   </servlet-mapping>
+  
 </web-app>

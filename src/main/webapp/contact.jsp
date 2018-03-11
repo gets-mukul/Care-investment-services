@@ -4,7 +4,7 @@
 <html>
 <%
 	String userId = request.getSession().getAttribute("id").toString();
-String backendUrl = AppProperties.getProperty("backend_url");
+	String backendUrl = AppProperties.getProperty("backend_url");
 %>
 
 <!-- Mirrored from webapplayers.com/inspinia_admin-v2.7.1/dashboard_3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Jan 2018 18:27:22 GMT -->
@@ -17,6 +17,7 @@ String backendUrl = AppProperties.getProperty("backend_url");
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+<link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 
 <link href="css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
 <link href="css/animate.css" rel="stylesheet">
@@ -33,38 +34,7 @@ String backendUrl = AppProperties.getProperty("backend_url");
 			<input type="hidden" value="<%=userId%>" name="user_id" id="user_id">
 			<div class="wrapper wrapper-content animated fadeIn"
 				style="padding-right: 0px !important;">
-				<div class="row">
-					<div class="col-lg-5">
-						<div class="ibox float-e-margins">
-							<div class="ibox-title">
-								<h5>Upload Contact Numbers</h5>
-							</div>
-							<div class="ibox-content">
-								<div class="fileinput fileinput-new input-group"
-									data-provides="fileinput">
-									<div class="form-control" data-trigger="fileinput">
-										<i class="glyphicon glyphicon-file fileinput-exists"></i> <span
-											class="fileinput-filename"></span>
-									</div>
-									<span class="input-group-addon btn btn-default btn-file">
-										<span class="fileinput-new">Select file</span> <span
-										class="fileinput-exists">Change</span> <input type="file"
-										name="..." class="ephoto-upload">
-									</span> <a href="#"
-										class="input-group-addon btn btn-default fileinput-exists"
-										data-dismiss="fileinput">Remove</a>
-								</div>
-								<a href="contact.xlsx" class="btn btn-primary btn-xs">Download</a>
-								sample excel sheet of contact numbers
-
-							</div>
-						</div>
-					</div>
-
-
-
-
-				</div>
+				
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="tabs-container">
@@ -254,13 +224,18 @@ String backendUrl = AppProperties.getProperty("backend_url");
 
 <!-- Jasny -->
 <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
 <!-- Sparkline demo data  -->
 <script src="js/demo/sparkline-demo.js"></script>
+
 <!-- ChartJS-->
 <script src="js/plugins/chartJs/Chart.min.js"></script>
 <script src="js/plugins/dataTables/datatables.min.js"></script>
+<script src="js/plugins/sweetalert/sweetalert.min.js"></script>
+
+
 <script>
-	$(document)
+$(document)
 			.ready(
 					function() {
 						$("#assign_employee")
@@ -452,44 +427,30 @@ String backendUrl = AppProperties.getProperty("backend_url");
 															});
 										});
 						;
-						$('.ephoto-upload')
-								.change(
-										function() {
-											previewURL(this);
-											if ($(this).val() != '') {
-												var formData = new FormData();
-												formData.append('file',
-														$(this)[0].files[0]);
-												$
-														.ajax({
-															url : '<%=backendUrl%>'+'rest/excel/upload/'
-																	+ userId,
-															type : 'POST',
-															data : formData,
-															success : function(
-																	r) {
-																if (r.success) {
-																}
-															},
-															cache : false,
-															contentType : false,
-															processData : false
-														});
+						$('#submit')
+								.click(function(e) {		
+									
+									var fileInput = document.getElementById('fileUpload');
+									var file = fileInput.files[0];
+									var formData = new FormData();
+									formData.append('file', file);
+									$.ajax({
+										url : '<%=backendUrl%>'+'rest/excel/upload/'+'<%=userId%>',
+										type : 'POST',
+										data : formData,
+										success : function(
+												r) {
+											if (r.success) {
 											}
-										});
-						function previewURL(input) {
-							if (input.files && input.files[0]) {
-								var reader = new FileReader();
-								reader.onload = function(e) {
-									//$('#prevImg').attr('src', e.target.result);
-									$('#preview').css(
-											"background",
-											"url(" + e.target.result + ")"
-													+ " right top no-repeat");
-								}
-								reader.readAsDataURL(input.files[0]);
-							}
-						}
+										},
+										cache : false,
+										contentType : false,
+										processData : false
+										
+									});
+									location.reload();
+								});
+						
 						
 						$('#modal-button').click(function(){
 							
@@ -512,16 +473,20 @@ String backendUrl = AppProperties.getProperty("backend_url");
 		
 						
 						$.ajax({
-							url: '<%=backendUrl%>'+'rest/task/assign/'+emplId+'/'+userId+'/'+contact,
-							type : 'get'
-						});  
-						$('#modal-form').modal('toggle');
-						location.reload();
-							}
-							
-							
-							});
+							url: '<%=backendUrl%>'+ 'rest/task/assign/'
+													+ emplId + '/' + userId
+													+ '/' + contact,
+											type : 'get'
+										});
+										$('#modal-form').modal('toggle');
+										location.reload();
+									}
+
+								});
+						
+						  
 					});
+
 </script>
 
 </html>

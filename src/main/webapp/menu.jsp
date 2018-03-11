@@ -39,7 +39,7 @@
 			<li><a href="trial_data.jsp"><i class="fa fa-database"></i>
 					<span class="nav-label">Data Management</span></a></li>
 			<li><a href="messanger.jsp"><i class="fa fa-envelope"></i> <span
-					class="nav-label">Messanger</span></a></li>
+					class="nav-label">Messenger</span></a></li>
 			<li><a href="client_user.jsp"><i class="fa fa-user"></i> <span
 					class="nav-label">Client Registration</span></a></li>
 			<li><a href="layouts.html"><i class="fa fa-handshake-o"></i>
