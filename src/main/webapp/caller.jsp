@@ -328,7 +328,9 @@ $('#submit_task').unbind().on('submit',function(e){
 		    data: JSON.stringify(taskDetailsJSON),
 		   // beforeSend: function() { $.mobile.showPageLoadingMsg("b", "Loading...", true) },
 		   // complete: function() { $.mobile.hidePageLoadingMsg() },
-		    success: function(data) { alert("ajax worked"); },
+		    success: function(data) { 
+		    	location.href= 'employee.jsp';
+		    },
 		    error: function(data) {alert("ajax error"); },
 		    dataType: 'json'
 		});

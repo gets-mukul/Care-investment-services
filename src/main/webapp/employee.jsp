@@ -35,52 +35,98 @@
 
 			<div class=" wrapper-content">
 				<div class="row">
-                            
-				<div class="col-lg-7">
-							<div class="tabs-container">
-								<ul class="nav nav-tabs">
-								<li class="active"><a data-toggle="tab" href="#tab-2">Trail</a></li>
-								<li class=""><a data-toggle="tab" href="#tab-1">Contacts</a></li>									
-								<li class=""><a data-toggle="tab" href="#tab-4">Others</a></li>
-								</ul>
-								<div class="tab-content">
-									<div id="tab-1" class="tab-pane">
-										<div class="panel-body" ng-controller="incomplete_list">
-											<table class="table">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                
-                                <th>Call Contact</th>
-                                
-                            </tr>
-                            </thead>
-                            <tbody >
-                            <tr ng-repeat="x in contacts">
-                                <td>{{ x.count }}</td>
-                                
-                                <td><button class="btn btn-primary btn-xs" type="button" ng-click="on_click_call(x.contact_number,x.task_id)"><i class="fa fa-phone"></i>&nbsp;Call Contact</button></td>                                
-                            </tr>
-                            </tbody>
-                        </table>
 
-										</div>
+					<div class="col-lg-7">
+						<div class="tabs-container">
+							<ul class="nav nav-tabs">
+								<li class="active"><a data-toggle="tab" href="#tab-1">Trail</a></li>
+								<li class=""><a data-toggle="tab" href="#tab-2">Contacts</a></li>
+								<li class=""><a data-toggle="tab" href="#tab-4">Others</a></li>
+							</ul>
+							<div class="tab-content">
+								<div id="tab-1" class="tab-pane active">
+									<div class="panel-body" ng-controller="trial_list">
+									<div class="row">
+									<div class="col-xs-4">
+									<label for="search">Search:</label>
+          						    <input ng-model="search_model" id="search" class="form-control" placeholder="Filter text">            
 									</div>
-									<div id="tab-2" class="tab-pane active">
-										<div class="panel-body"></div>
 									</div>
-									<div id="tab-3" class="tab-pane">
-										<div class="panel-body"></div>
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Start Date </th>
+													<th>Start Time </th>													
+													<th>End Date </th>
+													<th>Segment </th>
+													<th>Start Trial</th>
+													<th>Edit</th>
+													<th>Delete</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="x in trials |filter:search_model" class="alert alert-{{ x.color }}">
+													
+													<td>{{ x.start_date }}</td>
+													<td>{{ x.start_time }}</td>
+													<td>{{ x.end_date }}</td>
+													<td>{{ x.segment }}</td>
+													<td><button class="btn btn-primary btn-xs"
+															type="button" ng-click="on_click_trial(x.id)">
+															<i class="fa fa-phone"></i>&nbsp;Start Trial
+														</button></td>
+														<td><button class="btn btn-warning btn-xs"
+															type="button" ng-click="on_edit_trial(x.id)">
+															<i class="fa fa-edit"></i>&nbsp;Edit
+														</button></td>
+														<td><button class="btn btn-warning btn-xs"
+															type="button" ng-click="on_delete_trial(x.id)">
+															<i class="fa fa-times"></i>&nbsp;Delete
+														</button></td>
+												</tr>
+											</tbody>
+										</table>
+
 									</div>
 								</div>
+								<div id="tab-2" class="tab-pane">
+									<div class="panel-body" ng-controller="incomplete_list">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>#</th>
 
+													<th>Call Contact</th>
 
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="x in contacts">
+													<td>{{ x.task_id }}</td>
+
+													<td><button class="btn btn-primary btn-xs"
+															type="button"
+															ng-click="on_click_call(x.contact_number,x.task_id)">
+															<i class="fa fa-phone"></i>&nbsp;Call Contact
+														</button></td>
+												</tr>
+											</tbody>
+										</table>
+
+									</div>
+								</div>
+								<div id="tab-3" class="tab-pane">
+									<div class="panel-body"></div>
+								</div>
 							</div>
-						</div> 
-                <div class="col-lg-5">
+
+
+						</div>
+					</div>
+					<div class="col-lg-5">
                                 <div class="ibox float-e-margins">
                                     <div class="ibox-title">
-                                        <h5>Tasks for Today and Tomorrow</h5>
+                                        <h5>Up Coming Events</h5>
                                        
                                     </div>
                                     <div class="ibox-content">
@@ -96,7 +142,8 @@
                                                     <tr>
                                                         <th style="width: 1%" class="text-center">No.</th>
                                                         <th>Event</th>
-                                                        <th class="text-center">Time & Day</th>
+                                                        <th class="text-center">Day</th>
+                                                         <th class="text-center">Time</th>
                                                         <th class="text-center">Start</th>
                                                     </tr>
                                                     </thead>
@@ -226,13 +273,23 @@ app.controller('incomplete_list', function($scope, $http) {
     			  '</form>');
     			$('body').append(form);
     			form.submit();
-    };
+    };	 
+					});
+var trialUrl ='<%=backendUrl%>'+ 'rest/trial/all/'+id;		
+app.controller('trial_list', function($scope, $http) {
+    $http.get(trialUrl)
+    .then(function (response) {
+   	 	$scope.trials = response.data.records;
+   	 });
     
-$(document).ready(function(){
-			
-	 });
-	 
-	 
+    $scope.on_click_trial= function(trial_id){
+    	var form = $('<form action="trial.jsp" method="post">' +
+    			  '<input type="text" name="trial_id" value="' + trial_id + '" />' +
+    			  '</form>');
+    			$('body').append(form);
+    			form.submit();
+    };	 
+
 					});
 </script>
 
