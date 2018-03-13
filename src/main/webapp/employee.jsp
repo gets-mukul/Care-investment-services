@@ -40,7 +40,7 @@
 							<div class="tabs-container">
 								<ul class="nav nav-tabs">
 								<li class="active"><a data-toggle="tab" href="#tab-2">Trail</a></li>
-								<li class=""><a data-toggle="tab" href="#tab-1">Incomplete</a></li>									
+								<li class=""><a data-toggle="tab" href="#tab-1">Contacts</a></li>									
 								<li class=""><a data-toggle="tab" href="#tab-4">Others</a></li>
 								</ul>
 								<div class="tab-content">
@@ -50,16 +50,16 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Contact No.</th>
-                                <th>Call</th>
+                                
+                                <th>Call Contact</th>
                                 
                             </tr>
                             </thead>
                             <tbody >
                             <tr ng-repeat="x in contacts">
                                 <td>{{ x.count }}</td>
-                                <td>{{ x.contact_number }}</td>
-                                <td><a class="btn btn-primary btn-xs" type="button" href="caller.jsp?mobile={{ x.contact_number }}"><i class="fa fa-phone"></i>&nbsp;Call</a></td>                                
+                                
+                                <td><button class="btn btn-primary btn-xs" type="button" ng-click="on_click_call(x.contact_number,x.task_id)"><i class="fa fa-phone"></i>&nbsp;Call Contact</button></td>                                
                             </tr>
                             </tbody>
                         </table>
@@ -219,6 +219,14 @@ app.controller('incomplete_list', function($scope, $http) {
    	 $scope.contacts = response.data.records;
    	 });
     
+    $scope.on_click_call= function(mobile, task_id){
+    	var form = $('<form action="caller.jsp" method="post">' +
+    			  '<input type="text" name="mobile" value="' + mobile + '" />' +
+    			  '<input type="text" name="task_id" value="' + task_id + '" />' +
+    			  '</form>');
+    			$('body').append(form);
+    			form.submit();
+    };
     
 $(document).ready(function(){
 			

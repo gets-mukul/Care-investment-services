@@ -5,6 +5,7 @@
 <%
 	String id = request.getSession().getAttribute("id").toString();
 	String mob = request.getParameter("mobile");
+	String taskId = request.getParameter("task_id");
 	String backendUrl = AppProperties.getProperty("backend_url");
 %>
 
@@ -60,6 +61,8 @@
 
 <link href="css/plugins/dualListbox/bootstrap-duallistbox.min.css"
 	rel="stylesheet">
+ <!-- Sweet Alert -->
+    <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 
 <link href="css/animate.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
@@ -67,7 +70,7 @@
 
 </head>
 
-<body class="fixed-navigation">
+<body class="fixed-navigation" ng-app="myApp">
 	<div id="wrapper">
 		<jsp:include page="menu.jsp"></jsp:include>
 
@@ -87,9 +90,14 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-6 b-r">
-                                <form role="form">
+                                <form role="form" id="submit_task">
+                                <input type="hidden" name="mobile" value="<%=mob%>">
+                                <input type="hidden" name="task_id" value="<%=taskId%>" id="task_id">
+                                <div class="form-group"><label>Contact No.</label> 
+                                <input type="text" disabled="" value="<%=mob%>" class="form-control">
+                                </div>
                                     <div class="form-group"><label>Status</label> 
-                                    <select class="form-control" id="status">
+                                    <select class="form-control" id="status" required>
                                     <option value="NOT_TRADE">NOT_TRADE</option>
 									<option value="TRIAL">TRIAL</option>									
 									<option value="BUSY">BUSY</option>
@@ -122,25 +130,33 @@
                             		</div>
                                    	</div>
                                      
-                                    <div class="form-group" id="segment"><label>Segment</label> 
+                                    <div class="form-group" id="segment" ng-controller="segments_control"><label>Segment</label> 
                                     <select class="form-control" multiple>
-                                    <option value="EQUITY">Equity</option>
-                                    <option value="DERIVATIVE">Derivative</option>
-                                    <option value="COMMODITY">Commodity</option>
-                                    </select></div>
+                                    <option value="{{y.id}}" ng-repeat="y in segments">{{y.name}}</option>
+                                    </select></div>                                    
                                     
-                                    <div class="form-group" id="derivative"><label>Derivative</label> 
-                                    <select class="form-control" >
-                                    <option>Future</option>
-                                    <option>Option</option>
-                                    </select></div>
-                                    <div class="form-group" id="commodity" ng-app="myApp" ng-controller="myCtrl"><label>Commodity</label> 
+                                    <!-- <div class="form-group" id="equity" ng-controller="equity_control"><label>Equity Scrip</label> 
+                                    <select class="form-control">
+                                   	<optgroup label="{{x.name}}" ng-repeat="x in equity_child">
+                                   	<option value="{{y.id}}" ng-repeat="y in x.children">{{y.name}}</option>
+                                   	</optgroup>
+                                    </select>
+                                    </div>
+                                    <div class="form-group" id="derivative"  ng-controller="derivative_control"><label>Derivative Scrip</label> 
+                                    <select class="form-control">
+                                   	<optgroup label="{{x.name}}" ng-repeat="x in derivative_child">
+                                   	<option value="{{y.id}}" ng-repeat="y in x.children">{{y.name}}</option>
+                                   	</optgroup>
+                                    </select>
+                                    </div>
+                                    <div class="form-group" id="commodity"  ng-controller="commodity_control"><label>Commodity Scrip</label> 
                                     <select class="form-control">
                                    	<optgroup label="{{x.name}}" ng-repeat="x in commodity_child">
                                    	<option value="{{y.id}}" ng-repeat="y in x.children">{{y.name}}</option>
                                    	</optgroup>
                                     </select>
-                                    </div>
+                                    </div> -->
+                                    
                                    	                                    
                                     <div>
                                         <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Submit</strong></button>
@@ -236,27 +252,115 @@
 
 <!-- Dual Listbox -->
 <script src="js/plugins/dualListbox/jquery.bootstrap-duallistbox.js"></script>
+<script src="js/plugins/sweetalert/sweetalert.min.js"></script>
+
 <script>
 
-var url ='<%=backendUrl%>'+ 'rest/segment/commodity';			
+var url ='<%=backendUrl%>'+ 'rest/segment/parent/-1';			
 var app = angular.module('myApp', []);
-app.controller('myCtrl', function($scope, $http) {
+app.controller('segments_control', function($scope, $http) {
     $http.get(url)
     .then(function (response) {
-   	 $scope.commodity_child = response.data.records;
+   		 $scope.segments = response.data.records;
+   	 });
+    });  
+$('#submit_task').unbind().on('submit',function(e){
+	e.preventDefault();
+	var taskId = $('#task_id').val();
+	var status = $('#status').val();
+	var startDate = $('#start_date input').val();
+	var endDate = $('#end_date input').val();
+	var startTime = $('#start_time input').val();
+	var segmentValue = $('#segment select').val();
+	var isValid=false;
+	if(status==='TRIAL')
+	{		 
+		if(startDate == null || startDate=='')
+		{
+			isValid=false;
+			 swal({
+	                title: "Cannot Submit Details",
+	                text: "Start Date cannot be left blank in case of TRIAL."
+	            });
+		} 
+		else if(endDate == null || endDate=='')
+		{
+			isValid=false;
+			 swal({
+	                title: "Cannot Submit Details",
+	                text: "End Date cannot be left blank in case of TRIAL."
+	            });
+		}
+		else if(startTime == null || startTime=='')
+		{
+			isValid=false;
+			 swal({
+	                title: "Cannot Submit Details",
+	                text: "Start time cannot be left blank in case of TRIAL."
+	            });
+		}
+		else if(segmentValue.length==0)
+		{
+			isValid=false;
+			 swal({
+	                title: "Cannot Submit Details",
+	                text: "Segments cannot be left blank in case of TRIAL."
+	            });
+		}
+		else
+		{
+			isValid=true;
+		}	
+		
+	}
+	else
+	{
+		isValid=true;
+	}	
+	if(isValid)
+	{
+		var urlAjax = '<%=backendUrl%>'+'rest/employee/submit_employee_task'
+		var taskDetailsJSON = {"status":status, "task_id":taskId,"start_date":startDate, "end_date":endDate, "start_time":startTime,"segment_ids":segmentValue};			
+		$.ajax({
+		    type: "POST",
+		    url: urlAjax,
+		    contentType: 'application/json; charset=utf-8',
+		    data: JSON.stringify(taskDetailsJSON),
+		   // beforeSend: function() { $.mobile.showPageLoadingMsg("b", "Loading...", true) },
+		   // complete: function() { $.mobile.hidePageLoadingMsg() },
+		    success: function(data) { alert("ajax worked"); },
+		    error: function(data) {alert("ajax error"); },
+		    dataType: 'json'
+		});
+	}	
+	
+});
+
+<%-- var url_derivative ='<%=backendUrl%>'+ 'rest/segment/derivative';
+app.controller('derivative_control', function($scope, $http) {
+    $http.get(url_derivative)
+    .then(function (response) {
+   		 $scope.derivative_child = response.data.records;
    	 });
     });
+var url_commodity ='<%=backendUrl%>'+ 'rest/segment/commodity';
+app.controller('commodity_control', function($scope, $http) {
+    $http.get(url_commodity)
+    .then(function (response) {
+   		 $scope.commodity_child = response.data.records;
+   	 });
+    }); --%>
     
     
 	$(document).ready(function() {
-		$('#data_1 .input-group.date').datepicker({
+		$('#start_date .input-group.date').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,
             forceParse: false,
             calendarWeeks: true,
             autoclose: true
         });
-		$('#data_2 .input-group.date').datepicker({
+		$('#end_date .input-group.date').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,
             forceParse: false,
@@ -264,8 +368,35 @@ app.controller('myCtrl', function($scope, $http) {
             autoclose: true
         });
 		$('.clockpicker').clockpicker();
-
-		$('#segment').hide();	
+		$('#segment select').select2();
+		
+		$('#segment').hide();
+		$('#start_date').hide();	
+		$('#start_time').hide();	
+		$('#end_date').hide();	
+		$('#status').unbind().on('change', function(){
+			if($(this).val()=='TRIAL')
+			{				
+				$('#segment').show();
+				$('#start_date').show();	
+				$('#start_time').show();	
+				$('#end_date').show();	
+			}
+			else
+			{
+				$('#segment').hide();	
+				$('#start_date').hide();	
+				$('#start_time').hide();	
+				$('#end_date').hide();	
+			}	
+		});
+		/* $('#equity select').select2();	
+		$('#derivative select').select2();	
+		$('#commodity select').select2();	 */
+		
+		
+		/* $('#segment').hide();	
+		$('#equity').hide();	
 		$('#derivative').hide();	
 		$('#commodity').hide();	
 		$('#start_date').hide();	
@@ -283,17 +414,22 @@ app.controller('myCtrl', function($scope, $http) {
 			{
 				$('#segment').hide();	
 				$('#derivative').hide();	
-				$('#commodity').hide();	
+				$('#commodity').hide();
+				$('#equity').hide();
+				$('#start_date').hide();	
+				$('#start_time').hide();	
+				$('#end_date').hide();	
 			}	
 		});
 		$('#segment select').unbind().on('change', function(){
 			$('#derivative').hide();
-			$('#commodity').hide();	
+			$('#commodity').hide();
+			$('#equity').hide();
 			$.each( $(this).val(), function( index, value ) 
 			{
 				if(value==='EQUITY')
 				{
-						
+					$('#equity').show();	
 				}
 				if(value==='DERIVATIVE')
 				{
@@ -305,7 +441,7 @@ app.controller('myCtrl', function($scope, $http) {
 					$('#commodity').show();	
 				}
 			});				
-		});		
+		});	 */	
 	});
 </script>
 
