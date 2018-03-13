@@ -315,8 +315,8 @@
 								var groupId = $(this).attr('id'); 
 								
 								 $.ajax({
-										url : '<%=backendUrl%>'+'rest/sms/delete_group/'+'<%=authApi%>'+'/'+groupId,
-									type : "GET",
+										url : '<%=backendUrl%>'+'rest/sms/delete_group',
+									type : "POST",
 									data : groupId,
 									
 									success: function(data){
