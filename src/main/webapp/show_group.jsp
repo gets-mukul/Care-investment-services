@@ -3,9 +3,9 @@
 <%@page import="authentication.AppProperties"%>
 <html>
 <%
-		String authApi = AppProperties.getProperty("auth_api");
-		String backendUrl = AppProperties.getProperty("backend_url");
-		%>
+	String authApi = AppProperties.getProperty("auth_api");
+	String backendUrl = AppProperties.getProperty("backend_url");
+%>
 
 <!-- Mirrored from webapplayers.com/inspinia_admin-v2.7.1/dashboard_3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Jan 2018 18:27:22 GMT -->
 <head>
@@ -22,7 +22,7 @@
 <link href="css/plugins/select2/select2.min.css" rel="stylesheet">
 <link href="css/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css"
 	rel="stylesheet">
-	<link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+<link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 
 <link href="css/animate.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
@@ -110,9 +110,10 @@
 
 																<label>Name:</label> <input type="text"
 																	class="form-control" placeholder="Enter Full Name"
-																	style="margin-bottom: 20px;" name="name" id="name"> <label>Mobile:</label>
-																<input type="text" placeholder="Enter Mobile Number"
-																	class="form-control" style="margin-bottom: 20px;" name="mobile" id="mobile">
+																	style="margin-bottom: 20px;" name="name" id="name">
+																<label>Mobile:</label> <input type="text"
+																	placeholder="Enter Mobile Number" class="form-control"
+																	style="margin-bottom: 20px;" name="mobile" id="mobile">
 																<button type="button" style="float: right"
 																	class="btn btn-w-m btn-primary"
 																	id="modal-contact-button">Done</button>
@@ -155,7 +156,7 @@
 								</div>
 
 								<div class="form-group"></div>
-								
+
 							</form>
 						</div>
 					</div>
@@ -350,23 +351,20 @@
 				
 				var groupName = document.getElementById("newGroup").value;
 				 $.ajax({
-					url: '<%=backendUrl%>'+'rest/sms/create_group',
-					type : 'POST',
-					data : groupName
-				})
-				 $('#modal-group-button').modal('toggle');
-					location.reload();
-			});
-		
-			$('.tagsinput').tagsinput({
-				tagClass : 'label label-primary'
-			});	
-			
-			
-		
-	});
-	
-	</script>
+					url: '<%=backendUrl%>'+ 'rest/sms/create_group',
+										type : 'POST',
+										data : groupName
+									})
+									$('#modal-group-button').modal('toggle');
+									location.reload();
+								});
+
+						$('.tagsinput').tagsinput({
+							tagClass : 'label label-primary'
+						});
+
+					});
+</script>
 
 
 

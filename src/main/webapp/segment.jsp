@@ -6,8 +6,7 @@
 	String authApi = AppProperties.getProperty("auth_api");
 	String backendUrl = AppProperties.getProperty("backend_url");
 	int parentId = -1;
-	if(request.getParameter("parent_id")!=null)
-	{
+	if (request.getParameter("parent_id") != null) {
 		parentId = Integer.parseInt(request.getParameter("parent_id"));
 	}
 %>
@@ -42,32 +41,42 @@
 			<jsp:include page="header.jsp"></jsp:include>
 			<div class="wrapper wrapper-content ">
 
-				<div class="row">
+				<div class="row col-sm-6">
 
 					<div class="ibox-content">
 						<div id="group_list" ng-controller="segment_list">
-						<ul class="unstyled" ng-repeat="x in segment">
-						<li><a href="segment.jsp?parent_id={{x.id}}"><span class="label label-primary segment-name" id="{{x.id}}">{{x.name}}</span><span class="pull-right"></span></a></li>
-						</ul>
-						<i class="fa fa-plus tooltip-dem" data-toggle="modal" data-target="#myModal6" style="margin-left: 40px;"></i>&nbsp;&nbsp;<label>Add New Segment</label>
-						<div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog"  aria-hidden="true">
-                                <div class="modal-dialog modal-sm">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                            <h4 class="modal-title">New Segment</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                         <input type="text" placeholder="" class="form-control" id="segment_name">  
-                                        </div>
-                                        <div class="modal-footer">
-                                            
-                                            <button type="submit" class="btn btn-primary" id="new_segment_button">Add Segment</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-						
+							<ul class="unstyled" ng-repeat="x in segment">
+								<li><a href="segment.jsp?parent_id={{x.id}}"><span
+										class="label label-primary segment-name" id="2">{{x.name}}</span><span
+										class="pull-right"></span></a><span class="pull-right"><i
+										class="fa fa-times remove-segment" ng-click="on_click_some_thing(x.id)" id="{{x.id}}"></i></span></li>
+							</ul>
+							<i class="fa fa-plus tooltip-dem" data-toggle="modal"
+								data-target="#myModal6" style="margin-left: 40px;"></i>&nbsp;&nbsp;<label>Add
+								New Segment</label>
+							<div class="modal inmodal fade" id="myModal6" tabindex="-1"
+								role="dialog" aria-hidden="true">
+								<div class="modal-dialog modal-sm">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">
+												<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+											</button>
+											<h4 class="modal-title">New Segment</h4>
+										</div>
+										<div class="modal-body">
+											<input type="text" placeholder="" class="form-control"
+												id="segment_name">
+										</div>
+										<div class="modal-footer">
+
+											<button type="submit" class="btn btn-primary"
+												id="new_segment_button">Add Segment</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
 						</div>
 					</div>
 				</div>
@@ -107,8 +116,10 @@
 <!-- Tags Input -->
 <script src="js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
-<script type="text/javascript" src="http:////ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+<script type="text/javascript"
+	src="http:////ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
 
 <script>
 
@@ -120,31 +131,46 @@ app.controller('segment_list', function($scope, $http) {
     .then(function (response) {
    	 $scope.segment = response.data.records;
    	 });
+    
+    $scope.on_click_some_thing = function(id){
+    	$.ajax({
+    		url : '<%=backendUrl%>'+'rest/segment/remove_segment/' + id,
+    		success: function(){
+				swal({
+					title: "Are you sure?",
+			        text: "You want to delete this segment!",
+			        type: "warning",
+			        showCancelButton: true,
+			        confirmButtonColor: "#DD6B55",
+			        confirmButtonText: "Yes, delete it!",
+			        closeOnConfirm: false
+	            }, function () {
+	                swal("Deleted!", "Your segment has been deleted.", "success");
+	            });
+				
+			}
+    		});
+      };
 });
+
+
 $('#new_segment_button').click(function(){
 	var segmentName = document.getElementById("segment_name").value;
+	
 	$.ajax({
-		
-		url : '<%=backendUrl%>'+'rest/segment/add_segment/'+'<%=parentId%>'+'/'+segmentName,
-		type: "GET",
-		success: function(){
-			 swal({
-                title: "Success",
-                text: "Segment added successfully",
-                type: "success"
-            }); 
-		}
-		
-	});
+		url : '<%=backendUrl%>'+'rest/segment/add_segment/'+'<%=parentId%>' + '/' + segmentName,
+		});
 	$('#new_segment_button').modal('toggle');
 	location.reload()
 	
-	});
 	
 
+					});
 
-
-	</script>
+					
+					
+					
+</script>
 
 
 
