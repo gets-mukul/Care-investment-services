@@ -13,8 +13,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>CIS | Dashboard</title>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
-<script type="text/javascript" src="http:////ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
+
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
@@ -91,7 +90,7 @@
 
 						
 						
-<div class="col-lg-12">
+	<div class="col-lg-12">
                                                 <table class="table table-hover margin bottom">
                                                     <thead>
                                                     <tr>
@@ -206,7 +205,9 @@
 <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
 
 <script src="js/plugins/dataTables/datatables.min.js"></script>
-<!-- Full Calendar -->
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+<script type="text/javascript" src="http:////ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
 
 <script>
 var id = <%=id%>;

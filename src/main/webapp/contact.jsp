@@ -25,7 +25,7 @@
 
 </head>
 
-<body class="fixed-navigation">
+<body class="fixed-navigation" ng-app="myApp">
 	<div id="wrapper">
 		<jsp:include page="menu.jsp"></jsp:include>
 
@@ -34,158 +34,137 @@
 			<input type="hidden" value="<%=userId%>" name="user_id" id="user_id">
 			<div class="wrapper wrapper-content animated fadeIn"
 				style="padding-right: 0px !important;">
-				
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="tabs-container">
-							<ul class="nav nav-tabs">
-								<li class="active"><a data-toggle="tab" href="#tab-1">
-										Unassigned Contacts</a></li>
-								<li class=""><a data-toggle="tab" href="#tab-2">Assigned
-										Contacts</a></li>
-							</ul>
-							<div class="tab-content">
-								<div id="tab-1" class="tab-pane active">
-									<div class="panel-body">
-										<form id="frm-example" action="/path/to/your/script"
-											method="POST">
 
-											<a style="display: none; margin-bottom: 12px;"
-												data-toggle="modal" class="btn btn-primary"
-												href="#modal-form" id="assign_employee">Click here to
-												assign contacts to employees</a>
-											<div id="modal-form" class="modal fade" aria-hidden="true">
-												<div class="modal-dialog">
-													<div class="modal-content">
-														<div class="modal-body">
-															<div class="row">
-																<div class="col-lg-12">
-																	<div class="ibox float-e-margins">
-																		<div class="ibox-title">
-																			<h5>Assign Contacts</h5>
-
-																		</div>
-																		<div class="ibox-content">
-																			<table class="table table-bordered"
-																				id="personDataTable">
-																				<thead>
-																					<tr>
-																						<th>Select</th>
-																						<th>Name</th>
-																						<th>Task Pending</th>
-																						<th>Total Task</th>
-																					</tr>
-																				</thead>
-
-																				<tbody id="table_body">
-																				</tbody>
-																			</table>
-																			<button type="button" style="float: right"
-																				class="btn btn-w-m btn-primary" id="modal-button">Select</button>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-
-
-										</form>
-										<div class="table-responsive">
-											<table
-												class="table table-striped table-bordered table-hover dataTables-example"
-												id="data_table">
-												<thead>
-													<tr>
-														<th></th>
-														<th>Mobile</th>
-														<th>Upload Date</th>
-														<th>Uploaded By</th>
-														<th>Contact Name</th>
-														<th>Location</th>
-														<th>Assigned To</th>
-
-													</tr>
-												</thead>
-
-												<tfoot>
-													<tr>
-														<th></th>
-														<th>Mobile</th>
-														<th>Upload Date</th>
-														<th>Uploaded By</th>
-														<th>Contact Name</th>
-														<th>Location</th>
-														<th>Assigned To</th>
-
-													</tr>
-												</tfoot>
-											</table>
-										</div>
-									</div>
-								</div>
-								<div id="tab-2" class="tab-pane">
-									<div class="panel-body">
-										<div class="table-responsive">
-											<table
-												class="table table-striped table-bordered table-hover dataTables-example"
-												id="assigned_table">
-												<thead>
-													<tr>
-														<th></th>
-														<th>Mobile</th>
-														<th>Upload Date</th>
-														<th>Uploaded By</th>
-														<th>Contact Name</th>
-														<th>Location</th>
-														<th>Assigned To</th>
-
-													</tr>
-												</thead>
-
-												<tfoot>
-													<tr>
-														<th></th>
-														<th>Mobile</th>
-														<th>Upload Date</th>
-														<th>Uploaded By</th>
-														<th>Contact Name</th>
-														<th>Location</th>
-														<th>Assigned To</th>
-
-													</tr>
-												</tfoot>
-											</table>
-										</div>
-									</div>
-								</div>
+				<div class="row" style="margin-bottom: -35px;">
+					<div class="col-lg-5" style="padding-left: 5px;">
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<h5>Upload Contact Numbers</h5>
 							</div>
+							<div class="ibox-content">
 
+								<form>
+									<div class="col-sm-6">
+										<input type="file" name="fileupload" id="fileupload">
+									</div>
+									<div class="col-sm-6" style="padding-bottom: 11px;">
+										<button class="btn btn-success " type="submit"
+											style="width: 100px; height: 31px;" id="submit">
+											<i class="fa fa-upload"></i>&nbsp;&nbsp;<span class="bold">Upload</span>
+										</button>
+									</div>
+								</form>
+								<a href="contact.xlsx" class="btn btn-primary btn-xs"
+									style="margin-left: 16px;">Download</a> sample excel sheet of
+								contact numbers
 
+							</div>
 						</div>
 					</div>
 
+					<div class="col-lg-2">
+						<div class="widget style1 navy-bg">
+							<div class="row">
+								<div class="col-xs-2"></div>
+								<div class="col-xs-2 text-right">
+									<span> Total </span>
+									<h2 class="font-bold" id="total">1800</h2>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-2">
+						<div class="widget style1 lazur-bg">
+							<div class="row">
+								<div class="col-xs-2"></div>
+								<div class="col-xs-2 text-right">
+									<span> Assigned </span>
+									<h2 class="font-bold" id="assigned">260</h2>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-2">
+						<div class="widget style1 yellow-bg">
+							<div class="row">
+								<div class="col-xs-2"></div>
+								<div class="col-xs-2 text-right">
+									<span> Unassigned </span>
+									<h2 class="font-bold" id="unassigned">12</h2>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
 				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<h5>Assign Contacts</h5>
 
+						</div>
+						<div class="ibox-content">
+							<div class="table-responsive" ng-controller="employee_details">
+								<table class="table table-striped">
+									<thead>
+										<tr>
 
+											<th>Name</th>
+											<th>Assigned</th>
+											<th>Completed</th>
+											<th>Assign More</th>
+										</tr>
 
+									</thead>
+									<tbody>
+										<tr ng-repeat="x in details">
+											<td>{{ x.name }}</td>
+											<td>{{ x.total_task }}</td>
+											<td>{{ x.complete_task }}</td>
+											<td><input type="number" style="width: 70px;" name="noOfContacts" id="row_id_{{x.id}}">
+												<button type="submit" class="btn btn-primary btn-xs assign_contact"
+													style="margin-left: 26px;">Assign</button></td>
+										</tr>
+									</tbody>
 
+									<tfoot>
+										<tr>
 
+											<th>Name</th>
+											<th>Assigned</th>
+											<th>Completed</th>
+											<th>Assign More</th>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
 
-				<div class="footer">
-
-					<div>
-						<strong>Copyright</strong> Care investment services&copy;
-						2017-2018
+						</div>
 					</div>
 				</div>
 
 			</div>
 
+
+
+
+
+
+			<div class="footer">
+
+				<div>
+					<strong>Copyright</strong> Care investment services&copy; 2017-2018
+				</div>
+			</div>
+
 		</div>
+
 	</div>
+
+
 </body>
 <!-- Mainly scripts -->
 <script src="js/jquery-3.1.1.min.js"></script>
@@ -233,260 +212,80 @@
 <script src="js/plugins/dataTables/datatables.min.js"></script>
 <script src="js/plugins/sweetalert/sweetalert.min.js"></script>
 
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+<script type="text/javascript"
+	src="http:////ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
 
 <script>
-$(document)
-			.ready(
-					function() {
-						$("#assign_employee")
-								.click(
-										function(e) {
-											$
-													.ajax({
-														url : '<%=backendUrl%>'+'rest/employee/task_status',
-														type : "get",
-														dataType : "json",
-														success : function(
-																data,
-																textStatus,
-																jqXHR) {
-															// since we are using jQuery, you don't need to parse response
-															console.log(data);
-															var obj = data;
-															var html = '';
-															$
-																	.each(
-																			obj,
-																			function(
-																					key,
-																					value) {
-																				var name = value.name;
-																				var totalTask = value.total_task;
-																				var pendingTask = value.pending_task;
-																				
-																				html += '<tr><td><input class="radioButton_class" type="radio" value="'+value.id+'" id="optionsRadios'+value.id+'" name="optionsRadios"></td><td>'
-																						+ name
-																						+ '</td><td>'
-																						+ pendingTask
-																						+ '</td><td>'
-																						+ totalTask
-																						+ '</td></tr>';
-																				
-																			});
-															
-															$('#table_body')
-																	.html(html);
-														}
-													});
-											function drawTable(data) {
-												for (var i = 0; i < data.length; i++) {
-													drawRow(data[i]);
-												}
-											}
-											function drawRow(rowData) {
-												var row = $("<tr />")
-												$("#personDataTable").append(
-														row); //this will append tr element to table... keep its reference for a while since we will add cels into it
-												row.append($("<td>"
-														+ rowData.name
-														+ "</td>"));
-												row.append($("<td>"
-														+ rowData.penddingTask
-														+ "</td>"));
-												row.append($("<td>"
-														+ rowData.totalTasks
-														+ "</td>"));
-											}
-										});
-						var userId = $('#user_id').val();
-						$('#assigned_table')
-						.DataTable(
-								{
-									"ajax" : '<%=backendUrl%>'+"rest/abc/assigned_contact",									
-									pageLength : 25,
-									responsive : true,
-									dom : '<"html5buttons"B>lTfgitp',
-									buttons : [
-											{
-												extend : 'copy'
-											},
-											{
-												extend : 'csv'
-											},
-											{
-												extend : 'excel',
-												title : 'ExampleFile'
-											},
-											{
-												extend : 'pdf',
-												title : 'ExampleFile'
-											},
-											{
-												extend : 'print',
-												customize : function(
-														win) {
-													$(win.document.body)
-															.addClass(
-																	'white-bg');
-													$(win.document.body)
-															.css(
-																	'font-size',
-																	'10px');
-													$(win.document.body)
-															.find(
-																	'table')
-															.addClass(
-																	'compact')
-															.css(
-																	'font-size',
-																	'inherit');
-												}
-											} ]
-								})
-						;
-				;
-						
-						$('#data_table')
-								.DataTable(
-										{
-											"ajax" : '<%=backendUrl%>'+"rest/abc/unassigned_contact",
-											'columnDefs' : [ {
-												'targets' : 0,
-												'searchable' : false,
-												'orderable' : false,
-												'className' : 'dt-body-center',
-												'render' : function(data, type,
-														full, meta) {
-													return '<input type="checkbox" class="contact-checkBox-list" name="id[]" value="'
-															+ $("<div/>").text(
-																	data)
-																	.html()
-															+ '">';
-												}
-											} ],
-											pageLength : 25,
-											responsive : true,
-											dom : '<"html5buttons"B>lTfgitp',
-											buttons : [
-													{
-														extend : 'copy'
-													},
-													{
-														extend : 'csv'
-													},
-													{
-														extend : 'excel',
-														title : 'ExampleFile'
-													},
-													{
-														extend : 'pdf',
-														title : 'ExampleFile'
-													},
-													{
-														extend : 'print',
-														customize : function(
-																win) {
-															$(win.document.body)
-																	.addClass(
-																			'white-bg');
-															$(win.document.body)
-																	.css(
-																			'font-size',
-																			'10px');
-															$(win.document.body)
-																	.find(
-																			'table')
-																	.addClass(
-																			'compact')
-																	.css(
-																			'font-size',
-																			'inherit');
-														}
-													} ]
-										})
-								.on(
-										'draw.dt',
-										function() {
-											$('.contact-checkBox-list')
-													.change(
-															function() {
-																var countCheckedCheckboxes = $(
-																		'.contact-checkBox-list')
-																		.filter(
-																				':checked').length;
-																
-																if (countCheckedCheckboxes == 0) {
-																	$(
-																			"#assign_employee")
-																			.hide();
-																} else {
-																	$(
-																			"#assign_employee")
-																			.show();
-																}
-															});
-										});
-						;
-						$('#submit')
-								.click(function(e) {		
-									
-									var fileInput = document.getElementById('fileUpload');
-									var file = fileInput.files[0];
-									var formData = new FormData();
-									formData.append('file', file);
-									$.ajax({
-										url : '<%=backendUrl%>'+'rest/excel/upload/'+'<%=userId%>',
-										type : 'POST',
-										data : formData,
-										success : function(
-												r) {
-											if (r.success) {
-											}
-										},
-										cache : false,
-										contentType : false,
-										processData : false
-										
+
+			
+			var url ='<%=backendUrl%>'+'rest/employee/task_status';			
+			var app = angular.module('myApp', []);
+			app.controller('employee_details', function($scope, $http) {
+			    $http.get(url)
+			    .then(function (response) {
+			   	 $scope.details = response.data.records;
+			   	 });
+			    
+			    $(document)
+			    .ready(
+			    		function() {
+			    			
+			    			$('.assign_contact').click(function(e){
+			    				console.log("drvrd");
+			    				
+			    				
+			    				
+			    			});
+			    			
+			    			
+			    			var dashboardUrl = '<%=backendUrl%>'+'rest/employee/contact_cards';
+			    			 $.ajax({
+			    		        type: "GET",
+			    		        url: dashboardUrl,
+			    		        success: function(data)
+			    		        {
+			    		     		var assigned= 0;
+			    		     		var unassigned =0;
+			    		     		var total =0;
+			    		     		
+			    		     		assigned = data.total_assigned_contact;
+			    		     		unassigned =data.total_uassigned_contacts;
+			    		     		total =data.total_contacts;
+			    		     		
+			    		     		$('#assigned').text(assigned);
+			    		     		$('#unassigned').text(unassigned);
+			    		     		$('#total').text(total);
+			    		     		
+			    		        }
+			    			  });
+			    			
+			    			$('#submit').click(function(e) {		
+			    				
+			    				var fileInput = document.getElementById('fileUpload');
+			    				var file = fileInput.files[0];
+			    				var formData = new FormData();
+			    				formData.append('file', file);
+			    				$.ajax({
+			    					url : '<%=backendUrl%>'+'rest/excel/upload/'+'<%=userId%>',
+			    					type : 'POST',
+			    					data : formData,
+			    					success : function(
+			    							r) {
+			    						if (r.success) {
+			    						}
+			    					},
+			    					cache : false,
+			    					contentType : false,
+			    					processData : false
+			    					
+			    				});
+			    				location.reload();
+			    			});
+			    			
 									});
-									location.reload();
-								});
-						
-						
-						$('#modal-button').click(function(){
-							
-							var emplId;
-							var contactArray = new Array();
-							
-							
-							$('.contact-checkBox-list').filter(':checked').each(function( index ) {
-								  
-								  contactArray.push($( this ).val());
-								});
-							$('.radioButton_class').filter(':checked').each(function( index ) {
-								  
-								  emplId = $( this ).val();
-								}); 
-							
-							var contact = contactArray.toString();
-							if(emplId!=null && contact!=null)
-							{
-		
-						
-						$.ajax({
-							url: '<%=backendUrl%>'+ 'rest/task/assign/'
-													+ emplId + '/' + userId
-													+ '/' + contact,
-											type : 'get'
-										});
-										$('#modal-form').modal('toggle');
-										location.reload();
-									}
-
-								});
-						
-						  
-					});
-
+			    		});
 </script>
 
 </html>
