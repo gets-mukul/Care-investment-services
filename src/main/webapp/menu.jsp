@@ -51,7 +51,8 @@
 						Management</span></a></li>
 			<li><a href="layouts.html"><i class="fa fa-inbox"></i> <span
 					class="nav-label">Inbox</span></a></li>
-
+			<li><a href="segment.jsp"><i class="fa fa-inbox"></i> <span
+					class="nav-label">Segments</span></a></li>
 
 			<%
 				} else {
