@@ -16,8 +16,10 @@
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
 <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
 <link href="css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+
 
 <link href="css/animate.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
@@ -44,9 +46,8 @@
 							<div class="tab-content">
 								<div id="tab-1" class="tab-pane active">
 									<div class="panel-body" ng-controller="trial_list">
-									<div class="row">
-									
-									<div class="col-xs-8 ">
+										<div class="row">
+											<div class="col-xs-8 ">
 									<div class="form-group" id="data_5">
                                 <label>Select Trial Between Dates</label>
                                 <div class="input-daterange input-group" id="datepicker" data-date-format="yyyy-mm-dd">
@@ -56,14 +57,14 @@
                                 </div>
                             </div>
 </div>
-									
+										</div>
 										<table class="table">
 											<thead>
 												<tr>
-													<th>Start Date </th>
-													<th>Start Time </th>													
-													<th>End Date </th>
-													<th>Segment </th>
+													<th>Start Date</th>
+													<th>Start Time</th>
+													<th>End Date</th>
+													<th>Segment</th>
 													<th>Start Trial</th>
 													<th>Edit</th>
 													<th>Delete</th>
@@ -107,7 +108,6 @@
 
 									</div>
 								</div>
-								</div>
 								<div id="tab-2" class="tab-pane">
 									<div class="panel-body" ng-controller="incomplete_list">
 										<table class="table">
@@ -143,81 +143,52 @@
 						</div>
 					</div>
 					<div class="col-lg-5">
-                                <div class="ibox float-e-margins">
-                                    <div class="ibox-title">
-                                        <h5>Up Coming Events</h5>
-                                       
-                                    </div>
-                                    <div class="ibox-content">
-                                    <div class="row">					
-	<div class="col-lg-12">
-                                                <table class="table table-hover margin bottom">
-                                                    <thead>
-                                                    <tr>
-                                                        <th style="width: 1%" class="text-center">No.</th>
-                                                        <th>Event</th>
-                                                        <th class="text-center">Day</th>
-                                                         <th class="text-center">Time</th>
-                                                        <th class="text-center">Start</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td class="text-center">1</td>
-                                                        <td> Security doors
-                                                            </td>
-                                                        <td class="text-center small">16 Jun 2014</td>
-                                                        <td class="text-center"><span class="label label-primary">$483.00</span></td>
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<h5>Up Coming Events</h5>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-center">2</td>
-                                                        <td> Wardrobes
-                                                        </td>
-                                                        <td class="text-center small">10 Jun 2014</td>
-                                                        <td class="text-center"><span class="label label-primary">$327.00</span></td>
+							</div>
+							<div class="ibox-content">
+								<div class="row">
+									<div class="col-lg-12" ng-controller="up_coming_events">
+										<table class="table table-hover margin bottom">
+											<thead>
+												<tr>
+													<th style="width: 1%" class="text-center">Id</th>
+													<th class="text-center">Start Date</th>
+													<th class="text-center">Time</th>
+													<th class="text-center">End Date</th>
+													<th class="text-center">Start</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="x in event">
+													<td>{{x.id}}</td>
+													<td>{{x.start_date}}</td>
+													<td>{{x.time}}</td>
+													<td>{{x.end_date}}</td>
+													<td><button class="btn btn-primary btn-xs"
+															type="button">
+															<i class="fa fa-phone"></i>&nbsp;Start Trial
+														</button></td>
+													
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-center">3</td>
-                                                        <td> Set of tools
-                                                        </td>
-                                                        <td class="text-center small">12 Jun 2014</td>
-                                                        <td class="text-center"><span class="label label-warning">$125.00</span></td>
+												</tr>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-center">4</td>
-                                                        <td> Panoramic pictures</td>
-                                                        <td class="text-center small">22 Jun 2013</td>
-                                                        <td class="text-center"><span class="label label-primary">$344.00</span></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-center">5</td>
-                                                        <td>Phones</td>
-                                                        <td class="text-center small">24 Jun 2013</td>
-                                                        <td class="text-center"><span class="label label-primary">$235.00</span></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-center">6</td>
-                                                        <td>Monitors</td>
-                                                        <td class="text-center small">26 Jun 2013</td>
-                                                        <td class="text-center"><span class="label label-primary">$100.00</span></td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+											</tbody>
+										</table>
+									</div>
 
 
 
-					
 
+
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				</div>
-				</div>
-				</div>
-				</div>
-				
+
 
 
 
@@ -236,8 +207,8 @@
 
 		</div>
 	</div>
-	
 </body>
+<!-- Mainly scripts -->
 <!-- Mainly scripts -->
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/plugins/fullcalendar/moment.min.js"></script>
@@ -260,8 +231,6 @@
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
 <script type="text/javascript" src="http:////ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
-
-
 
 <script>
 $('#data_5 .input-daterange').datepicker({
@@ -380,7 +349,14 @@ app.filter("myfilter", function($filter) {
           });
     };
   });
+					
+var upComingUrl ='<%=backendUrl%>'+'rest/dashboard/employee/upcoming_events/'+id;
+app.controller('up_coming_events', function($scope, $http) {
+    $http.get(upComingUrl)
+    .then(function (response) {
+   	 	$scope.event = response.data.records;
+   	 })
+});
+
 </script>
-
-
 </html>

@@ -124,8 +124,8 @@
 											<td>{{ x.name }}</td>
 											<td>{{ x.total_task }}</td>
 											<td>{{ x.complete_task }}</td>
-											<td><input type="number" style="width: 70px;" name="noOfContacts" id="row_id_{{x.id}}">
-												<button type="submit" class="btn btn-primary btn-xs assign_contact"
+											<td><input type="number" style="width: 70px;" name="noOfContacts" id="noOfContacts">
+												<button type="submit" class="btn btn-primary btn-xs" ng-click="on_click_some_thing(x.id)"
 													style="margin-left: 26px;">Assign</button></td>
 										</tr>
 									</tbody>
@@ -228,16 +228,16 @@
 			   	 $scope.details = response.data.records;
 			   	 });
 			    
+			    $scope.on_click_some_thing = function(id){
+			    	
+			    		var number = $('#noOfContacts').val();
+						alert(number);
+			    };
+			    
 			    $(document)
 			    .ready(
 			    		function() {
 			    			
-			    			$('.assign_contact').click(function(e){
-			    				console.log("drvrd");
-			    				
-			    				
-			    				
-			    			});
 			    			
 			    			
 			    			var dashboardUrl = '<%=backendUrl%>'+'rest/employee/contact_cards';
@@ -264,7 +264,8 @@
 			    			$('#submit').click(function(e) {		
 			    				
 			    				var fileInput = document.getElementById('fileUpload');
-			    				var file = fileInput.files[0];
+			    				var clicked = e.target;
+			    				var file = clicked.files[0];
 			    				var formData = new FormData();
 			    				formData.append('file', file);
 			    				$.ajax({
