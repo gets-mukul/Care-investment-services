@@ -70,8 +70,14 @@
 													class="alert alert-{{ x.color }}">
 
 													<td>{{ x.start_date }}</td>
+												<tr ng-repeat="x in trials | myfilter:startDate: endDate" class="alert alert-{{ x.color }}">													
+													<td>{{ x.start_date | date:'dd-MMM-yyyy'}}</td>
+												<tr ng-repeat="x in trials | myfilter:startDate: endDate" class="alert alert-{{ x.color }}">													
+													<td>{{ x.start_date | date:'dd-MMM-yyyy'}}</td>
+												<tr ng-repeat="x in trials | myfilter:startDate: endDate" class="alert alert-{{ x.color }}">													
+													<td>{{ x.start_date | date:'dd-MMM-yyyy'}}</td>
 													<td>{{ x.start_time }}</td>
-													<td>{{ x.end_date }}</td>
+													<td>{{ x.end_date | date:'dd-MMM-yyyy'}}</td>
 													<td>{{ x.segment }}</td>
 													<td><button class="btn btn-primary btn-xs"
 															type="button" ng-click="on_click_trial(x.id)">
