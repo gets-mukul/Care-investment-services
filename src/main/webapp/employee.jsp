@@ -46,27 +46,29 @@
 							<div class="tab-content">
 								<div id="tab-1" class="tab-pane active">
 									<div class="panel-body" ng-controller="trial_list">
-									<div class="row">
-									<div class="col-xs-4">
-									<label for="search">Search:</label>
-          						    <input ng-model="search_model" id="search" class="form-control" placeholder="Filter text">            
-									</div>
-									</div>
+										<div class="row">
+											<div class="col-xs-4">
+												<label for="search">Search:</label> <input
+													ng-model="search_model" id="search" class="form-control"
+													placeholder="Filter text">
+											</div>
+										</div>
 										<table class="table">
 											<thead>
 												<tr>
-													<th>Start Date </th>
-													<th>Start Time </th>													
-													<th>End Date </th>
-													<th>Segment </th>
+													<th>Start Date</th>
+													<th>Start Time</th>
+													<th>End Date</th>
+													<th>Segment</th>
 													<th>Start Trial</th>
 													<th>Edit</th>
 													<th>Delete</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr ng-repeat="x in trials |filter:search_model" class="alert alert-{{ x.color }}">
-													
+												<tr ng-repeat="x in trials |filter:search_model"
+													class="alert alert-{{ x.color }}">
+
 													<td>{{ x.start_date }}</td>
 													<td>{{ x.start_time }}</td>
 													<td>{{ x.end_date }}</td>
@@ -75,11 +77,11 @@
 															type="button" ng-click="on_click_trial(x.id)">
 															<i class="fa fa-phone"></i>&nbsp;Start Trial
 														</button></td>
-														<td><button class="btn btn-warning btn-xs"
+													<td><button class="btn btn-warning btn-xs"
 															type="button" ng-click="on_edit_trial(x.id)">
 															<i class="fa fa-edit"></i>&nbsp;Edit
 														</button></td>
-														<td><button class="btn btn-warning btn-xs"
+													<td><button class="btn btn-warning btn-xs"
 															type="button" ng-click="on_delete_trial(x.id)">
 															<i class="fa fa-times"></i>&nbsp;Delete
 														</button></td>
@@ -124,86 +126,52 @@
 						</div>
 					</div>
 					<div class="col-lg-5">
-                                <div class="ibox float-e-margins">
-                                    <div class="ibox-title">
-                                        <h5>Up Coming Events</h5>
-                                       
-                                    </div>
-                                    <div class="ibox-content">
-                                    <div class="row">
-					
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<h5>Up Coming Events</h5>
 
+							</div>
+							<div class="ibox-content">
+								<div class="row">
+									<div class="col-lg-12" ng-controller="up_coming_events">
+										<table class="table table-hover margin bottom">
+											<thead>
+												<tr>
+													<th style="width: 1%" class="text-center">Id</th>
+													<th class="text-center">Start Date</th>
+													<th class="text-center">Time</th>
+													<th class="text-center">End Date</th>
+													<th class="text-center">Start</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="x in event">
+													<td>{{x.id}}</td>
+													<td>{{x.start_date}}</td>
+													<td>{{x.time}}</td>
+													<td>{{x.end_date}}</td>
+													<td><button class="btn btn-primary btn-xs"
+															type="button">
+															<i class="fa fa-phone"></i>&nbsp;Start Trial
+														</button></td>
+													
 
-						
-						
-	<div class="col-lg-12">
-                                                <table class="table table-hover margin bottom">
-                                                    <thead>
-                                                    <tr>
-                                                        <th style="width: 1%" class="text-center">No.</th>
-                                                        <th>Event</th>
-                                                        <th class="text-center">Day</th>
-                                                         <th class="text-center">Time</th>
-                                                        <th class="text-center">Start</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td class="text-center">1</td>
-                                                        <td> Security doors
-                                                            </td>
-                                                        <td class="text-center small">16 Jun 2014</td>
-                                                        <td class="text-center"><span class="label label-primary">$483.00</span></td>
+												</tr>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-center">2</td>
-                                                        <td> Wardrobes
-                                                        </td>
-                                                        <td class="text-center small">10 Jun 2014</td>
-                                                        <td class="text-center"><span class="label label-primary">$327.00</span></td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-center">3</td>
-                                                        <td> Set of tools
-                                                        </td>
-                                                        <td class="text-center small">12 Jun 2014</td>
-                                                        <td class="text-center"><span class="label label-warning">$125.00</span></td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-center">4</td>
-                                                        <td> Panoramic pictures</td>
-                                                        <td class="text-center small">22 Jun 2013</td>
-                                                        <td class="text-center"><span class="label label-primary">$344.00</span></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-center">5</td>
-                                                        <td>Phones</td>
-                                                        <td class="text-center small">24 Jun 2013</td>
-                                                        <td class="text-center"><span class="label label-primary">$235.00</span></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-center">6</td>
-                                                        <td>Monitors</td>
-                                                        <td class="text-center small">26 Jun 2013</td>
-                                                        <td class="text-center"><span class="label label-primary">$100.00</span></td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+											</tbody>
+										</table>
+									</div>
 
 
 
-					
 
+
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				</div>
-				</div>
-				</div>
-				</div>
-				
+
 
 
 
@@ -253,10 +221,13 @@
 
 <script src="js/plugins/dataTables/datatables.min.js"></script>
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
-<script type="text/javascript" src="http:////ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+<script type="text/javascript"
+	src="http:////ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
 
 <script>
+
 var id = <%=id%>;
 var url ='<%=backendUrl%>'+ 'rest/employee/incomplete/'+id;			
 var app = angular.module('myApp', []);
@@ -275,6 +246,8 @@ app.controller('incomplete_list', function($scope, $http) {
     			form.submit();
     };	 
 					});
+					
+					
 var trialUrl ='<%=backendUrl%>'+ 'rest/trial/all/'+id;		
 app.controller('trial_list', function($scope, $http) {
     $http.get(trialUrl)
@@ -291,7 +264,14 @@ app.controller('trial_list', function($scope, $http) {
     };	 
 
 					});
+					
+var upComingUrl ='<%=backendUrl%>'+'rest/dashboard/employee/upcoming_events/'+id;
+app.controller('up_coming_events', function($scope, $http) {
+    $http.get(upComingUrl)
+    .then(function (response) {
+   	 	$scope.event = response.data.records;
+   	 })
+});
+
 </script>
-
-
 </html>
