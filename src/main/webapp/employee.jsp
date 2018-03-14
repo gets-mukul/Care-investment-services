@@ -65,7 +65,7 @@
 													<th>Start Time</th>
 													<th>End Date</th>
 													<th>Segment</th>
-													<th>Trial</th>
+													<th>Start</th>
 													<th>Edit</th>
 													<th>Delete</th>
 												</tr>
