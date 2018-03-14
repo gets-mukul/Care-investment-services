@@ -17,7 +17,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-
+<link href="css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
 
 <link href="css/animate.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
@@ -71,19 +71,33 @@
 											</thead>
 											<tbody>
 												<tr ng-repeat="x in trials | myfilter:startDate: endDate" class="alert alert-{{ x.color }}">													
-													<td>{{ x.start_date | date:'dd-MMM-yyyy'}}</td>
-													<td>{{ x.start_time }}</td>
-													<td>{{ x.end_date | date:'dd-MMM-yyyy'}}</td>
-													<td>{{ x.segment }}</td>
+													<td><div class="data">{{ x.start_date | date:'dd-MMM-yyyy'}}</div>
+													<input type="text" value="{{ x.start_date | date:'yyyy-MM-dd'}}"  class="row_start_date form-control row_input">												
+													</td>
+													<td><div class="data">{{ x.start_time }}</div>
+													<input type="text" value="{{ x.start_time_in_format}}"  class="row_start_time form-control row_input"></td>
+													<td>
+													<div class="data">{{ x.end_date | date:'dd-MMM-yyyy'}}</div>
+													<input  type="text" value="{{ x.end_date | date:'yyyy-MM-dd'}}"  class="row_end_date form-control row_input">		</td>
+													<td><div class="data">{{ x.segment }}</div>
+													<select class="row_segment form-control row_input" ng-controller="segments_control">													
+													<option value="{{y.id}}" ng-repeat="y in segments" ng-selected="{{x.segment_id == y.id}}">{{y.name}}</option>
+													</select>
+													</td>
 													<td><button class="btn btn-primary btn-xs"
 															type="button" ng-click="on_click_trial(x.id)">
-															<i class="fa fa-phone"></i>&nbsp;Start Trial
+															<i class="fa fa-phone"></i>&nbsp;Start
 														</button></td>
-														<td><button class="btn btn-warning btn-xs"
-															type="button" ng-click="on_edit_trial(x.id)">
+														<td>
+														<button class="btn btn-warning btn-xs edit_trial"
+															type="button" ng-click="on_edit_trial(x.id,$event)">
 															<i class="fa fa-edit"></i>&nbsp;Edit
+														</button>
+														<button class="btn btn-info btn-xs save_trial"
+															type="button" ng-click="on_save_trial(x.id)">
+															<i class="fa fa-save"></i>&nbsp;Save
 														</button></td>
-														<td><button class="btn btn-warning btn-xs"
+														<td><button class="btn btn-danger btn-xs"
 															type="button" ng-click="on_delete_trial(x.id)">
 															<i class="fa fa-times"></i>&nbsp;Delete
 														</button></td>
@@ -238,7 +252,8 @@
 <!-- Custom and plugin javascript -->
 <script src="js/inspinia.js"></script>
 <script src="js/plugins/pace/pace.min.js"></script>
-
+<!-- Clock picker -->
+<script src="js/plugins/clockpicker/clockpicker.js"></script>
 <!-- jQuery UI -->
 
 
@@ -254,12 +269,29 @@ $('#data_5 .input-daterange').datepicker({
     forceParse: false,
     autoclose: true,
 });
+$(".row_start_date").hide();
+$(".row_end_date").hide();
+$(".row_start_time").hide();
+$(".row_segment").hide();
+$('.save_trial').hide();
+$('.save_trial').unbind().on('click',function(){
+	
+});
 
 
 
 var id = <%=id%>;
 var url ='<%=backendUrl%>'+ 'rest/employee/incomplete/'+id;			
 var app = angular.module('myApp', []);
+
+var segmentsUrl ='<%=backendUrl%>'+ 'rest/segment/parent/-1';
+app.controller('segments_control', function($scope, $http) {
+    $http.get(segmentsUrl)
+    .then(function (response) {
+   		 $scope.segments = response.data.records;
+   	 });
+    });
+
 app.controller('incomplete_list', function($scope, $http) {
     $http.get(url)
     .then(function (response) {
@@ -281,7 +313,7 @@ app.controller('trial_list', function($scope, $http) {
     .then(function (response) {
    	 	$scope.trials = response.data.records;
    	    $scope.startDate=response.data.min_date;
-        $scope.endDate=response.data.max_date;
+        $scope.endDate=response.data.max_date;        
    	 });
     
     $scope.on_click_trial= function(trial_id){
@@ -290,13 +322,59 @@ app.controller('trial_list', function($scope, $http) {
     			  '</form>');
     			$('body').append(form);
     			form.submit();
-    };	 
+    };
+    $scope.on_edit_trial = function(trial_id,$event){
+    	$('.save_trial').hide();
+    	$('.edit_trial').show();
+    	$('.data').show();
+    	$('.row_input').hide();
+    	var editButton = $($event.target);
+    	editButton.hide();
+    	editButton.siblings('.save_trial').show();    	
+    	$(".row_start_date").datepicker({
+    		todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+    	});
+    	$(".row_end_date").datepicker({
+    		todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+    	});
+    	$(".row_start_time").clockpicker({
+    		ampm: true, // FOR AM/PM FORMAT
+    	    format : 'g:i A'
+    	});
+    	editButton.parents('tr').children('td').find('.row_input').show();
+    	editButton.parents('tr').children('td').find('.data').hide();
+    	
+    };
+    $scope.on_delete_trial= function(trial_id){
+    	var urlAjax = '<%=backendUrl%>'+'rest/trial/delete/'+trial_id;			
+		$.ajax({
+		    type: "GET",
+		    url: urlAjax,
+		    contentType: 'application/json; charset=utf-8',
+		    //data: JSON.stringify(taskDetailsJSON),
+		   // beforeSend: function() { $.mobile.showPageLoadingMsg("b", "Loading...", true) },
+		   // complete: function() { $.mobile.hidePageLoadingMsg() },
+		    success: function(data) { 
+		    	location.href= 'employee.jsp';
+		    },
+		    error: function(data) {alert("ajax error"); },
+		    dataType: 'json'
+		});
+    };
 
 					});
 app.filter("myfilter", function($filter) {
     return function(items, from, to) {
           return $filter('filter')(items, "name", function(v){
-        	  console.log('v >>'+v);
+        	  
             var date  = moment(v);
             return date >= moment(from) && date <= moment(to);
           });
