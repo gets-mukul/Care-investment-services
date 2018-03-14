@@ -65,7 +65,7 @@
 													<th>Start Time</th>
 													<th>End Date</th>
 													<th>Segment</th>
-													<th>Start Trial</th>
+													<th>Trial</th>
 													<th>Edit</th>
 													<th>Delete</th>
 												</tr>
@@ -76,7 +76,7 @@
 													<input type="text" value="{{ x.start_date | date:'yyyy-MM-dd'}}"  class="row_start_date form-control row_input">												
 													</td>
 													<td><div class="data">{{ x.start_time }}</div>
-													<input type="text" value="{{ x.start_time_in_format}}"  class="row_start_time form-control row_input"></td>
+													<input type="text" value="{{ x.start_time_in_format}}"  class="row_start_time form-control row_input" data-autoclose="true"></td>
 													<td>
 													<div class="data">{{ x.end_date | date:'dd-MMM-yyyy'}}</div>
 													<input  type="text" value="{{ x.end_date | date:'yyyy-MM-dd'}}"  class="row_end_date form-control row_input">		</td>
@@ -95,7 +95,7 @@
 															<i class="fa fa-edit"></i>&nbsp;Edit
 														</button>
 														<button class="btn btn-info btn-xs save_trial"
-															type="button" ng-click="on_save_trial(x.id)">
+															type="button" ng-click="on_save_trial(x.id,$event)">
 															<i class="fa fa-save"></i>&nbsp;Save
 														</button></td>
 														<td><button class="btn btn-danger btn-xs"
@@ -243,9 +243,7 @@ $(".row_end_date").hide();
 $(".row_start_time").hide();
 $(".row_segment").hide();
 $('.save_trial').hide();
-$('.save_trial').unbind().on('click',function(){
-	
-});
+
 
 
 
@@ -292,6 +290,28 @@ app.controller('trial_list', function($scope, $http) {
     			$('body').append(form);
     			form.submit();
     };
+    $scope.on_save_trial = function(trial_id,$event){
+    	var saveButton = $($event.target);
+    	var newStartDate =saveButton.parents('tr').children('td').find('.row_start_date').val();
+    	var newStartTime =saveButton.parents('tr').children('td').find('.row_start_time').val();;
+    	var newEndDate =saveButton.parents('tr').children('td').find('.row_end_date').val();;
+    	var newSegmentId =saveButton.parents('tr').children('td').find('.row_segment').val();;
+    	var urlAjax = '<%=backendUrl%>'+'rest/trial/update/'+trial_id;		
+    	var trailDetailsJSON = {"start_date":newStartDate,"start_time":newStartTime,"end_date":newEndDate ,"segment_id":newSegmentId};
+		$.ajax({
+		    type: "POST",
+		    url: urlAjax,
+		    data: JSON.stringify(trailDetailsJSON),
+		    contentType: 'application/json; charset=utf-8',
+		    success: function(data) { 
+		    	location.href= 'employee.jsp';
+		    	
+		    },
+		    error: function(data) {alert("ajax error"); },
+		    dataType: 'json'
+		});
+    	
+    };
     $scope.on_edit_trial = function(trial_id,$event){
     	$('.save_trial').hide();
     	$('.edit_trial').show();
@@ -305,19 +325,18 @@ app.controller('trial_list', function($scope, $http) {
             keyboardNavigation: false,
             forceParse: false,
             calendarWeeks: true,
-            autoclose: true
+            autoclose: true,
+            format:'yyyy-mm-dd'
     	});
     	$(".row_end_date").datepicker({
     		todayBtn: "linked",
             keyboardNavigation: false,
             forceParse: false,
             calendarWeeks: true,
-            autoclose: true
+            autoclose: true,
+            format:'yyyy-mm-dd'
     	});
-    	$(".row_start_time").clockpicker({
-    		ampm: true, // FOR AM/PM FORMAT
-    	    format : 'g:i A'
-    	});
+    	$(".row_start_time").clockpicker();
     	editButton.parents('tr').children('td').find('.row_input').show();
     	editButton.parents('tr').children('td').find('.data').hide();
     	
@@ -328,9 +347,6 @@ app.controller('trial_list', function($scope, $http) {
 		    type: "GET",
 		    url: urlAjax,
 		    contentType: 'application/json; charset=utf-8',
-		    //data: JSON.stringify(taskDetailsJSON),
-		   // beforeSend: function() { $.mobile.showPageLoadingMsg("b", "Loading...", true) },
-		   // complete: function() { $.mobile.hidePageLoadingMsg() },
 		    success: function(data) { 
 		    	location.href= 'employee.jsp';
 		    },
