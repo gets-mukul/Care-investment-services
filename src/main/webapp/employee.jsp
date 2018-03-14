@@ -16,10 +16,8 @@
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-<link href="css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
-<link href="css/plugins/fullcalendar/fullcalendar.print.css"
-	rel='stylesheet' media='print'>
+<link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
 
 <link href="css/animate.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
@@ -47,11 +45,18 @@
 								<div id="tab-1" class="tab-pane active">
 									<div class="panel-body" ng-controller="trial_list">
 									<div class="row">
-									<div class="col-xs-4">
-									<label for="search">Search:</label>
-          						    <input ng-model="search_model" id="search" class="form-control" placeholder="Filter text">            
-									</div>
-									</div>
+									
+									<div class="col-xs-8 ">
+									<div class="form-group" id="data_5">
+                                <label>Select Trial Between Dates</label>
+                                <div class="input-daterange input-group" id="datepicker" data-date-format="yyyy-mm-dd">
+                                    <input type="text" class="input-sm form-control" name="start"  ng-model="startDate" />
+                                    <span class="input-group-addon">to</span>
+                                    <input type="text" class="input-sm form-control" name="end"  ng-model="endDate"/>
+                                </div>
+                            </div>
+</div>
+									
 										<table class="table">
 											<thead>
 												<tr>
@@ -65,11 +70,10 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr ng-repeat="x in trials |filter:search_model" class="alert alert-{{ x.color }}">
-													
-													<td>{{ x.start_date }}</td>
+												<tr ng-repeat="x in trials | myfilter:startDate: endDate" class="alert alert-{{ x.color }}">													
+													<td>{{ x.start_date | date:'dd-MMM-yyyy'}}</td>
 													<td>{{ x.start_time }}</td>
-													<td>{{ x.end_date }}</td>
+													<td>{{ x.end_date | date:'dd-MMM-yyyy'}}</td>
 													<td>{{ x.segment }}</td>
 													<td><button class="btn btn-primary btn-xs"
 															type="button" ng-click="on_click_trial(x.id)">
@@ -88,6 +92,7 @@
 										</table>
 
 									</div>
+								</div>
 								</div>
 								<div id="tab-2" class="tab-pane">
 									<div class="panel-body" ng-controller="incomplete_list">
@@ -130,12 +135,7 @@
                                        
                                     </div>
                                     <div class="ibox-content">
-                                    <div class="row">
-					
-
-
-						
-						
+                                    <div class="row">					
 	<div class="col-lg-12">
                                                 <table class="table table-hover margin bottom">
                                                     <thead>
@@ -222,6 +222,7 @@
 
 		</div>
 	</div>
+	
 </body>
 <!-- Mainly scripts -->
 <script src="js/jquery-3.1.1.min.js"></script>
@@ -230,33 +231,32 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-<!-- Flot -->
-<script src="js/plugins/flot/jquery.flot.js"></script>
-<script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-<script src="js/plugins/flot/jquery.flot.spline.js"></script>
-<script src="js/plugins/flot/jquery.flot.resize.js"></script>
-<script src="js/plugins/flot/jquery.flot.pie.js"></script>
-<script src="js/plugins/flot/jquery.flot.symbol.js"></script>
-<script src="js/plugins/flot/curvedLines.js"></script>
-
-<!-- Peity -->
-<script src="js/plugins/peity/jquery.peity.min.js"></script>
-<script src="js/demo/peity-demo.js"></script>
+<!-- Data picker -->
+<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+ <script src="js/plugins/fullcalendar/moment.min.js"></script>
 
 <!-- Custom and plugin javascript -->
 <script src="js/inspinia.js"></script>
 <script src="js/plugins/pace/pace.min.js"></script>
 
 <!-- jQuery UI -->
-<script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
 
-<script src="js/plugins/dataTables/datatables.min.js"></script>
+
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
 <script type="text/javascript" src="http:////ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
 
+
+
 <script>
+$('#data_5 .input-daterange').datepicker({
+    keyboardNavigation: false,
+    forceParse: false,
+    autoclose: true,
+});
+
+
+
 var id = <%=id%>;
 var url ='<%=backendUrl%>'+ 'rest/employee/incomplete/'+id;			
 var app = angular.module('myApp', []);
@@ -280,6 +280,8 @@ app.controller('trial_list', function($scope, $http) {
     $http.get(trialUrl)
     .then(function (response) {
    	 	$scope.trials = response.data.records;
+   	    $scope.startDate=response.data.min_date;
+        $scope.endDate=response.data.max_date;
    	 });
     
     $scope.on_click_trial= function(trial_id){
@@ -291,6 +293,15 @@ app.controller('trial_list', function($scope, $http) {
     };	 
 
 					});
+app.filter("myfilter", function($filter) {
+    return function(items, from, to) {
+          return $filter('filter')(items, "name", function(v){
+        	  console.log('v >>'+v);
+            var date  = moment(v);
+            return date >= moment(from) && date <= moment(to);
+          });
+    };
+  });
 </script>
 
 
