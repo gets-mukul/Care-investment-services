@@ -154,7 +154,7 @@
 										<table class="table table-hover margin bottom">
 											<thead>
 												<tr>
-													<th style="width: 1%" class="text-center">Id</th>
+													<th style="width: 1%" class="text-center">Status</th>
 													<th class="text-center">Start Date</th>
 													<th class="text-center">Time</th>
 													<th class="text-center">End Date</th>
@@ -163,13 +163,13 @@
 											</thead>
 											<tbody>
 												<tr ng-repeat="x in event">
-													<td>{{x.id}}</td>
-													<td>{{x.start_date}}</td>
+													<td>{{x.status}}</td>
+													<td>{{ x.start_date | date:'dd-MMM-yyyy'}}</td>
 													<td>{{x.time}}</td>
-													<td>{{x.end_date}}</td>
+													<td>{{x.end_date | date:'dd-MMM-yyyy'}}</td>
 													<td><button class="btn btn-primary btn-xs"
 															type="button">
-															<i class="fa fa-phone"></i>&nbsp;Start Trial
+															<i class="fa fa-phone"></i>&nbsp;Starts
 														</button></td>
 													
 
@@ -281,7 +281,7 @@ app.controller('trial_list', function($scope, $http) {
     $http.get(trialUrl)
     .then(function (response) {
    	 	$scope.trials = response.data.records;
-   	    $scope.startDate=response.data.min_date;
+   	   	 $scope.startDate=response.data.min_date;
         $scope.endDate=response.data.max_date;        
    	 });
     
@@ -328,9 +328,7 @@ app.controller('trial_list', function($scope, $http) {
 		    type: "GET",
 		    url: urlAjax,
 		    contentType: 'application/json; charset=utf-8',
-		    //data: JSON.stringify(taskDetailsJSON),
-		   // beforeSend: function() { $.mobile.showPageLoadingMsg("b", "Loading...", true) },
-		   // complete: function() { $.mobile.hidePageLoadingMsg() },
+		    
 		    success: function(data) { 
 		    	location.href= 'employee.jsp';
 		    },
