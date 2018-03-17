@@ -8560,4 +8560,20 @@ body.md-skin {
   #page-wrapper {
     margin: 0;
   }
+  tr.strikeout td:before {
+  content: " ";
+  position: absolute !important;
+  top: 50% !important;
+  left: 0 !important;
+  border-bottom: 1px solid #111 !important;
+  width: 100% !important;
+}
+
+tr.strikeout td:after {
+  content: "\00B7" !important;;
+  font-size: 1px !important;;
+}
+tr.empty,
+tr.empty td {
+    background: transparent url('http://davidrhysthomas.co.uk/linked/strike.png') 0 50% repeat-x;
 }

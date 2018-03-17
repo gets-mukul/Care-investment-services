@@ -71,7 +71,7 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr ng-repeat="x in trials | myfilter:startDate: endDate" class="alert alert-{{ x.color }}">													
+												<tr ng-repeat="x in trials | myfilter:startDate: endDate" class="{{ x.color }}">													
 													<td><div class="data">{{ x.start_date | date:'dd-MMM-yyyy'}}</div>
 													<input type="text" value="{{ x.start_date | date:'yyyy-MM-dd'}}"  class="row_start_date form-control row_input">												
 													</td>
@@ -120,7 +120,7 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr ng-repeat="x in contacts">
+												<tr ng-repeat="x in contacts"">
 													<td>{{ x.task_id }}</td>
 
 													<td><button class="btn btn-primary btn-xs"
@@ -154,24 +154,23 @@
 										<table class="table table-hover margin bottom">
 											<thead>
 												<tr>
-													<th style="width: 1%" class="text-center">Id</th>
-													<th class="text-center">Start Date</th>
-													<th class="text-center">Time</th>
-													<th class="text-center">End Date</th>
-													<th class="text-center">Start</th>
+													<th style="width: 1%" >Event</th>
+													<th >Start Date</th>
+													<th >Time</th>
+													<th >End Date</th>
+													<th >Start</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr ng-repeat="x in event">
-													<td>{{x.id}}</td>
-													<td>{{x.start_date}}</td>
+												<tr ng-repeat="x in event" class="{{x.is_today}}">
+													<td>{{x.status}}</td>
+													<td>{{ x.start_date | date:'dd-MMM-yyyy'}}</td>
 													<td>{{x.time}}</td>
-													<td>{{x.end_date}}</td>
+													<td>{{x.end_date | date:'dd-MMM-yyyy'}}</td>
 													<td><button class="btn btn-primary btn-xs"
 															type="button">
-															<i class="fa fa-phone"></i>&nbsp;Start Trial
+															<i class="fa fa-phone"></i>&nbsp;Start
 														</button></td>
-													
 
 												</tr>
 
@@ -279,7 +278,7 @@ app.controller('trial_list', function($scope, $http) {
     $http.get(trialUrl)
     .then(function (response) {
    	 	$scope.trials = response.data.records;
-   	    $scope.startDate=response.data.min_date;
+   	   	 $scope.startDate=response.data.min_date;
         $scope.endDate=response.data.max_date;        
    	 });
     
