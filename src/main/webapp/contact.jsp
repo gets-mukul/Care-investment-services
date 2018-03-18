@@ -68,7 +68,7 @@
 								<div class="col-xs-2"></div>
 								<div class="col-xs-2 text-right">
 									<span> Total </span>
-									<h2 class="font-bold" id="total">1800</h2>
+									<h2 class="font-bold" id="total"></h2>
 								</div>
 							</div>
 						</div>
@@ -79,7 +79,7 @@
 								<div class="col-xs-2"></div>
 								<div class="col-xs-2 text-right">
 									<span> Assigned </span>
-									<h2 class="font-bold" id="assigned">260</h2>
+									<h2 class="font-bold" id="assigned"></h2>
 								</div>
 							</div>
 						</div>
@@ -90,7 +90,7 @@
 								<div class="col-xs-2"></div>
 								<div class="col-xs-2 text-right">
 									<span> Unassigned </span>
-									<h2 class="font-bold" id="unassigned">12</h2>
+									<h2 class="font-bold" id="unassigned"></h2>
 								</div>
 							</div>
 						</div>
@@ -124,7 +124,7 @@
 											<td>{{ x.name }}</td>
 											<td>{{ x.total_task }}</td>
 											<td>{{ x.complete_task }}</td>
-											<td><input type="number" style="width: 70px;" name="noOfContacts" id="noOfContacts">
+											<td><input type="number" style="width: 70px;" name="noOfContacts" id="user_id_{{x.id}}">
 												<button type="submit" class="btn btn-primary btn-xs" ng-click="on_click_some_thing(x.id)"
 													style="margin-left: 26px;">Assign</button></td>
 										</tr>
@@ -219,7 +219,7 @@
 
 <script>
 
-			
+			var adminId = <%=userId%>;
 			var url ='<%=backendUrl%>'+'rest/employee/task_status';			
 			var app = angular.module('myApp', []);
 			app.controller('employee_details', function($scope, $http) {
@@ -228,19 +228,25 @@
 			   	 $scope.details = response.data.records;
 			   	 });
 			    
-			    $scope.on_click_some_thing = function(id){
-			    	
-			    		var number = $('#noOfContacts').val();
-						alert(number);
+			    $scope.on_click_some_thing = function(id){			    	
+			    		var number = $('#user_id_'+id).val();
+						var assign_task_url = '<%=backendUrl%>'+'rest/task/assign/'+id+'/'+adminId+'/'+number;
+						 $.ajax({
+			    		        type: "GET",
+			    		        url: assign_task_url,
+			    		        success: function(data)
+			    		        {
+			    		        	     		
+			    		        }
+							
+			    			  });
+						 location.reload();    	
 			    };
 			    
 			    $(document)
 			    .ready(
 			    		function() {
-			    			
-			    			
-			    			
-			    			var dashboardUrl = '<%=backendUrl%>'+'rest/employee/contact_cards';
+			    		var dashboardUrl = '<%=backendUrl%>'+'rest/employee/contact_cards';
 			    			 $.ajax({
 			    		        type: "GET",
 			    		        url: dashboardUrl,
@@ -263,9 +269,9 @@
 			    			
 			    			$('#submit').click(function(e) {		
 			    				
-			    				var fileInput = document.getElementById('fileUpload');
+			    				var fileInput = document.getElementById('fileupload');
 			    				var clicked = e.target;
-			    				var file = clicked.files[0];
+			    				var file = fileInput.files[0];
 			    				var formData = new FormData();
 			    				formData.append('file', file);
 			    				$.ajax({
