@@ -68,8 +68,7 @@ String backendUrl = AppProperties.getProperty("backend_url");
 	<!-- Mainly scripts -->
 	<script src="js/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<!-- iCheck -->
-	<script src="js/plugins/iCheck/icheck.min.js"></script>
+	
 	<script src="js/plugins/sweetalert/sweetalert.min.js"></script>
 	<script>
     $(document).ready(function() {
@@ -106,7 +105,7 @@ String backendUrl = AppProperties.getProperty("backend_url");
 	                       confirmButtonText: "OK",
 	                       closeOnConfirm: false
 	                   }, function () {
-	                       //swal("Deleted!", "Your imaginary file has been deleted.", "success");
+	                      
 	                       window.location  = 'index.jsp';
 	                   });
 	           		}
@@ -121,7 +120,6 @@ String backendUrl = AppProperties.getProperty("backend_url");
 	                       confirmButtonText: "OK",
 	                       closeOnConfirm: false
 	                   }, function () {
-	                       //swal("Deleted!", "Your imaginary file has been deleted.", "success");
 	                       window.location  = 'register.jsp';
 	                   });
  	            } 
@@ -129,17 +127,7 @@ String backendUrl = AppProperties.getProperty("backend_url");
     		});
     	});
     }); 	           
-    			
-    		
-    		//ajax call 
-    		//rest service , 4 variable will be passed
-    		//care user create >> user created successsfully, 
-    		//if error then error message
-    		//error message pe , alert
-    		//login.jsp
-    		
-    		
-        
+    	
 
     </script>
 

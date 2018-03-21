@@ -209,10 +209,10 @@ String backendUrl = AppProperties.getProperty("backend_url");
 <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="js/plugins/dataTables/datatables.min.js"></script>
+
 <!-- Data picker -->
 <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
 
-<script src="js/plugins/fullcalendar/moment.min.js"></script>
 
 <!-- Date range picker -->
 <script src="js/plugins/daterangepicker/daterangepicker.js"></script>

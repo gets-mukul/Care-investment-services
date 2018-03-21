@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%-- <!DOCTYPE html>
 
 <%@page import="authentication.AppProperties"%>
 <html>
@@ -337,7 +337,7 @@ $('#submit_task').unbind().on('submit',function(e){
 	
 });
 
-<%-- var url_derivative ='<%=backendUrl%>'+ 'rest/segment/derivative';
+var url_derivative ='<%=backendUrl%>'+ 'rest/segment/derivative';
 app.controller('derivative_control', function($scope, $http) {
     $http.get(url_derivative)
     .then(function (response) {
@@ -350,7 +350,7 @@ app.controller('commodity_control', function($scope, $http) {
     .then(function (response) {
    		 $scope.commodity_child = response.data.records;
    	 });
-    }); --%>
+    });
     
     
 	$(document).ready(function() {
@@ -448,4 +448,4 @@ app.controller('commodity_control', function($scope, $http) {
 
 
 
-</html>
+</html> --%>
