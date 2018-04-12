@@ -20,6 +20,10 @@
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="css/plugins/summernote/summernote.css" rel="stylesheet">
+<link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+<link href="css/plugins/select2/select2.min.css" rel="stylesheet">
 <link href="css/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css"
 	rel="stylesheet">
 <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
@@ -96,10 +100,24 @@
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="js/plugins/sweetalert/sweetalert.min.js"></script>
 
-<script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
-<script type="text/javascript"
-	src="http:////ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
+<!-- Custom and plugin javascript -->
+<script src="js/inspinia.js"></script>
+<script src="js/plugins/pace/pace.min.js"></script>
+
+<!-- iCheck -->
+<script src="js/plugins/iCheck/icheck.min.js"></script>
+
+<!-- SUMMERNOTE -->
+<script src="js/plugins/summernote/summernote.min.js"></script>
+
+<!-- Select2 -->
+<script src="js/plugins/select2/select2.full.min.js"></script>
+
+<!-- Tags Input -->
+<script src="js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+
+<script src="js/angular.min.js"></script>
+<script src="js/angular-sanitize.js"></script>
 
 <script>
 

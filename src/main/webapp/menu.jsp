@@ -36,21 +36,21 @@
 					class="nav-label">Dashboard</span></a></li>
 			<li><a href="contact.jsp"><i class="fa fa-address-book"></i>
 					<span class="nav-label">Contact List</span></a></li>
-			<li><a href="trial_data.jsp"><i class="fa fa-database"></i>
-					<span class="nav-label">Data Management</span></a></li>
+			<!-- <li><a href="trial_data.jsp"><i class="fa fa-database"></i>
+					<span class="nav-label">Data Management</span></a></li> -->
 			<li><a href="messanger.jsp"><i class="fa fa-envelope"></i> <span
 					class="nav-label">Messenger</span></a></li>
-			<li><a href="client_user.jsp"><i class="fa fa-user"></i> <span
-					class="nav-label">Client Registration</span></a></li>
-			<li><a href="layouts.html"><i class="fa fa-handshake-o"></i>
-					<span class="nav-label">Accounting</span></a></li>
-			<li><a href="layouts.html"><i class="fa fa-envelope-o"></i>
-					<span class="nav-label">Mailbox</span></a></li>
+			<!-- <li><a href="client_user.jsp"><i class="fa fa-user"></i> <span
+					class="nav-label">Client Registration</span></a></li> -->
+			<!-- <li><a href="layouts.html"><i class="fa fa-handshake-o"></i>
+					<span class="nav-label">Accounting</span></a></li> -->
+			<!-- <li><a href="layouts.html"><i class="fa fa-envelope-o"></i>
+					<span class="nav-label">Mailbox</span></a></li> -->
 			<li><a href="employee_management.jsp"><i
 					class="fa fa-folder"></i> <span class="nav-label">Employee
 						Management</span></a></li>
-			<li><a href="layouts.html"><i class="fa fa-inbox"></i> <span
-					class="nav-label">Inbox</span></a></li>
+			<!-- <li><a href="layouts.html"><i class="fa fa-inbox"></i> <span
+					class="nav-label">Inbox</span></a></li> -->
 			<li><a href="segment.jsp"><i class="fa fa-inbox"></i> <span
 					class="nav-label">Segments</span></a></li>
 

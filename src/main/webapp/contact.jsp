@@ -211,11 +211,8 @@
 <script src="js/plugins/chartJs/Chart.min.js"></script>
 <script src="js/plugins/dataTables/datatables.min.js"></script>
 <script src="js/plugins/sweetalert/sweetalert.min.js"></script>
-
-<script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
-<script type="text/javascript"
-	src="http:////ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-sanitize.js"></script>
 
 <script>
 

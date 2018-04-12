@@ -1,10 +1,12 @@
-<%-- <!DOCTYPE html>
+<!DOCTYPE html>
 
 <%@page import="authentication.AppProperties"%>
 <html>
 <%
 	String id = request.getSession().getAttribute("id").toString();
 	String trialId = request.getParameter("trial_id");
+	String mob = request.getParameter("mob");
+	String segmentId = request.getParameter("segment_id");
 	String backendUrl = AppProperties.getProperty("backend_url");
 %>
 
@@ -69,7 +71,7 @@
 
 </head>
 
-<body class="fixed-navigation" ng-app="myApp">
+<body class="fixed-navigation">
 	<div id="wrapper">
 		<jsp:include page="menu.jsp"></jsp:include>
 
@@ -83,86 +85,100 @@
 					<div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Call Details</h5>
+                        <h5>Trail Details</h5>
                         
                     </div>
-                    <div class="ibox-content">
+                    <div class="ibox-content" ng-app="myApp11">
                         <div class="row">
-                            <div class="col-sm-6 b-r">
-                                <form role="form" id="submit_task">
-                                <input type="hidden" name="mobile" value="<%=mob%>">
-                                <input type="hidden" name="task_id" value="<%=taskId%>" id="task_id">
+                            
+                                <form role="form" id="submit_task" action="/xyz.jsp" method="get">
+                                <div class="col-sm-6 b-r">
+                                <input type="hidden" name="trial_id" value="<%=trialId%>" id="trial_id">
                                 <div class="form-group"><label>Contact No.</label> 
                                 <input type="text" disabled="" value="<%=mob%>" class="form-control">
                                 </div>
-                                    <div class="form-group"><label>Status</label> 
-                                    <select class="form-control" id="status" required>
-                                    <option value="NOT_TRADE">NOT_TRADE</option>
-									<option value="TRIAL">TRIAL</option>									
-									<option value="BUSY">BUSY</option>
-									<option value="NOT_PICKED">NOT_PICKED</option>
-									<option value="NO_NETWORK">NO_NETWORK</option>
-									<option value="MOBILE_DOESNOT_EXIST">MOBILE_DOESNOT_EXIST</option>
-									<option value="CALL_LATER">CALL_LATER</option>
-									<option value="SWITCH_OFF">SWITCH_OFF</option>
-									<option value="NOT_REACHABLE">NOT_REACHABLE</option>
-									<option value="AFTER_SOME_TIME">AFTER_SOME_TIME</option>
-                                    </select></div> 
-                                    <div class="row">
-                                   	 <div class="form-group col-sm-4" id="start_date">
-                                	<label class="font-normal">Start Date</label>
-                                	<div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control">
-                                	</div>
-                            		</div>
-                            		<div class="form-group clockpicker col-sm-4" id="start_time" data-autoclose="true">
-                            		<label class="font-normal">Start Time</label>
-                                	<input type="text" class="form-control">
-                                	
-                            		</div>
-                            		
-                                    <div class="form-group col-sm-4" id="end_date">
-                                	<label class="font-normal">End Date</label>
-                                	<div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control">
-                                	</div>
-                            		</div>
-                                   	</div>
-                                     
                                     <div class="form-group" id="segment" ng-controller="segments_control"><label>Segment</label> 
-                                    <select class="form-control" multiple>
+                                    <select class="form-control" name="segment_id">                     
+                                    <option value="-1">Select Segment</option>           
                                     <option value="{{y.id}}" ng-repeat="y in segments">{{y.name}}</option>
-                                    </select></div>                                    
-                                    
-                                    <!-- <div class="form-group" id="equity" ng-controller="equity_control"><label>Equity Scrip</label> 
-                                    <select class="form-control">
+                                    </select>
+                                    </div>
+                                    <div class="form-group" id="equity" ng-controller="equity_control"><label>Equity Scrip</label> 
+                                    <select class="form-control" name="equity_scrip_id">
                                    	<optgroup label="{{x.name}}" ng-repeat="x in equity_child">
                                    	<option value="{{y.id}}" ng-repeat="y in x.children">{{y.name}}</option>
                                    	</optgroup>
                                     </select>
-                                    </div>
+                                    </div>                                     
+                                   
                                     <div class="form-group" id="derivative"  ng-controller="derivative_control"><label>Derivative Scrip</label> 
-                                    <select class="form-control">
+                                    <select class="form-control" name="derivative_scrip_id">
                                    	<optgroup label="{{x.name}}" ng-repeat="x in derivative_child">
                                    	<option value="{{y.id}}" ng-repeat="y in x.children">{{y.name}}</option>
                                    	</optgroup>
                                     </select>
                                     </div>
-                                    <div class="form-group" id="commodity"  ng-controller="commodity_control"><label>Commodity Scrip</label> 
-                                    <select class="form-control">
+                                    <div class="form-group" id="commodity"  ng-controller="commodity_control">
+                                    <label>Commodity Scrip</label> 
+                                    <select class="form-control" name="commodity_scrip_id">
                                    	<optgroup label="{{x.name}}" ng-repeat="x in commodity_child">
                                    	<option value="{{y.id}}" ng-repeat="y in x.children">{{y.name}}</option>
                                    	</optgroup>
                                     </select>
-                                    </div> -->
-                                    
-                                   	                                    
-                                    <div>
-                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Submit</strong></button>
-                                        
+                                    </div> 
+                                    <div class="form-group col-sm-6 equity_not_required" id="expiry_date" style=";margin-left: -15px;">
+                                	<label>Expiry Date</label>
+                                	<div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" name="expiry_date">
+                                	</div>
+                            		</div>
                                     </div>
+                                    <div class="col-sm-6 b-r">
+                                    <div class="radio radio-inline" style="margin-top: 30px;">
+                                            <input type="radio" id="long" value="LONG" name="long_short" class="long_short_selector">
+                                            <label for="inlineRadio2"> LONG</label>
+                                        </div>
+                                        <div class="radio radio-inline" style="margin-top: 30px;">
+                                            <input type="radio" id="short" value="SHORT" name="long_short" class="long_short_selector">
+                                            <label for="inlineRadio2"> SHORT </label>
+                                    </div>
+                                   
+                            		<div class="row" style="margin-top: 23px;">
+                                    <div class="form-group col-sm-4 equity_not_required"><label>Strike Price</label> 
+                                    <input type="number" placeholder="Enter strike price" class="form-control" name="strike_price" id="strike_price">
+                                    </div>
+                                    <div class="form-group col-sm-4 equity_not_required"><label>Lot Size</label> 
+                                    <input type="number" placeholder="Enter strike price" class="form-control" name="lot_size" id="lot_size">
+                                    </div>
+                                   	<div class="form-group col-sm-4 equity_required" ><label>Quantity</label> 
+                                    <input type="number" placeholder="Enter quantity" class="form-control" name="quantity" id="quantity">
+                                    </div>
+                                    </div>
+									<div class="row">
+									<div class="form-group col-sm-4 long"><label>Buy</label> 
+                                    <input type="number" placeholder="Enter Buy Value" class="form-control" name="buy" id="buy">
+                                    </div>
+                                   <div class="form-group col-sm-4 short"><label>Sell</label> 
+                                    <input type="number" placeholder="Enter Sell Value" class="form-control" name="sell" id="sell">
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                    <div class="form-group col-sm-4"><label>1st TARGET</label> 
+                                    <input type="number" placeholder="First Target" class="form-control" name="first_target" id="first_target">
+                                    </div>
+                                    <div class="form-group col-sm-4"><label>2nd TARGET</label> 
+                                    <input type="number" placeholder="Second Target" class="form-control" name="second_target" id="second_target">
+                                    </div>
+                                   	<div class="form-group col-sm-4"><label>STOP LOSS</label> 
+                                    <input type="number" placeholder="Stop Loss Value" class="form-control" name="stop_loss" id="stop_loss">
+                                    </div>
+                                    </div>
+                                    <div>
+                                        <button id="submit_button" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button"><strong>Submit</strong></button>
+                                    </div>   
+                                </div>
                                 </form>
-                            </div>
+                            
                            
                         </div>
                     </div>
@@ -191,8 +207,8 @@
 <!-- Mainly scripts -->
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
-<script type="text/javascript" src="http:////ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-sanitize.js"></script>
 <!-- Custom and plugin javascript -->
 <script src="js/inspinia.js"></script>
 <script src="js/plugins/pace/pace.min.js"></script>
@@ -255,197 +271,178 @@
 
 <script>
 
-var url ='<%=backendUrl%>'+ 'rest/segment/parent/-1';			
-var app = angular.module('myApp', []);
+var url ='<%=backendUrl%>'+ 'rest/segment/parent/-1';
+var url_derivative ='<%=backendUrl%>'+ 'rest/segment/derivative';
+var url_commodity ='<%=backendUrl%>'+ 'rest/segment/commodity';
+var url_equity ='<%=backendUrl%>'+ 'rest/segment/equity';
+
+var app = angular.module('myApp11', []);
 app.controller('segments_control', function($scope, $http) {
     $http.get(url)
     .then(function (response) {
    		 $scope.segments = response.data.records;
    	 });
-    });  
-$('#submit_task').unbind().on('submit',function(e){
-	e.preventDefault();
-	var taskId = $('#task_id').val();
-	var status = $('#status').val();
-	var startDate = $('#start_date input').val();
-	var endDate = $('#end_date input').val();
-	var startTime = $('#start_time input').val();
-	var segmentValue = $('#segment select').val();
-	var isValid=false;
-	if(status==='TRIAL')
-	{		 
-		if(startDate == null || startDate=='')
-		{
-			isValid=false;
-			 swal({
-	                title: "Cannot Submit Details",
-	                text: "Start Date cannot be left blank in case of TRIAL."
-	            });
-		} 
-		else if(endDate == null || endDate=='')
-		{
-			isValid=false;
-			 swal({
-	                title: "Cannot Submit Details",
-	                text: "End Date cannot be left blank in case of TRIAL."
-	            });
-		}
-		else if(startTime == null || startTime=='')
-		{
-			isValid=false;
-			 swal({
-	                title: "Cannot Submit Details",
-	                text: "Start time cannot be left blank in case of TRIAL."
-	            });
-		}
-		else if(segmentValue.length==0)
-		{
-			isValid=false;
-			 swal({
-	                title: "Cannot Submit Details",
-	                text: "Segments cannot be left blank in case of TRIAL."
-	            });
-		}
-		else
-		{
-			isValid=true;
-		}	
-		
-	}
-	else
-	{
-		isValid=true;
-	}	
-	if(isValid)
-	{
-		var urlAjax = '<%=backendUrl%>'+'rest/employee/submit_employee_task'
-		var taskDetailsJSON = {"status":status, "task_id":taskId,"start_date":startDate, "end_date":endDate, "start_time":startTime,"segment_ids":segmentValue};			
-		$.ajax({
-		    type: "POST",
-		    url: urlAjax,
-		    contentType: 'application/json; charset=utf-8',
-		    data: JSON.stringify(taskDetailsJSON),
-		   // beforeSend: function() { $.mobile.showPageLoadingMsg("b", "Loading...", true) },
-		   // complete: function() { $.mobile.hidePageLoadingMsg() },
-		    success: function(data) { 
-		    	location.href= 'employee.jsp';
-		    },
-		    error: function(data) {alert("ajax error"); },
-		    dataType: 'json'
-		});
-	}	
-	
-});
+    });
+    
+    
 
-var url_derivative ='<%=backendUrl%>'+ 'rest/segment/derivative';
+app.controller('equity_control', function($scope, $http) {
+    $http.get(url_equity)
+    .then(function (response) {
+   		 $scope.equity_child = response.data.records;
+   	 });
+   	 $('#equity select').select2();	
+	
+    });
+    
 app.controller('derivative_control', function($scope, $http) {
     $http.get(url_derivative)
-    .then(function (response) {
+    .then(function (response) {    	
    		 $scope.derivative_child = response.data.records;
    	 });
+    	$('#derivative select').select2();	
+	
     });
-var url_commodity ='<%=backendUrl%>'+ 'rest/segment/commodity';
+
 app.controller('commodity_control', function($scope, $http) {
     $http.get(url_commodity)
     .then(function (response) {
    		 $scope.commodity_child = response.data.records;
    	 });
-    });
+  	  $('#commodity select').select2();
+    }); 
     
     
-	$(document).ready(function() {
-		$('#start_date .input-group.date').datepicker({
+ 	$(document).ready(function() {
+ 		var segmentId = <%=segmentId%>;
+ 		$('#expiry_date .input-group.date').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,
             forceParse: false,
             calendarWeeks: true,
-            autoclose: true
+            autoclose: true,
+            format: 'dd-mm-yyyy'
         });
-		$('#end_date .input-group.date').datepicker({
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            calendarWeeks: true,
-            autoclose: true
-        });
-		$('.clockpicker').clockpicker();
-		$('#segment select').select2();
 		
-		$('#segment').hide();
-		$('#start_date').hide();	
-		$('#start_time').hide();	
-		$('#end_date').hide();	
-		$('#status').unbind().on('change', function(){
-			if($(this).val()=='TRIAL')
-			{				
-				$('#segment').show();
-				$('#start_date').show();	
-				$('#start_time').show();	
-				$('#end_date').show();	
-			}
-			else
-			{
-				$('#segment').hide();	
-				$('#start_date').hide();	
-				$('#start_time').hide();	
-				$('#end_date').hide();	
-			}	
-		});
-		/* $('#equity select').select2();	
-		$('#derivative select').select2();	
-		$('#commodity select').select2();	 */
-		
-		
-		/* $('#segment').hide();	
-		$('#equity').hide();	
+ 		$('#equity').hide();	
 		$('#derivative').hide();	
 		$('#commodity').hide();	
-		$('#start_date').hide();	
-		$('#start_time').hide();	
-		$('#end_date').hide();	
-		$('#status').unbind().on('change', function(){
-			if($(this).val()=='TRIAL')
-			{				
-				$('#segment').show();
-				$('#start_date').show();	
-				$('#start_time').show();	
-				$('#end_date').show();	
-			}
-			else
-			{
-				$('#segment').hide();	
-				$('#derivative').hide();	
-				$('#commodity').hide();
-				$('#equity').hide();
-				$('#start_date').hide();	
-				$('#start_time').hide();	
-				$('#end_date').hide();	
-			}	
-		});
-		$('#segment select').unbind().on('change', function(){
+ 			
+
+		$('#segment select').unbind().on('change', function(){						
 			$('#derivative').hide();
 			$('#commodity').hide();
 			$('#equity').hide();
-			$.each( $(this).val(), function( index, value ) 
+			var value = $('#segment select option:selected').text();
+			if(value==='EQUITY')
 			{
-				if(value==='EQUITY')
-				{
-					$('#equity').show();	
-				}
-				if(value==='DERIVATIVE')
-				{
-					$('#derivative').show();
-					//$('#commodity').hide();	
-				}
-			    if(value==='COMMODITY'){
-					//$('#derivative').hide();
-					$('#commodity').show();	
-				}
-			});				
-		});	 */	
-	});
+				$('#equity').show();
+				$('.equity_not_required').hide();				
+			}
+			else if(value==='DERIVATIVE')
+			{
+				$('#derivative').show();
+				$('.equity_not_required').show();
+				
+				//$('#commodity').hide();	
+			}
+			else if(value==='COMMODITY'){
+				//$('#derivative').hide();
+				$('.equity_not_required').show();
+				$('#commodity').show();	
+				
+			}	
+			
+		});
+		
+		
+		$("input[name='long_short']").unbind().on('change', function(){	
+			var val = $(this).val();
+			if(val==='LONG')
+			{
+				$('.long').show();
+				$('.short').hide();
+			}else if (val==='SHORT')
+			{
+				$('.long').hide();
+				$('.short').show();
+			}	
+		});
+		function getFormData($form){
+		    var unindexed_array = $form.serializeArray();
+		    var indexed_array = {};
+
+		    $.map(unindexed_array, function(n, i){
+		        indexed_array[n['name']] = n['value'];
+		    });
+
+		    return indexed_array;
+		}
+		$('#submit_button').unbind().on('click', function(e){
+			e.preventDefault();
+			var segmentId = $('#segment select option:selected').val();
+			var scripId =null;
+			var value = $('#segment select option:selected').text();
+			if(value==='EQUITY')
+			{
+				scripId = $('#equity select option:selected').val();
+			}
+			else if(value==='DERIVATIVE')
+			{
+				scripId = $('#derivative select option:selected').val();
+			}
+			else if(value==='COMMODITY'){
+				scripId = $('#commodity select option:selected').val();
+			}
+			var expiryDate=$('#expiry_date input').val();
+			var longShortValue=$('input[name=long_short]:checked').val();
+			var strikePrice =$('#strike_price').val();
+			var lotSize=$('#lot_size').val();
+			var quantity =$('#quantity').val();
+			var buyValue=$('#buy').val();
+			var sellValue=$('#sell').val();
+			var firstTargetValue=$('#first_target').val();
+			var secondTarget=$('#second_target').val();
+			var stopLossValue=$('#stop_loss').val();
+			if(segmentId==-1)
+			{
+				swal({
+	                title: "Segment is mandatory.",
+	                text: "Segment cannot be left empty."
+	            });
+			}
+			else if(scripId=='null' || scripId=='')
+			{
+				swal({
+	                title: "Scrip is mandatory.",
+	                text: "Scrip cannot be left empty."
+	            });
+			}else
+			{
+				
+				
+				var $form = $("#submit_task");
+				var data = getFormData($form);
+				var submitTrialUrl ='<%=backendUrl%>'+ 'rest/trial/submit/<%=trialId%>';
+				$.ajax({
+					  type: "POST",
+					  url:submitTrialUrl,
+					  data: JSON.stringify(data),
+					 
+					  success: function(data) {
+						  location.href='employee.jsp'
+					  },
+					  error: function(data) {alert("ajax error"); },
+					  dataType: 'json',
+					  contentType: 'application/json; charset=utf-8',
+					});
+			}	
+			
+		});
+		
+	}); 
 </script>
 
 
 
-</html> --%>
+</html>

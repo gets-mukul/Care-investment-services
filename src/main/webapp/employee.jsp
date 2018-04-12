@@ -66,8 +66,8 @@
 													<th>End Date</th>
 													<th>Segment</th>
 													<th>Start</th>
-													<th>Edit</th>
-													<th>Delete</th>
+													<!-- <th>Edit</th>
+													<th>Delete</th> -->
 												</tr>
 											</thead>
 											<tbody>
@@ -86,10 +86,10 @@
 													</select>
 													</td>
 													<td><button class="btn btn-primary btn-xs"
-															type="button" ng-click="on_click_trial(x.id)">
+															type="button" ng-click="on_click_trial(x.id,x.mob)">
 															<i class="fa fa-phone"></i>&nbsp;Start
 														</button></td>
-														<td>
+														<!-- <td>
 														<button class="btn btn-warning btn-xs edit_trial"
 															type="button" ng-click="on_edit_trial(x.id,$event)">
 															<i class="fa fa-edit"></i>&nbsp;Edit
@@ -101,7 +101,7 @@
 														<td><button class="btn btn-danger btn-xs"
 															type="button" ng-click="on_delete_trial(x.id)">
 															<i class="fa fa-times"></i>&nbsp;Delete
-														</button></td>
+														</button></td> -->
 												</tr>
 											</tbody>
 										</table>
@@ -158,7 +158,7 @@
 													<th >Start Date</th>
 													<th >Time</th>
 													<th >End Date</th>
-													<th >Start</th>
+													<!-- <th >Start</th> -->
 												</tr>
 											</thead>
 											<tbody>
@@ -167,10 +167,10 @@
 													<td>{{ x.start_date | date:'dd-MMM-yyyy'}}</td>
 													<td>{{x.time}}</td>
 													<td>{{x.end_date | date:'dd-MMM-yyyy'}}</td>
-													<td><button class="btn btn-primary btn-xs"
-															type="button">
+													<!-- <td><button class="btn btn-primary btn-xs"
+															type="button" ng-click="on_click_trial(x.id)">
 															<i class="fa fa-phone"></i>&nbsp;Start
-														</button></td>
+														</button></td> -->
 
 												</tr>
 
@@ -207,20 +207,25 @@
 		</div>
 	</div>
 </body>
-
+<!-- Mainly scripts -->
 <!-- Mainly scripts -->
 <script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/plugins/fullcalendar/moment.min.js"></script>
 
 <script src="js/bootstrap.min.js"></script>
 <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
 <!-- Data picker -->
 <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
  <script src="js/plugins/fullcalendar/moment.min.js"></script>
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
-<script type="text/javascript" src="http:////ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
+<!-- Custom and plugin javascript -->
+<script src="js/inspinia.js"></script>
+<script src="js/plugins/pace/pace.min.js"></script>
+<!-- Clock picker -->
+<script src="js/plugins/clockpicker/clockpicker.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-sanitize.js"></script>
 
 <script>
 $('#data_5 .input-daterange').datepicker({
@@ -273,9 +278,10 @@ app.controller('trial_list', function($scope, $http) {
         $scope.endDate=response.data.max_date;        
    	 });
     
-    $scope.on_click_trial= function(trial_id){
+    $scope.on_click_trial= function(trial_id, mob){
     	var form = $('<form action="trial.jsp" method="post">' +
     			  '<input type="text" name="trial_id" value="' + trial_id + '" />' +
+    			  '<input type="text" name="mob" value="' + mob + '" />' +
     			  '</form>');
     			$('body').append(form);
     			form.submit();
@@ -362,6 +368,14 @@ app.controller('up_coming_events', function($scope, $http) {
     .then(function (response) {
    	 	$scope.event = response.data.records;
    	 })
+   	 
+   	$scope.on_click_trial= function(trial_id){
+    	var form = $('<form action="trial.jsp" method="post">' +
+    			  '<input type="text" name="trial_id" value="' + trial_id + '" />' +
+    			  '</form>');
+    			$('body').append(form);
+    			form.submit();
+    };
 });
 
 </script>
